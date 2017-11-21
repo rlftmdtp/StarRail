@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Map Search</title>
+
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="/starrail/resources/bootstrap/css/bootstrap.css">
 
 <script src="/starrail/resources/js/map/jquery.js" type="text/javascript"></script>
 <script src="/starrail/resources/js/map/mapsearch.js" type="text/javascript"></script>
