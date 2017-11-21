@@ -91,6 +91,7 @@
 		</dependency>
 
 		<!-- Servlet -->
+		<!--  WAS 없이 컨트롤러를 테스트하기 위해서 버전을 높인다. -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
