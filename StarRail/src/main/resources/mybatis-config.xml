@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<package name="starrail.map.domain"/>
+		<package name="starrail.main.domain"/>
 	</typeAliases>
 	
 	

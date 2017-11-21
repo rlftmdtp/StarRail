@@ -16,6 +16,8 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	<default-servlet-handler/>
+	<context:component-scan base-package="starrail.main.controller" />
+	<context:component-scan base-package="starrail.map.controller" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -27,7 +29,19 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="starrail.main.controller" />
-	<context:component-scan base-package="starrail.map.controller" />
+	<!-- 로그인 관련 인터셉터 -->
+	<beans:bean id="loginInterceptor" class="starrail.main.interceptor.LoginInterceptor"></beans:bean> 
+	<beans:bean id="authInterceptor" class="starrail.main.interceptor.AuthInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/main/loginPost"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/map/search"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

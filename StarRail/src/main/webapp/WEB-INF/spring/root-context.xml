@@ -10,6 +10,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="starrail.main.persistence"/>
+	<context:component-scan base-package="starrail.main.service"/>
+	
+	<context:component-scan base-package="starrail.map.service"/>
 
 	<!-- DB 설정 -->
 	<!-- Oracle 연결 -->
@@ -17,7 +21,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
-		<property name="username" value="kosta167" />
+		<property name="username" value="railro" />
 		<property name="password" value="1234" />
 	</bean>
 	<!-- Mybatis 연결 -->
