@@ -14,6 +14,11 @@
 	
 	<!-- 달력 ui -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	<!-- 달력 js -->
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!-- 코스페이지 js -->
+	<link type="text/javascript" href="/starrail/resources/js/course/course.js">
 	
 
 
