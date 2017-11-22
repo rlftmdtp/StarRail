@@ -15,6 +15,14 @@
 	
 	<context:component-scan base-package="starrail.map.service"/>
 	
+	<!-- 파트너 service / persistence 설정 start-->
+	<context:component-scan base-package="starrail.partner.service"/>
+	<context:component-scan base-package="starrail.partner.persistence"/>
+	<!-- 파트너 service / persistence 설정 end -->
+	
+	
+	
+	
 	<!-- DB 설정 -->
 	<!-- Oracle 연결 -->
 	<bean id="dataSource"
