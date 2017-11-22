@@ -10,12 +10,12 @@
 	<!-- 코스 페이지 css -->
 	<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
 	
-	
-	
 	<!-- 달력 ui -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
-
+	<!--  코스 JS -->
+	<script src="/starrail/resources/js/course/course.js" type="text/javascript"></script>
 
 
 <title>Course</title>
@@ -24,9 +24,11 @@
 	<div id="courseWrap">
 		
 		<!-- 여행 기간 설정 -->
+		
 		<div id="periodSetting">출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
 		</div>
 		<!-- 여행 기간 설정 closing -->
+		
 		
 		
 		<!-- n일차 선택 -->

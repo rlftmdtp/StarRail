@@ -10,7 +10,7 @@
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="/starrail/resources/bootstrap/css/bootstrap.css">
 
-<script src="/starrail/resources/js/map/jquery.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/starrail/resources/js/map/mapsearch.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=FeSf9NchU5GMk0kap7Kn"></script>
 
