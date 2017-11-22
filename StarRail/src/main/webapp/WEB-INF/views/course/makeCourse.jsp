@@ -10,8 +10,6 @@
 	<!-- 코스 페이지 css -->
 	<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
 	
-	
-	
 	<!-- 달력 ui -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 	<!-- 달력 js -->

@@ -16,7 +16,7 @@ $(function() {
 			},
 			minDate : 0, // 이전 날짜 선택불가
 			showOn : "button",
-			buttonImage : "/starrail/resources/images/course/littlecalendar.PNG",
+			buttonImage : "../../images/course_images/littlecalendar.PNG",
 			buttonImageOnly : true,
 			showAnim: "slideDown",
 			dateFormat: 'yy-mm-dd',

@@ -10,8 +10,8 @@ public class CourseController {
 	
 	@RequestMapping(value="/makeCourse",method=RequestMethod.GET)
 	public void courseGET(){
-		
-		
+			
 	}
+	
 	
 }
