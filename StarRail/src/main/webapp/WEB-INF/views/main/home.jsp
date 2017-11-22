@@ -56,7 +56,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                      <a href="#">소개<span class="sr-only"></span></a>
                   </li>
                   <li><a href="#">플래너</a></li>
-                  <li><a href="#">동행</a></li>
+                  <li><a href="/starrail/partner/partner">동행</a></li>
                   <li><a href="#">추천</a></li>
                   <li><a href="#">플래너 공유</a></li>
                   <li><a href="#">여행 후기</a></li>
