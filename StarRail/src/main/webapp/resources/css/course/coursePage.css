@@ -1,7 +1,13 @@
 @CHARSET "utf-8";
  
+ 
 body{margin:0; padding:0;}
 
+h4{
+	font-weight: bolder;
+	font-size:12pt;
+	line-height: inherit;
+}
 #courseWrap{
 	margin:0 auto;
 	width:1080px;
@@ -12,38 +18,38 @@ body{margin:0; padding:0;}
 
 
 #periodSetting{
-	width:1050px;
+	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 5px;
 	height:50px;
 	
-	background: #FFE5CC;
+	border-bottom: 1px solid;
 }
 
 #dateSetting{
-	width:1050px;
+	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 5px;
 	height:70px;
+	line-height:70px;
 	
-	background: #FFE5CC;
 }
 
 #stationSetting{
-	width:1020px;
+	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 10px 20px 10px 20px;
-	height: 200px;
+	height: 220px;
 	
 	background: #FFE5CC;
 }
 
-.arrivals{
+.departures{
 	float:left;
-	width:480px;
+	width:500px;
 	margin:0px 10px 0px 0px;
 	padding: 10px;
-	height:180px;
+	height:200px;
 	border-radius:15px;
 	overflow:hidden;
 	overflow-y:auto;
@@ -51,12 +57,12 @@ body{margin:0; padding:0;}
 	background: #FFFFCC;
 }
 
-.departures{
+.arrivals{
 	float:left;
-	width:480px;
+	width:500px;
 	margin:0px 0px 0px 10px;
 	padding:10px;
-	height:180px;
+	height:200px;
 	border-radius:15px;
 	overflow:hidden;
 	overflow-y:auto;
@@ -65,10 +71,10 @@ body{margin:0; padding:0;}
 }
 
 #courseSetting{
-	width:1040px;
+	width:1060px;
 	margin:0px 10px 10px 10px;
 	padding:5px 10px 5px 10px;
-	height:690px;
+	height:700px;
 	
 	background: #FFE5CC;
 }
@@ -102,16 +108,16 @@ body{margin:0; padding:0;}
 
 .trainTimeTableTitle{
 	width:280px;
-	height:25px;
+	height:30px;
 	margin:0px 10px 5px 10px;
 	
 	background: #CCCCFF;
 }
 
 .trainTimeTable{
-	width:270px;
+	width:280px;
 	margin: 0px 10px 10px 10px;
-	height:360px;
+	height:370px;
 	padding:5px;
 	overflow:hidden;
 	overflow-y:auto;
@@ -132,6 +138,7 @@ body{margin:0; padding:0;}
 	padding:0;
 	font-size: 11pt;
 	background: #BCBCBC;
+	text-align: center;
 }
 
 .trainListTable thead th.th1{
@@ -165,7 +172,7 @@ body{margin:0; padding:0;}
 #mapArea{
 	float:left;
 	width:432px;
-	height:669px;
+	height:690px;
 	padding:10px 0px 11px 0px;
 	margin:0px 4px 0px 4px;
 	
@@ -174,8 +181,8 @@ body{margin:0; padding:0;}
 
 #couresDetailView{
 	float:left;
-	width:280px;
-	height:540px;
+	width:300px;
+	height:560px;
 	margin: 65px 0px 0px 0px;
 	padding:10px;
 	
@@ -188,7 +195,7 @@ body{margin:0; padding:0;}
 }
 
 #couresDetailView div.uls{
-	width:inherit;
+	width:280px;
 	height: 500px;
 	margin-top:9px;
 	padding-top:10px;
@@ -204,7 +211,7 @@ body{margin:0; padding:0;}
 }
 
 #couresDetailView ul{
-	width:260px;
+	width:280px;
 	padding-left:20px;
 	margin:0px 0px 15px 0px;
 	list-style: none;
@@ -217,19 +224,19 @@ body{margin:0; padding:0;}
 
 
 #issueSetting{
-	width:1040px;
+	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 10px;
-	height:100px;
+	height:120px;
 	
 	background: #FFE5CC;
 }
 
 #allSavingBtn{
-	width:1050px;
+	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 5px;
-	height:50px;
+	height:60px;
 	text-align: right;
 	
 	background: #FFE5CC;

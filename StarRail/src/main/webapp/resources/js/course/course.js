@@ -16,7 +16,7 @@ $(function() {
 			},
 			minDate : 0, // 이전 날짜 선택불가
 			showOn : "button",
-			buttonImage : "../../images/course_images/littlecalendar.PNG",
+			buttonImage : "/starrail/resources/images/course/littlecalendar.PNG",
 			buttonImageOnly : true,
 			showAnim: "slideDown",
 			dateFormat: 'yy-mm-dd',
@@ -24,13 +24,13 @@ $(function() {
 
 		// 여행 지속 요일기간 선택
 		$('.tripLong').click(function() {
-					
+			$('#beds-baths-group').empty();
 					//여행 날짜를 선택 안했을 경우 종료
 					dateCheck();
 
 					var day = parseInt($(this).val()); // val()는 문자열이기 떄문에 Date의 요일과 더하기 위해서 Int로 변형
 					//날짜 더하기
-					tripDateEnd.setDate(tripDateStart.getDate() + day);
+					tripDateEnd.setDate(tripDateStart.getDate() + day-1);
 
 					// 역 출발 일에 가능한 요일들을 추가
 					var interval = tripDateEnd.getTime() - tripDateStart.getTime();
@@ -39,7 +39,10 @@ $(function() {
 					// Number객체를 -> 문자열로 변경후 -> 숫자자료형으로 변경한다
 					interval.toString(); // 객체를 문자열로 변경
 					for(var i=0; i<=parseInt(interval); i++){
-						$('#startDate').append('<option value="' + (tripDateStart.getFullYear() + "-" + (tripDateStart.getMonth()+1) + "-" + tripDateStart.getDate()) + '">' + (tripDateStart.getFullYear() + "년" + (tripDateStart.getMonth()+1) + "월" + tripDateStart.getDate() + "일") + '</option>');
+						$('#beds-baths-group').append('<label class="btn btn-default beds-baths beds-baths-'+(i+1)+'">'
+								+'<input type="radio" name="options" id="option'+(i+1)+'" autocomplete="off" value="' + (tripDateStart.getFullYear() + '/'+ (tripDateStart.getMonth()+1) + '/' + tripDateStart.getDate()) + '">'
+								+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
+								+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 						tripDateStart.setDate(tripDateStart.getDate() + 1);
 					}
 		})
@@ -68,7 +71,7 @@ $(function() {
 							})
 						}
 					})
-				});
+				});/*
 
 		// 동적으로 생성된 태그는 이벤트가 인식하지 못하므로 부모에게 이벤트를 걸었음.
 		$('#arriveStation')
@@ -203,7 +206,7 @@ $(function() {
 			else{
 				return true;
 			}
-		}
+		}*/
 });
 
 
