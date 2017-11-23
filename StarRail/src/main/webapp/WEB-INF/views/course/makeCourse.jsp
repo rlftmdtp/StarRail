@@ -38,11 +38,18 @@
 	<div id="courseWrap">
 
 		<!-- 여행 기간 설정 -->
+<<<<<<< HEAD
 
 		<div id="periodSetting">
 			출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="radio" class="tripLong" name="tripLong" value="5">5일권
 			<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br />
+=======
+		
+		<div id="periodSetting">출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
+		<input type="radio" class="tripLong" name="tripLong" value="5">5일권
+		<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br/>
+>>>>>>> refs/remotes/origin/rlftmdtp
 		</div>
 		<!-- 여행 기간 설정 closing -->
 
@@ -62,8 +69,13 @@
 		<div id="stationSetting">
 
 			<!-- 출발역 리스트 -->
+<<<<<<< HEAD
 			<div class="departures">
 				<>
+=======
+			<div class="arrivals">ARRIVALS
+			<input type="text" class="startStation" value="전주역">
+>>>>>>> refs/remotes/origin/rlftmdtp
 			</div>
 			<!-- 출발역 리스트 closing -->
 

@@ -6,6 +6,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public interface MapService {
-	
+import org.springframework.stereotype.Service;
+
+@Service
+public class MapServiceImpl implements MapService {
+
 }

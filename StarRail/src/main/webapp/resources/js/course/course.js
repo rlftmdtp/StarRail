@@ -54,21 +54,26 @@ $(function() {
 					if(dateCheck()==false){
 						return;
 					}
+					alert($(this).val());
 					
 					$.ajax({
 						type : 'post',
-						url : 'course_select.jsp',
-						dataType : 'json',
-						data : {
-							"startStation" : $(this).val()
+						url : '/starrail/course/startStation',
+						dataType : 'text',
+						headers : {
+							"Content-type" : "application/text"
 						},
+						data : $(this).val(),
 						success : function(result) {
+							alert(result);
+							/*
 							$('#arriveStation').empty(); // 기존에 있던 도착역 리스트 삭제
 							$.each(result, function(key, value) { // 도착역 추가
 								$('#arriveStation').append(
 										'<option class="arriveStation" value="'+ value +'">'
 												+ value + '</option>');
 							})
+							*/
 						}
 					})
 				});/*
