@@ -55,7 +55,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                   <li class="active">
                      <a href="#">소개<span class="sr-only"></span></a>
                   </li>
-                  <li><a href="#">플래너</a></li>
+                  <li><a href="/starrail/map/search">지도 추천 페이지</a></li>
                   <li><a href="#">동행</a></li>
                   <li><a href="#">추천</a></li>
                   <li><a href="#">플래너 공유</a></li>

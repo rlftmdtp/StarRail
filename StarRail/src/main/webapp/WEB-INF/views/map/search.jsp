@@ -17,6 +17,7 @@
 </head>
 <body>
 	<div>네이버 맵 지도</div>
+	<input type="text" value="전주" class="station">
 	<div id="map" style="width:100%;height:400px;"></div>
     <script>
       var map = new naver.maps.Map('map');

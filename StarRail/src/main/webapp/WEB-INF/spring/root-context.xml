@@ -12,7 +12,6 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:component-scan base-package="starrail.main.persistence"/>
 	<context:component-scan base-package="starrail.main.service"/>
-	
 	<context:component-scan base-package="starrail.map.service"/>
 	
 	<!-- DB 설정 -->

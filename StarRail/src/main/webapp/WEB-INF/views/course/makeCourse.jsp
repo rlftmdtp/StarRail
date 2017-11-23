@@ -26,6 +26,8 @@
 		<!-- 여행 기간 설정 -->
 		
 		<div id="periodSetting">출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
+		<input type="radio" class="tripLong" name="tripLong" value="5">5일권
+		<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br/>
 		</div>
 		<!-- 여행 기간 설정 closing -->
 		
@@ -43,6 +45,7 @@
 		
 			<!-- 출발역 리스트 -->
 			<div class="arrivals">ARRIVALS
+			<input type="text" class="startStation" value="전주역">
 			</div>
 			<!-- 출발역 리스트 closing -->
 			
