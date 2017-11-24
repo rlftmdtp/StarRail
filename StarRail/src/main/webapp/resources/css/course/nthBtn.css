@@ -2,7 +2,7 @@
     opacity: 1;
     color: #909090;
     font-size: 32px;
-    width: 100px;
+
     display: block;
     margin: 0 auto;
     height: 24px;
@@ -11,15 +11,15 @@
 
 
 
-.icon-blank-space {
+/* .icon-blank-space {
     text-indent: -9999px
-}
+} */
 
 .beds-baths.active span.icon {    			
 	opacity: 0;		
     color: #fff;
     font-size: 20px;   
-    width: 100px;
+
 }
 /* 
 .beds-baths-group .beds-baths.active:first-child span.icon {

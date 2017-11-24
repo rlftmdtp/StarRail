@@ -10,7 +10,8 @@
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- bootstrap에서 받아온 js파일+css파일 사용 하기 위함 -->
 <script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
-<link rel="stylesheet" type="text/css" href="/starrail/resources/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="/starrail/resources/bootstrap/css/bootstrap.css">
 
 
 <!-- 코스 페이지 css -->
@@ -31,25 +32,20 @@
 <!-- n일차 js -->
 <script src="/starrail/resources/js/course/nthBtn.js" type="text/javascript"></script>
 
-
+<!-- 역 선택 버튼 css -->
+<link rel="stylesheet" href="/starrail/resources/css/course/depBtn.css">
 
 </head>
 <body>
 	<div id="courseWrap">
 
 		<!-- 여행 기간 설정 -->
-<<<<<<< HEAD
 
 		<div id="periodSetting">
-			출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;&nbsp;&nbsp;
+			출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
 			<input type="radio" class="tripLong" name="tripLong" value="5">5일권
 			<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br />
-=======
-		
-		<div id="periodSetting">출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
-		<input type="radio" class="tripLong" name="tripLong" value="5">5일권
-		<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br/>
->>>>>>> refs/remotes/origin/rlftmdtp
+
 		</div>
 		<!-- 여행 기간 설정 closing -->
 
@@ -57,10 +53,9 @@
 
 		<!-- n일차 선택 -->
 		<div id="dateSetting">
-			<div class="btn-group beds-baths-group"id="beds-baths-group" data-toggle="buttons">
-
+			<div class="btn-group beds-baths-group" id="beds-baths-group" data-toggle="buttons">
+				<!-- n일차 버튼 동적 생성 -->
 			</div>
-	
 		</div>
 		<!-- n일차 선택 closing -->
 
@@ -69,19 +64,20 @@
 		<div id="stationSetting">
 
 			<!-- 출발역 리스트 -->
-<<<<<<< HEAD
 			<div class="departures">
-				<>
-=======
-			<div class="arrivals">ARRIVALS
-			<input type="text" class="startStation" value="전주역">
->>>>>>> refs/remotes/origin/rlftmdtp
+				<!-- 출발역 데이터 -->
+				
+				    <div class="btn-group">
+				        
+				    </div>
 			</div>
-			<!-- 출발역 리스트 closing -->
-
+			
 			<!-- 도착역 리스트 -->
-			<div class="arrivals">arrivals</div>
-			<!-- 도착역 리스트 -->
+			<div class="arrivals">
+				<!-- 도착역 데이터 -->
+			</div>
+			<!-- 도착역 리스트 closing-->
+			
 
 		</div>
 		<!-- 출발 도착역 선택 closing -->

@@ -20,6 +20,9 @@
 	<!-- 파트너 service / persistence 설정 end -->
 	
 	
+	<!-- 코스관련 bean 객체 생성 start -->
+	<context:component-scan base-package="starrail.course.util"/>
+	<!-- 코스관련 bean 객체 생성 end -->
 	
 	
 	<!-- DB 설정 -->

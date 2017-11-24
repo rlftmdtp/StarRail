@@ -40,25 +40,52 @@ $(function() {
 					interval.toString(); // 객체를 문자열로 변경
 					for(var i=0; i<=parseInt(interval); i++){
 						$('#beds-baths-group').append('<label class="btn btn-default beds-baths beds-baths-'+(i+1)+'">'
-								+'<input type="radio" name="options" id="option'+(i+1)+'" autocomplete="off" value="' + (tripDateStart.getFullYear() + '/'+ (tripDateStart.getMonth()+1) + '/' + tripDateStart.getDate()) + '">'
+								+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (tripDateStart.getFullYear() + '/'+ (tripDateStart.getMonth()+1) + '/' + tripDateStart.getDate()) + '">'
 								+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
 								+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 						tripDateStart.setDate(tripDateStart.getDate() + 1);
 					}
-		})
-
-		$('.startStation').click(
-				function() {
+		});
+		
+		//n일차 선택 ----> 출발역 목록 불러오기
+		$(document).on("click",".beds-baths",function(){
+				//alert($(this).find('input:radio[name=days]').val());
+				$.ajax({
+					type:'post',
+					url:'/starrail/course/depList',
+					headers: {"Content-type":"application/text"},
 					
+				
+					success:function(result){
+						
+						$('.departures div.btn-group').empty();
+						$.each(result, function(key, value){
+							
+							$('.departures div.btn-group').append('<label class="btn btn-default">'
+									+'<input type="radio" name="depStation" value="'+value.name +'">'
+									+'<span>'+value.name+'</span></label>');
+
+						})
+					}
+				})
+			}
+		);
+		
+		
+		
+		//출발역 선택 -----> 도착역 목록 불러오기
+		$(document).on("click",'.btn-group label.btn input[type="radio"]',function() {
+
+					//console.log($('input:radio[name=days]:checked').val());
 					// 도착역이 뜨지 않도록 리턴값을 확인한다
 					if(dateCheck()==false){
 						return;
 					}
-					alert($(this).val());
+					
 					
 					$.ajax({
 						type : 'post',
-						url : '/starrail/course/startStation',
+						url : '/starrail/course/selectDep',
 						dataType : 'text',
 						headers : {
 							"Content-type" : "application/text"
@@ -76,7 +103,7 @@ $(function() {
 							*/
 						}
 					})
-				});/*
+				});
 
 		// 동적으로 생성된 태그는 이벤트가 인식하지 못하므로 부모에게 이벤트를 걸었음.
 		$('#arriveStation')
@@ -211,7 +238,7 @@ $(function() {
 			else{
 				return true;
 			}
-		}*/
+		}
 });
 
 
