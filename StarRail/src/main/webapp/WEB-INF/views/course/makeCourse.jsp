@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=divice-width" , initial-scale="1">
@@ -33,7 +34,7 @@
 <script src="/starrail/resources/js/course/nthBtn.js" type="text/javascript"></script>
 
 <!-- 역 선택 버튼 css -->
-<link rel="stylesheet" href="/starrail/resources/css/course/depBtn.css">
+<link rel="stylesheet" href="/starrail/resources/css/course/stationBtn.css">
 
 </head>
 <body>
@@ -64,17 +65,17 @@
 		<div id="stationSetting">
 
 			<!-- 출발역 리스트 -->
-			<div class="departures">
-				<!-- 출발역 데이터 -->
-				
-				    <div class="btn-group">
-				        
-				    </div>
+			<div class="departures">				
+			    <div class="btn-group">
+			        <!-- 출발역 데이터 -->
+			    </div>
 			</div>
 			
 			<!-- 도착역 리스트 -->
 			<div class="arrivals">
-				<!-- 도착역 데이터 -->
+				<div class="btn-group">
+			        <!-- 도착역 데이터 -->
+			    </div>
 			</div>
 			<!-- 도착역 리스트 closing-->
 			
@@ -92,7 +93,7 @@
 				<!-- 출발 희망 시간 선택 -->
 				<div class="hopingTime">
 					<h4>출발 시간</h4>
-					<select class="arrivingTime">
+					<select class="departTime">
 						<option>--------------</option>
 					</select> &nbsp;시
 				</div>

@@ -1,6 +1,7 @@
 package starrail.course.domain;
 
-public class StationVO {
+
+public class StationVO{
 	private String id;
 	private String name;
 	
@@ -20,7 +21,4 @@ public class StationVO {
 	}
 	
 	
-	
-	
-
 }
