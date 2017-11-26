@@ -1,17 +1,25 @@
 $(function() {
-		var tripDateStart; // 출발날짜 여행날짜 선택 함수에서 날짜를 고를때
-		var tripDateEnd = new Date(); // 끝날짜
-		var tripLong = document.getElementsByName("tripLong"); // 체크박스 전용 변수
 		var lineCnt = 0;
-
+		var check=false;
+		var setStartDay;
+		
 		// 달력 UI (날짜 선택)
 		$('#datepicker').datepicker({
 			onSelect : function(dateText) {
-
+				
 				// 삭제
-				initDelete();
+				$('#beds-baths-group').empty();	//n일차 버튼 비우기
+				$('.departures div.btn-group').empty();	//출발역 목록 비우기
+				$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+				$('.trainListTable tbody').empty();	//열차 시간표 비우기
+				$('.departTime').empty();	//출발희망시간 비우기
+				$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+				$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
 
-				tripDateStart = new Date(dateText);
+				setStartDay = new Date(dateText);
+				$('input[name="tripLong"]').removeAttr('disabled');
+				$('input[name="tripLong"]').prop('checked', false);
+				
 
 			},
 			minDate : 0, // 이전 날짜 선택불가
@@ -23,35 +31,52 @@ $(function() {
 		});
 
 		// 5일권 7일권 선택
-		$('.tripLong').click(function() {
-			$('#beds-baths-group').empty();
-				// 여행 날짜를 선택 안했을 경우 종료
-				dateCheck();
+		
+		$('.tripLong').click(function(){
 
-				var day = parseInt($(this).val()); // val()는 문자열이기 떄문에 Date의
-													// 요일과 더하기 위해서 Int로 변형
-				// 날짜 더하기
-				tripDateEnd.setDate(tripDateStart.getDate() + day-1);
+			$('#beds-baths-group').empty();	//n일차 버튼 비우기
+			$('.departures div.btn-group').empty();	//출발역 목록 비우기
+			$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			
+			var startDay = new Date();
+			
+			var strArr = $('#datepicker').val().split('-');
+			startDay.setDate(strArr[2],Number(strArr[1])-1,strArr[0]);
+			
+			
+			var endDay = new Date();
+			endDay.setDate(Number(strArr[2])+Number($(this).val())-1,Number(strArr[1])-1,strArr[0]);
+			
+			var interval = endDay.getTime() - startDay.getTime();
+			interval = Math.floor(interval / (1000 *  60 * 60 * 24));
+			interval.toString();
+		
+			for(var i=0; i<=parseInt(interval); i++){
 				
-				// 역 출발 일에 가능한 요일들을 추가
-				var interval = tripDateEnd.getTime() - tripDateStart.getTime();
-				interval = Math.floor(interval / (1000 *  60 * 60 * 24)); // 요일
-																			// 간격
-																			// 계산
-					
-				// Number객체를 -> 문자열로 변경후 -> 숫자자료형으로 변경한다
-				interval.toString(); // 객체를 문자열로 변경
-				for(var i=0; i<=parseInt(interval); i++){
-					$('#beds-baths-group').append('<label class="btn btn-default beds-baths beds-baths-'+(i+1)+'">'
-							+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (tripDateStart.getFullYear() + '/'+ (tripDateStart.getMonth()+1) + '/' + tripDateStart.getDate()) + '">'
-							+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
-							+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
-					tripDateStart.setDate(tripDateStart.getDate() + 1);
-				}
+				$('#beds-baths-group').append('<label class="btn btn-default beds-baths beds-baths-'+(i+1)+'">'
+						+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (startDay.getFullYear() + '/'+ (startDay.getMonth()+1) + '/' + startDay.getDate()) + '">'
+						+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
+						+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
+				startDay.setDate(startDay.getDate() + 1);
+			}
+			
 		});
+
 		
 		// n일차 선택 ----> 출발역 목록 불러오기
 		$(document).on("click",".beds-baths",function(){
+			$('.departures div.btn-group').empty();	//출발역 목록 비우기
+			$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			
+			
 			$.ajax({
 				type:'post',
 				url:'/starrail/course/depList',
@@ -75,7 +100,13 @@ $(function() {
 		
 		// 출발역 선택 -----> 도착역 목록 불러오기
 		$(document).on("click",'.departures div.btn-group label.btn input[type="radio"]',function() {
-			$('.arrivals div.btn-group').empty();
+			
+			$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			
 			var selectedDep = $(this).parent().find('span').text();
 			
 			$.ajax({
@@ -107,7 +138,11 @@ $(function() {
 		
 		//도착역 선택----->출발 희망시간 출력
 		$(document).on("click", '.arrivals div.btn-group label.btn input[type="radio"]', function(){
-
+			
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled',true);	//일정추가버튼 비활성화
 			
 			var selectedDate = $('input:radio[name=days]:checked').val();
 			selectedDate = selectedDate.replace(/\//g,"");
@@ -134,63 +169,83 @@ $(function() {
 		
 		
 		//출발 희망 시각 선택 ------> 시간표 출력
-		$('.departTime').change(function(){
-			$(this).val();
+		$('.departTime').click(function(){
 			
+			
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			
+			
+			$('.trainListTable tbody').empty();
 			$.ajax({
 				type : 'post',
 				url : '/starrail/course/trainTime',
 				dataType : 'json',
 				data : {
-					"depNode": $('input:radio[name="depStation"]:checked').val(),
-					"depDate": $('input:radio[name=days]:checked').val()
+					"depNode": $('input:radio[name="depStation"]:checked').val(),	//출발역ID
+					"depDate": $('input:radio[name=days]:checked').val(),	//출발일
+					"arrNode": $('input:radio[name="arrStation"]:checked').val(),	//도착역ID
+					"selectedTime": $('.departTime option:selected').val()
 				},
 				contenttype : "application/json; charset=utf-8",
 			
-				/*success:function(result){
+				success:function(result){
 					
 					if(result==''){
-						alert('선택한 날짜에 '+selectedDep+'역에서 운행하는 노선이 없습니다.');
+						alert('선택한 시간에 운행하는 노선이 없습니다.');
 					} else {
 						$.each(result, function(key, value){
 							
-							$('.arrivals div.btn-group').append('<label class="btn btn-default">'
-									+'<input type="radio" name="arrStation" value="'+value.id +'">'
-									+'<span>'+value.name+'</span></label>');
-							})
+							$('.trainListTable tbody').append('<tr>'+'<td>'+ value.trainType +'</td>'
+																	+'<td class="SelDepTime">'+ value.depTime+'</td>'
+																	+'<td><input type="radio" name="selectedTrain" value="'+value.arrTime+'"></td>'
+																	+'</tr>');
+						})
 					}
-				}*/
+				}
 			})
 			
 		});
 		
 		
+		//탑승 열차 선택 -----> 일정 추가 버튼 활성화
+		$(document).on('click', 'input:radio[name="selectedTrain"]', function(){
+			$('.addingBtn .btn-outline-success').removeAttr('disabled');
+			
+		});
 		
-		// 출발 가능한 역 시간 출력
-		$('#startTime').on('click','.startTime',function(){
-			var startTime = $('#startTime option:selected').val();
-			var startStation = $("#startStation option:selected").val();
-			var arriveStation = $("#arriveStation option:selected").val();
-			$.ajax({
-				type:'post',
-				url: '../../jsp/course_jsp/course_select.jsp',
-				dataType: 'json',
-				data : {
-					"tt_startStation" : startStation,
-					"tt_arriveStation" : arriveStation,	
-					"startTime" : startTime},
-				
-				success : function(result){
-					$('#possibleTime').empty();
-					$.each(result, function(index,item){
-						$('#possibleTime').append('<option class="possibleTime" value="' + (item.tr_id+ item.tt_stime + item.ss_id) +'">' + (item.tr_id+ item.tt_stime) +'</option>');
-						// $('#possibleTime
-						// .possibleTime'+index+'').append('<div
-						// class="possibleTime" value="' + (item.ss_id)
-						// +'"></div>');
-					})
-				}
-			})
+		
+		//일정 추가 버튼 클릭 -----> 일정 세부에 추가
+		$('button.addBtn').click(function(){
+			var selectedDate = $('input:radio[name=days]:checked').val();	//선택한 날짜(n일차)
+			selectedDate = selectedDate.replace(/\//g,"-");	//yyyy-MM-dd 형태로
+			var selectedDep =$('input:radio[name="depStation"]:checked').parent().find('span').text();	//선택한 출발역
+			var selectedArr = $('input:radio[name="arrStation"]:checked').parent().find('span').text();	//선택한 도착역
+			var selectedDepTime = $('input:radio[name="selectedTrain"]:checked').parent().prev().text();	//선택한 열차의 출발시간
+			var selectedArrTime = $('input:radio[name="selectedTrain"]:checked').val();	//선택한 열차의 도착시간
+			
+			if($('h4[sDate="'+ selectedDate +'"]').length<=0){
+				$('#couresDetailView .uls')
+				.append('<h4 class="date" sDate="'+selectedDate+'">'+selectedDate+'</h4><ul name="'+ selectedDate +'"></ul>');
+			}
+			
+			$('ul[name="'+ selectedDate +'"]')
+			.append('<li>'+selectedDep+'('+selectedDepTime+') -->'+ selectedArr +'('+ selectedArrTime +')&emsp;&emsp;'
+					+'<span class="delSchedule"><img src="/starrail/resources/images/course/x.png"></span></li>');
+			
+		});
+		
+		//일정 일부 삭제 (x 버튼 클릭 ----> 삭제)
+		$(document).on('click', 'span[class="delSchedule"]', function(){
+			
+			var thisDate = $(this).parent().parent().attr('name');
+			
+			if($('ul[name="'+ thisDate +'"] > li').length<=1){
+				$('ul[name="'+ thisDate +'"]').prev().remove();
+				$('ul[name="'+ thisDate +'"]').remove();
+			} else {
+				$(this).parent().remove();
+			}
 		});
 
 		// 경로 저장 로직
@@ -257,27 +312,13 @@ $(function() {
 					})
 				});
 		
-		function initDelete(){
-			// 체크박스 해제
-			for (var i = 0; i < tripLong.length; i++) {
-				tripLong[i].checked = false;
-			}
 
-			$('#startDate').empty(); // 자식을 모두 삭제한다
-			$('#arriveStation').empty();
-			$('#startTime').empty();
-			$('#possibleTime').empty();
-		}
 		
 		function dateCheck(){
 			if(tripDateStart == null){
 				alert("여행 날짜를 선택하세요");
-				
-				// 체크박스 해제
-				for (var i = 0; i < tripLong.length; i++) {
-					tripLong[i].checked = false;
-				}
 				return false;
+				
 			}
 			else{
 				return true;

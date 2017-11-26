@@ -44,8 +44,8 @@
 
 		<div id="periodSetting">
 			출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
-			<input type="radio" class="tripLong" name="tripLong" value="5">5일권
-			<input type="radio" class="tripLong" name="tripLong" value="7">7일권<br />
+			<input type="radio" class="tripLong" name="tripLong" value="5" disabled>5일권
+			<input type="radio" class="tripLong" name="tripLong" value="7" disabled>7일권<br />
 
 		</div>
 		<!-- 여행 기간 설정 closing -->
@@ -93,7 +93,7 @@
 				<!-- 출발 희망 시간 선택 -->
 				<div class="hopingTime">
 					<h4>출발 시간</h4>
-					<select class="departTime">
+					<select class="departTime" name="departTime">
 						<option>--------------</option>
 					</select> &nbsp;시
 				</div>
@@ -118,7 +118,9 @@
 				<!-- 열차 시간표 closing -->
 
 				<!-- 일정추가버튼영역 -->
-				<div class="addingBtn">addingBtn</div>
+				<div class="addingBtn">
+					<button type="button" class="btn btn-outline-success addBtn" disabled>일정 추가</button>
+				</div>
 				<!-- 일정추가버튼영역 closing -->
 
 			</div>
@@ -132,14 +134,7 @@
 			<div id="couresDetailView">
 				<h4 class="title">일정 세부</h4>
 				<div class="uls">
-					<h4 class="date" sDate="yyyy-MM-dd">yyyy-MM-dd</h4>
-					<ul>
-						<li>test</li>
-					</ul>
-					<h4 class="date" sDate="yyyy-MM-dd">yyyy-MM-dd</h4>
-					<ul>
-						<li>test</li>
-					</ul>
+					
 				</div>
 			</div>
 			<!-- 일정 리스트 closing -->
@@ -149,7 +144,17 @@
 
 
 		<!-- 발권역 선택 -->
-		<div id="issueSetting">issueSetting</div>
+		<div id="issueSetting">
+			<table class="issuelist">
+				<tr>
+					<td class="issueName">서울역</td>
+					<td>발권역 혜택 상세 내용 들어갈 자리</td>
+					<td class="chooseIssue">
+						<input type="radio" name="selectedIssue" value="서울">
+					</td>
+				</tr>
+			</table>
+		</div>
 		<!-- 발권역 선택 closing -->
 
 

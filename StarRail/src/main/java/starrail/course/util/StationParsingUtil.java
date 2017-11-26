@@ -110,42 +110,43 @@ public class StationParsingUtil {
 		String depPlandTime="&depPlandTime="+depDate.replaceAll("/","");	//출발일 (n일차 버튼 value)
 		List<StationVO> arrPlaceIds= allNodes;	//도착역ID (위 리스트 몽땅 넣어줘야 함!)		
 		
-		String[] trainGradeCodes ={"&trainGradeCode=01","&trainGradeCode=02","&trainGradeCode=03"};	//열차 종류(새마을01 무궁화02 누리로03)
-		
-		String xmlOrg = "http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=TGcClofLdZE%2B0HSLqvPVVLrixz8HFOrgUW2yZUuIASicA0%2BIDXMxYLiT3MCirXZQ2xG%2Bfedyb38VIDSGlB3yzQ%3D%3D&numOfRows=100"
+		String xmlOrg = "http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=TGcClofLdZE%2B0HSLqvPVVLrixz8HFOrgUW2yZUuIASicA0%2BIDXMxYLiT3MCirXZQ2xG%2Bfedyb38VIDSGlB3yzQ%3D%3D&numOfRows=200"
 							+ depPlaceId + depPlandTime + "&arrPlaceId=";
 		
 		List<String> arrNames = new ArrayList<String>();
 		List<StationVO> list = new ArrayList<StationVO>();
 		
 		for(int i=0; i<arrPlaceIds.size(); i++){
-			for(int j=0; j<trainGradeCodes.length; j++){
 				
 				
-				String xmlAddr = xmlOrg + arrPlaceIds.get(i).getId() + trainGradeCodes[j];
-				URL url = new URL(xmlAddr);
-				
-				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-				factory.setNamespaceAware(true);
-				XmlPullParser xpp = factory.newPullParser();
-				BufferedInputStream bis = new BufferedInputStream(url.openStream());
-				xpp.setInput(bis, "utf-8");
-				
-				String tag = null;
-				int eventType = xpp.getEventType();
-				String arrName = null;
-				
-				while(eventType != XmlPullParser.END_DOCUMENT){
-					StationVO station = new StationVO();
-					if(eventType == XmlPullParser.START_TAG){
-						tag = xpp.getName();
-					} else if (eventType == XmlPullParser.TEXT){
-						if(tag.equals("arrplacename")){
-							arrName=xpp.getText();
-						}
-					} else if (eventType ==XmlPullParser.END_TAG){
-						tag = xpp.getName();
-						if(tag.equals("item")){
+			String xmlAddr = xmlOrg + arrPlaceIds.get(i).getId();
+			URL url = new URL(xmlAddr);
+			
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+			factory.setNamespaceAware(true);
+			XmlPullParser xpp = factory.newPullParser();
+			BufferedInputStream bis = new BufferedInputStream(url.openStream());
+			xpp.setInput(bis, "utf-8");
+			
+			String tag = null;
+			int eventType = xpp.getEventType();
+			String arrName = null;
+			String trainType = null;
+			
+			while(eventType != XmlPullParser.END_DOCUMENT){
+				StationVO station = new StationVO();
+				if(eventType == XmlPullParser.START_TAG){
+					tag = xpp.getName();
+				} else if (eventType == XmlPullParser.TEXT){
+					if(tag.equals("arrplacename")){
+						arrName=xpp.getText();
+					} else if (tag.equals("traingradename")){
+						trainType=xpp.getText();
+					}
+				} else if (eventType ==XmlPullParser.END_TAG){
+					tag = xpp.getName();
+					if(tag.equals("item")){
+						if(trainType.equals("무궁화호") || trainType.equals("새마을호") || trainType.equals("누리로")){
 							if(!(arrNames.contains(arrName))){
 								arrNames.add(arrName);
 								station.setId(arrPlaceIds.get(i).getId());
@@ -154,16 +155,17 @@ public class StationParsingUtil {
 							}
 						}
 					}
-					
-					eventType=xpp.next();
 				}
 				
+				eventType=xpp.next();
 			}
 			
-		}
 		
-		Collections.sort(list, new StationNameComparator());
-		return list;
+		
+	}
+	
+	Collections.sort(list, new StationNameComparator());
+	return list;
 	}
 	
 	
@@ -178,46 +180,57 @@ public class StationParsingUtil {
 		if(selectedTime <10){hopingTime = "0"+selectedTime+"0000";}
 		else{hopingTime = selectedTime+"0000";}
 		
-		String[] trainGradeCodes ={"&trainGradeCode=01","&trainGradeCode=02","&trainGradeCode=03"};	//열차 종류(새마을01 무궁화02 누리로03)
 		
-		String xmlOrg = "http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=TGcClofLdZE%2B0HSLqvPVVLrixz8HFOrgUW2yZUuIASicA0%2BIDXMxYLiT3MCirXZQ2xG%2Bfedyb38VIDSGlB3yzQ%3D%3D&numOfRows=100"
+		String xmlOrg = "http://openapi.tago.go.kr/openapi/service/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=TGcClofLdZE%2B0HSLqvPVVLrixz8HFOrgUW2yZUuIASicA0%2BIDXMxYLiT3MCirXZQ2xG%2Bfedyb38VIDSGlB3yzQ%3D%3D&numOfRows=200"
 							+ depPlaceId + depPlandTime + arrPlaceId;
 		
 		List<TrainTimeVO> list = new ArrayList<TrainTimeVO>();
 		
-		for(int i=0; i<trainGradeCodes.length; i++){
-			String xmlAddr = xmlOrg + trainGradeCodes[i];
-			URL url = new URL(xmlAddr);
-			
-			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-			factory.setNamespaceAware(true);
-			XmlPullParser xpp = factory.newPullParser();
-			BufferedInputStream bis = new BufferedInputStream(url.openStream());
-			xpp.setInput(bis, "utf-8");
-			
-			String tag = null;
-			int eventType = xpp.getEventType();
-			String arrTime=null;
-			String depTime=null;
-			String trainType=null;
-			
-			while(eventType != XmlPullParser.END_DOCUMENT){
-				TrainTimeVO vo = new TrainTimeVO();
-				if(eventType == XmlPullParser.START_TAG){
-					tag = xpp.getName();
-				} else if (eventType == XmlPullParser.TEXT){
-					if(tag.equals("arrplandtime")){
-						arrTime=xpp.getText();
-					} else if(tag.equals("depplandtime")){
-						depTime=xpp.getText();
-					} else if(tag.equals("traingradename")){
-						trainType=xpp.getText();
-					}
-				} else if (eventType ==XmlPullParser.END_TAG){
-					tag = xpp.getName();
-					if(tag.equals("item")){
-						if(Integer.parseInt(depDate+hopingTime)-20000 <= Integer.parseInt(arrTime)
-								&& Integer.parseInt(arrTime)<=Integer.parseInt(depDate+hopingTime)+20000){
+		URL url = new URL(xmlOrg);
+		
+		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		XmlPullParser xpp = factory.newPullParser();
+		BufferedInputStream bis = new BufferedInputStream(url.openStream());
+		xpp.setInput(bis, "utf-8");
+		
+		String tag = null;
+		int eventType = xpp.getEventType();
+		String arrTime=null;
+		String depTime=null;
+		String trainType=null;
+		
+		while(eventType != XmlPullParser.END_DOCUMENT){
+			TrainTimeVO vo = new TrainTimeVO();
+			if(eventType == XmlPullParser.START_TAG){
+				tag = xpp.getName();
+			} else if (eventType == XmlPullParser.TEXT){
+				if(tag.equals("arrplandtime")){
+					arrTime=xpp.getText();
+				} else if(tag.equals("depplandtime")){
+					depTime=xpp.getText();
+				} else if(tag.equals("traingradename")){
+					trainType=xpp.getText();
+				}
+			} else if (eventType ==XmlPullParser.END_TAG){
+				tag = xpp.getName();
+				if(tag.equals("item")){
+					if(trainType.equals("무궁화호") || trainType.equals("새마을호") || trainType.equals("누리로")){
+						if(Long.parseLong(depDate.replaceAll("/","")+hopingTime)-20000 <= Long.parseLong(depTime)
+								&&Long.parseLong(depTime)<=Long.parseLong(depDate.replaceAll("/","")+hopingTime)+20000){	//int의 범위를 벗어나는 숫자이므로 long으로 파싱
+							
+							arrTime = arrTime.substring(8, 12);
+							depTime = depTime.substring(8, 12);
+							
+							StringBuffer sb1 = new StringBuffer(arrTime);
+							StringBuffer sb2 = new StringBuffer(depTime);
+							
+							sb1.insert(2, ":");
+							sb2.insert(2, ":");
+							
+							arrTime = sb1.toString();
+							depTime = sb2.toString();
+							
 							vo.setArrTime(arrTime);
 							vo.setDepTime(depTime);
 							vo.setTrainType(trainType);
@@ -225,17 +238,16 @@ public class StationParsingUtil {
 							list.add(vo);	
 						}
 					}
+					
 				}
-				
-				eventType=xpp.next();
 			}
 			
-			
+			eventType=xpp.next();
 		}
 		
-		Collections.sort(list);
+	Collections.sort(list);
 		
-		return list;
+	return list;
 	}
 	
 	
@@ -243,7 +255,8 @@ public class StationParsingUtil {
 		StationParsingUtil a = new StationParsingUtil();
 		try {
 			List<StationVO> list = a.stationList(a.getCityCode());
-			System.out.println(list);
+			
+			System.out.println(list.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
