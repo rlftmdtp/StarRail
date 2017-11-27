@@ -1,15 +1,18 @@
 package starrail.course.domain;
 
 public class CourseVO {
-	private Integer c_id;
+
+	private int c_id;
 	private String m_id;
 	private String i_name;
 	private String c_name;
 	private String c_filename;
 	
-	public CourseVO(){}
 
-	public CourseVO(Integer c_id, String m_id, String i_name, String c_name, String c_filename) {
+	public CourseVO(){	}
+
+	public CourseVO(int c_id, String m_id, String i_name, String c_name, String c_filename) {
+
 		super();
 		this.c_id = c_id;
 		this.m_id = m_id;
@@ -18,11 +21,12 @@ public class CourseVO {
 		this.c_filename = c_filename;
 	}
 
-	public Integer getC_id() {
+
+	public int getC_id() {
 		return c_id;
 	}
 
-	public void setC_id(Integer c_id) {
+	public void setC_id(int c_id) {
 		this.c_id = c_id;
 	}
 
@@ -57,5 +61,11 @@ public class CourseVO {
 	public void setC_filename(String c_filename) {
 		this.c_filename = c_filename;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "CourseVO [c_id=" + c_id + ", m_id=" + m_id + ", i_name=" + i_name + ", c_name=" + c_name
+				+ ", c_filename=" + c_filename + "]";
+	}
+
 }

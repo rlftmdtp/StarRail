@@ -1,8 +1,9 @@
 package starrail.course.domain;
 
 public class CourseDetailVO {
-	private Integer cd_id;
-	private Integer c_id;
+
+	private int cd_id;
+	private int c_id;
 	private String cd_start;
 	private String cd_stime;
 	private String cd_end;
@@ -10,8 +11,8 @@ public class CourseDetailVO {
 	
 	public CourseDetailVO(){}
 
-	public CourseDetailVO(Integer cd_id, Integer c_id, String cd_start, String cd_stime, String cd_end,
-			String cd_etime) {
+	public CourseDetailVO(int cd_id, int c_id, String cd_start, String cd_stime, String cd_end, String cd_etime) {
+
 		super();
 		this.cd_id = cd_id;
 		this.c_id = c_id;
@@ -21,19 +22,22 @@ public class CourseDetailVO {
 		this.cd_etime = cd_etime;
 	}
 
-	public Integer getCd_id() {
+	public int getCd_id() {
 		return cd_id;
 	}
 
-	public void setCd_id(Integer cd_id) {
+
+	public void setCd_id(int cd_id) {
 		this.cd_id = cd_id;
 	}
 
-	public Integer getC_id() {
+
+	public int getC_id() {
 		return c_id;
 	}
 
-	public void setC_id(Integer c_id) {
+
+	public void setC_id(int c_id) {
 		this.c_id = c_id;
 	}
 
@@ -68,5 +72,13 @@ public class CourseDetailVO {
 	public void setCd_etime(String cd_etime) {
 		this.cd_etime = cd_etime;
 	}
+
+
+	@Override
+	public String toString() {
+		return "CourseDetailVO [cd_id=" + cd_id + ", c_id=" + c_id + ", cd_start=" + cd_start + ", cd_stime=" + cd_stime
+				+ ", cd_end=" + cd_end + ", cd_etime=" + cd_etime + "]\n";
+	}
+	
 	
 }
