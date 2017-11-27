@@ -22,6 +22,8 @@
 	
 	<!-- 코스관련 bean 객체 생성 start -->
 	<context:component-scan base-package="starrail.course.util"/>
+	<context:component-scan base-package="starrail.course.persistence"/>
+	<context:component-scan base-package="starrail.course.service"/>
 	<!-- 코스관련 bean 객체 생성 end -->
 	
 	

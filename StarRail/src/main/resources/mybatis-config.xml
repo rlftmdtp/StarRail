@@ -7,6 +7,7 @@
 	<typeAliases>
 		<package name="starrail.map.domain"/>
 		<package name="starrail.main.domain"/>
+		<package name="starrail.course.domain"/>
 	</typeAliases>
 	
 	

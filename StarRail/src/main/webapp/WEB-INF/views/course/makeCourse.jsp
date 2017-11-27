@@ -16,7 +16,7 @@
 
 
 <!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css?ver=1">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -146,20 +146,27 @@
 		<!-- 발권역 선택 -->
 		<div id="issueSetting">
 			<table class="issuelist">
-				<tr>
-					<td class="issueName">서울역</td>
-					<td>발권역 혜택 상세 내용 들어갈 자리</td>
-					<td class="chooseIssue">
-						<input type="radio" name="selectedIssue" value="서울">
-					</td>
-				</tr>
+				<thead>
+					<tr>
+						<th class="th6">선택</th>
+						<th class="th1">역</th>
+						<th class="th2">먹거리 혜택</th>
+						<th class="th3">숙박 혜택</th>
+						<th class="th4">관광 혜택</th>
+						<th class="th5">기타</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
 			</table>
 		</div>
 		<!-- 발권역 선택 closing -->
 
 
 		<!-- 전체 코스 저장 버튼 영역 -->
-		<div id="allSavingBtn">allSavingBtn</div>
+		<div id="allSavingBtn">
+			<button type="button" class="btn btn-outline-success saveBtn" disabled>전체 코스 저장</button>
+		</div>
 		<!-- 전체 코스 저장 버튼 영역 closing -->
 
 	</div>

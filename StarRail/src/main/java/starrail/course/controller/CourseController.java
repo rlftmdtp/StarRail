@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import starrail.course.domain.IssueInfoVO;
 import starrail.course.domain.StationVO;
 import starrail.course.domain.TrainTimeVO;
+import starrail.course.service.CourseService;
 import starrail.course.util.StationParsingUtil;
 
 @Controller
@@ -31,6 +34,9 @@ public class CourseController {
 	
 	@Inject
 	private StationParsingUtil stationParser;
+	
+	@Inject
+	private CourseService service;
 	
 	@RequestMapping(value="/makeCourse",method=RequestMethod.GET)	//코스짜기 페이지 열기
 	public void courseGET(){
@@ -97,7 +103,28 @@ public class CourseController {
 		return entity;
 	}
 	
-
+	@RequestMapping(value="/issuelist", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<IssueInfoVO>> issuelistPOST(@RequestParam(value="selectedDep", required=false) String selectedDep,
+															@RequestParam(value="selectedArr", required=false) String selectedArr){
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
+		ResponseEntity<List<IssueInfoVO>> entity = null;
+		
+		try {
+			List<String> nodes = new ArrayList<String>();
+			nodes.add(selectedDep);
+			nodes.add(selectedArr);
+			
+			List<IssueInfoVO> list = service.issueList(nodes);
+			entity = new ResponseEntity<List<IssueInfoVO>>(list, responseHeaders, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}
 	
 	
 	

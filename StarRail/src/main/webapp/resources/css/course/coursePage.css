@@ -142,11 +142,11 @@ h4{
 }
 
 .trainListTable thead th.th1{
-	width:120px;
+	width:100px;
 }
 
 .trainListTable thead th.th2{
-	width:80px;
+	width:100px;
 }
 
 .trainListTable thead th.th3{
@@ -240,30 +240,53 @@ h4{
 	width:1060px;
 	margin: 0px 10px 10px 10px;
 	padding: 10px;
-	height:120px;
+	
 	
 	background: #FFE5CC;
 }
 
-table.issuelist{
-	width:1040px;
-}
-.issuelist td{
+.trainListTable tbody td{
+	text-align:center;
 	height:25px;
-	padding-left:2px;
-	border: 1px solid;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
 }
-.issuelist td.issueName{
-	width: 100px;
+
+
+table.issuelist{
+	margin:0 auto;
+	width:1040px;
+	border-collapse: collapse;
+}
+
+.issuelist thead th{
+	height:30px;
+	border: 1px solid;
 	padding:0;
 	font-size: 11pt;
 	background: #BCBCBC;
 	text-align: center;
 }
 
-.issuelist td.chooseIssue{
-	width:30px;
-	text-align: center;
+.issuelist thead th.th1{
+	width:80px;
+}
+
+.issuelist thead th.th2,
+.issuelist thead th.th3,
+.issuelist thead th.th4,
+.issuelist thead th.th5{
+	width:230px;
+}
+
+.issuelist thead th.th6{
+	width:40px;
+}
+
+.issuelist tbody td{
+	height:25px;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
 }
 
 #allSavingBtn{
@@ -274,4 +297,16 @@ table.issuelist{
 	text-align: right;
 	
 	background: #FFE5CC;
+}
+
+#allSavingBtn .btn-outline-success {
+   	color: #27ae60;
+    background-color: #fff;
+    border-color: #27ae60;
+}
+
+#allSavingBtn .btn-outline-success:hover {
+    color: #fff;
+    background-color: #2ecc71;
+    border-color: #2ecc71;
 }
