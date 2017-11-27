@@ -82,5 +82,14 @@ public class PartnerController {
 		//return new ResponseEntity<List<String>> (list, HttpStatus.OK);
 		return null;
 	}
+	
+	
+	@RequestMapping(value = "/partnerSearch", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<List<String>> partnerSearch_GET() {
+		System.out.println("파트너 검색 시 컨트롤러");
+
+		return null;
+	}
 
 }
