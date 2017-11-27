@@ -1,6 +1,6 @@
 package starrail.map.domain;
 
-public class Food {
+public class FoodVO {
 	private String title;
 	private String category;
 	private String description;
@@ -9,8 +9,9 @@ public class Food {
 	private String mapx;
 	private String mapy;
 	
+	public FoodVO(){};
 	
-	public Food(String title, String category, String description, String telephone, String address, String mapx,
+	public FoodVO(String title, String category, String description, String telephone, String address, String mapx,
 			String mapy) {
 		super();
 		this.title = title;
