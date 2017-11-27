@@ -1,6 +1,7 @@
 package starrail.course.domain;
 
 public class CourseDetailVO {
+
 	private int cd_id;
 	private int c_id;
 	private String cd_start;
@@ -10,8 +11,8 @@ public class CourseDetailVO {
 	
 	public CourseDetailVO(){}
 
-
 	public CourseDetailVO(int cd_id, int c_id, String cd_start, String cd_stime, String cd_end, String cd_etime) {
+
 		super();
 		this.cd_id = cd_id;
 		this.c_id = c_id;
@@ -20,7 +21,6 @@ public class CourseDetailVO {
 		this.cd_end = cd_end;
 		this.cd_etime = cd_etime;
 	}
-
 
 	public int getCd_id() {
 		return cd_id;
@@ -41,41 +41,33 @@ public class CourseDetailVO {
 		this.c_id = c_id;
 	}
 
-
 	public String getCd_start() {
 		return cd_start;
 	}
-
 
 	public void setCd_start(String cd_start) {
 		this.cd_start = cd_start;
 	}
 
-
 	public String getCd_stime() {
 		return cd_stime;
 	}
-
 
 	public void setCd_stime(String cd_stime) {
 		this.cd_stime = cd_stime;
 	}
 
-
 	public String getCd_end() {
 		return cd_end;
 	}
-
 
 	public void setCd_end(String cd_end) {
 		this.cd_end = cd_end;
 	}
 
-
 	public String getCd_etime() {
 		return cd_etime;
 	}
-
 
 	public void setCd_etime(String cd_etime) {
 		this.cd_etime = cd_etime;
