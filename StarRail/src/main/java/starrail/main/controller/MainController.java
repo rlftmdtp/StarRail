@@ -36,16 +36,17 @@ public class MainController {
 		System.out.println(dto.getM_id());
 		System.out.println(dto.getM_pw());
 		
+		session.setAttribute("id", dto.getM_id());
 		UserVO vo = service.login(dto);
 		
-		// 로그인 실패
+		// 濡쒓렇�씤 �떎�뙣
 		if(vo == null){
-			System.out.println("아이디나 비밀번호가 틀렸습니다");
+			System.out.println("�븘�씠�뵒�굹 鍮꾨�踰덊샇媛� ���졇�뒿�땲�떎");
 			
 			return;
 		}
 		
-		// 로그인 성공
+		// 濡쒓렇�씤 �꽦怨�
 		model.addAttribute("userVO", vo);
 	}
 }

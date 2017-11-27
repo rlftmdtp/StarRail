@@ -7,6 +7,8 @@
 	<typeAliases>
 		<package name="starrail.map.domain"/>
 		<package name="starrail.main.domain"/>
+		<package name="starrail.review.domain"/>
+		<package name="starrail.message.domain"/>
 	</typeAliases>
 	
 	
