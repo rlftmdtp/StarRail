@@ -43,7 +43,6 @@ $(function() {
 					},
 					dataType : "json",
 					success : function(data) {
-						/* $("#scedule-button").remove(); */
 						if (data != null) {
 							var str = "";
 							var input = "";
@@ -59,6 +58,7 @@ $(function() {
 								cd_stime = this.cd_stime;
 								cd_end = this.cd_end;
 								cd_etime = this.cd_etime;
+								
 								
 								/* <button class="btn btn-danger">Danger</button>*/
 								schedule = "<button  data-index = '"+dataIndex+"'class='btn btn-danger' value='' name='off' id='sDetail"+ dataIndex
@@ -213,7 +213,6 @@ $(function() {
 	        // list.put("cd_idaa", "aa");
 	    	  
 	       });
-	       alert(list.cd_id);
 	       
 	       //$.ajaxSettings.traditional = true;
 	      $.ajax({
@@ -225,8 +224,15 @@ $(function() {
 	         },
 	         data : {"list":list},
 	         dataType : "text",         
-	         success : function(data) {   
-	            alert("dd");
+	         success : function(map) {   
+	        	 alert("aaa");
+	        	if(map == null){
+	        		console.log("실패");
+	        	}else{
+	        		alert(map);
+		            alert("aa");
+	        	}
+	            
 	         }
 	      });   
 	      

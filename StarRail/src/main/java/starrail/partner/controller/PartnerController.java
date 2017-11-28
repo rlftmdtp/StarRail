@@ -39,10 +39,10 @@ public class PartnerController {
 		HttpSession session = request.getSession();
 
 		UserVO uservo = (UserVO) session.getAttribute("login");
-		//System.out.println(uservo);
+		System.out.println(uservo);
 
 		List<CourseVO> courseVO = service.myCourse_List_service(uservo);
-		//System.out.println(courseVO);
+		System.out.println(courseVO);
 		model.addAttribute("courseVO", courseVO);
 	}
 
@@ -57,9 +57,13 @@ public class PartnerController {
 		map.put("m_id", uservo.getM_id());
 		map.put("c_id", c_id);
 		
+		System.out.println(map);
+		System.out.println(c_id);
+		
 		// cd_id를 뽑아온다
-		List<CourseDetailVO> list = (List<CourseDetailVO>)service.mySchedule_List_service(map);
-		//System.out.println(list);
+		//List<CourseDetailVO2> list = (List<CourseDetailVO2>)service.mySchedule_List_service(map);
+		List<CourseDetailVO> list = service.mySchedule_List_service(map);
+		System.out.println(list);
 		
 	    return new ResponseEntity<List<CourseDetailVO>>(list, HttpStatus.OK);
 	}
@@ -69,27 +73,13 @@ public class PartnerController {
 	//cd_id를 통해 해당하는 파트너를 찾아줌
 	@RequestMapping(value = "/partnerSearch", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<String>> partnerSearch_POST(@RequestParam Map<String,String> list) {
-		System.out.println("파트너 검색 시 컨트롤러");
+	public ResponseEntity<Map<String, Object>> partnerSearch_POST(@RequestParam Map<String,String> list)throws Exception{
+		System.out.println("컨트롤러1");
+		List<CourseDetailVO> cd_list = service.courseDetail_List_service(list);					
+		System.out.println("*컨트롤러2"+service.partnerSearch_List_service(cd_list));
 		
-		
-		System.out.println("--------------------------------------------------------------------------");
-		System.out.println(service.courseDetail_List_service(list));
-		System.out.println("--------------------------------------------------------------------------");
-		
-		List<CourseDetailVO> a = service.courseDetail_List_service(list);		
-		System.out.println(a.get(0));
-		//return new ResponseEntity<List<String>> (list, HttpStatus.OK);
-		return null;
+		ResponseEntity<Map<String, Object>> a = new ResponseEntity<Map<String, Object>>(service.partnerSearch_List_service(cd_list), HttpStatus.OK);
+		System.out.println(a);
+		return a;
 	}
-	
-	
-	@RequestMapping(value = "/partnerSearch", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<String>> partnerSearch_GET() {
-		System.out.println("파트너 검색 시 컨트롤러");
-
-		return null;
-	}
-
 }

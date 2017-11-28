@@ -12,4 +12,5 @@ public interface PartnerService {
 	public List<CourseVO> myCourse_List_service(UserVO userVO);
 	public List<CourseDetailVO> mySchedule_List_service(HashMap<String, Object> map);
 	public List<CourseDetailVO> courseDetail_List_service(Map<String, String> list);
+	public Map<String, Object> partnerSearch_List_service(List<CourseDetailVO> list);
 }

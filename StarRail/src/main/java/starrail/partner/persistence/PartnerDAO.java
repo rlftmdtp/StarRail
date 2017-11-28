@@ -11,4 +11,5 @@ public interface PartnerDAO {
 	public List<CourseVO> myCourse_List(UserVO userVO);
 	public List<CourseDetailVO> mySchedule_List(HashMap<String, Object> map);
 	public List<CourseDetailVO> courseDetail_List(List<Integer> list);
+	public List<UserVO> partnerSearch_List(CourseDetailVO courseDetailVO);
 }

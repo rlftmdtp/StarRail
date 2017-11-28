@@ -28,6 +28,7 @@ public class PartnerServiceImpl implements PartnerService {
 
 	@Override
 	public List<CourseDetailVO> mySchedule_List_service(HashMap<String, Object> map) {
+		System.out.println("서비스 : " + dao.mySchedule_List(map));
 		return dao.mySchedule_List(map);
 	}
 
@@ -41,6 +42,22 @@ public class PartnerServiceImpl implements PartnerService {
 		}
 		System.out.println("*****" + list_value);
 		return dao.courseDetail_List(list_value);
+	}
+
+	@Override
+	public Map<String, Object> partnerSearch_List_service(List<CourseDetailVO> list) {		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		for(int i=0; i<list.size(); i++){			
+			List<UserVO> user_list = dao.partnerSearch_List(list.get(i));
+			map.put("course"+i, user_list);
+			
+			System.out.println("--"+map.get("course"+i));
+			System.out.println((i+1) + "번째");
+		}
+		System.out.println("dao결과"+map);
+		
+		return map;
 	}
 
 }

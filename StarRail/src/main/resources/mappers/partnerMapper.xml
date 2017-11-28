@@ -33,8 +33,8 @@
 			        c.C_ID = #{c_id}
 	</select>
 	
-	
-	<select id="courseDetail_Select" parameterType="java.util.HashMap" resultType="Map">
+	<!-- 동반자 찾기 버튼 클릭 시 클릭된 일정의 코스디테일 뽑음 -->
+	<select id="courseDetail_Select" parameterType="java.util.HashMap" resultType="CourseDetailVO">
 	    select *  from COURSEDETAIL
 	    <where>
 	        cd_id IN
@@ -42,6 +42,24 @@
 			    #{item.value}
 			</foreach>
 	    </where>
+	</select>
+	
+	
+	<select id="partnerSearch_Select" resultType="UserVO" parameterType="CourseDetailVO">	
+  	      <!--and cd.CD_STIME < '201712140900' 
+      			and cd.CD_ETIME > '201712140900' 
+      			and cd.CD_END='정동진'  -->        	
+      					
+		select m_id, m_pw, m_name , m_gender, m_age 
+			from member
+		    where M_ID IN(select m.M_ID
+				                   from member m, course c, coursedetail cd
+                    			   where m.M_ID = c.M_ID and c.C_ID = cd.C_ID  
+                    			   		and not c.c_id = #{c_id} 
+				                    	<![CDATA[                  
+				                        and cd.CD_STIME <= #{cd_etime}
+				                        and cd.CD_ETIME >= #{cd_etime} ]]>
+				                        and cd.CD_END = #{cd_end})
 	</select>
 
 
