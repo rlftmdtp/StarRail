@@ -1,6 +1,50 @@
 $(function() {
-		var lineCnt = 0;
-		var check=false;
+	
+	var c_id=$('#c_id').val();
+	var	i_name=$('#i_name').val();
+	var c_filename=$('#c_filename').val();
+	
+	var cd_id = $('span[id="cd_id"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_start = $('span[id="cd_start"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_stime = $('span[id="cd_stime"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_end = $('span[id="cd_end"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_etime = $('span[id="cd_etime"]').map(function() {
+		return $(this).text();
+	}).get();
+
+	$('#datepicker').val(cd_stime[0].substring(0,4)+"-"+cd_stime[0].substring(4,6)+"-"+cd_stime[0].substring(6,8));
+	$('input[name="tripLong"]').removeAttr('disabled');
+	
+	for(var i=0; i<cd_id.length; i++){
+		var ms_date = cd_stime[i].substring(0,4)+"-"+cd_stime[i].substring(4,6)+"-"+cd_stime[i].substring(6,8);	//yyyy-MM-dd
+		var ms_depTime = cd_stime[i].substring(8,10)+":"+cd_stime[i].substring(10);	//HH:mm
+		var ms_arrTime = cd_etime[i].substring(8,10)+":"+cd_etime[i].substring(10);
+		
+		if($('h4[sDate="'+ ms_date +'"]').length<=0){
+			$('#couresDetailView .uls')	//첫 일정인 경우 날짜 출력, ul 태그 생성
+			.append('<h4 class="date" sDate="'+ms_date+'">'+ms_date+'</h4><ul name="'+ ms_date +'"></ul>');
+		}
+		
+		$('ul[name="'+  ms_date+'"]')
+		.append('<li sDep="'+cd_start[i]+'" sArr="'+ cd_end[i] +'">'+cd_start[i]+'('+ms_depTime+') -->'+ cd_end[i] +'('+ ms_arrTime +')&emsp;&emsp;'
+				+'<span class="delSchedule"><img src="/starrail/resources/images/course/x.png"></span>'
+				+'<span class="coureDetail">'+cd_start[i]+'#'+ms_date.replace(/-/g,"") +ms_depTime.replace(/:/g,"")+'#'+cd_end[i] +'#'+ms_date.replace(/-/g,"") +ms_arrTime.replace(/:/g,"")
+				+'</span></li>');
+	}
+	
+	
 		var setStartDay;
 		
 		// 달력 UI (날짜 선택)
@@ -61,7 +105,6 @@ $(function() {
 			endDay.setFullYear(strArr[0]);
 			endDay.setDate(startDay.getDate()+Number($(this).val())-1);
 			
-			
 			var interval = endDay.getTime() - startDay.getTime();
 			interval = Math.floor(interval / (1000 *  60 * 60 * 24));
 			interval.toString();
@@ -74,6 +117,7 @@ $(function() {
 						+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 				startDay.setDate(startDay.getDate() + 1);
 			}
+			
 			
 		});
 

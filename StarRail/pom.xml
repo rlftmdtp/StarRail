@@ -165,6 +165,14 @@
 			<version>1.9.13</version>
 		</dependency>
 
+		<!-- JSON 라이브러리(중간때 쓰던것 같은) 용도 -->
+		<dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
 
 	</dependencies>
 	<build>

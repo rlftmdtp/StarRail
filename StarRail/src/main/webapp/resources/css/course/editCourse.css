@@ -8,6 +8,9 @@ h4{
 	font-size:12pt;
 	line-height: inherit;
 }
+#getdetaildata{
+	display: none;
+}
 #courseWrap{
 	margin:0 auto;
 	width:1080px;

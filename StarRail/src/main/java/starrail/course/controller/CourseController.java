@@ -1,14 +1,8 @@
 package starrail.course.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,12 +10,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.json.JSONArray;
+import starrail.course.domain.CourseDetailVO;
+import starrail.course.domain.CourseVO;
 import starrail.course.domain.IssueInfoVO;
 import starrail.course.domain.StationVO;
 import starrail.course.domain.TrainTimeVO;
@@ -39,7 +38,7 @@ public class CourseController {
 	private CourseService service;
 	
 	@RequestMapping(value="/makeCourse",method=RequestMethod.GET)	//코스짜기 페이지 열기
-	public void courseGET(){
+	public void courseGET() throws Exception{
 			
 	}
 	
@@ -88,7 +87,7 @@ public class CourseController {
 	public ResponseEntity<List<TrainTimeVO>> trainTimPOST(@RequestParam(value="depNode", required=false) String depNode,
 															@RequestParam(value="depDate", required=false) String depDate,
 															@RequestParam(value="arrNode", required=false) String arrNode,
-															@RequestParam(value="selectedTime", required=false)int selectedTime) {
+															@RequestParam(value="selectedTime", required=false)int selectedTime) throws Exception{
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
@@ -106,7 +105,7 @@ public class CourseController {
 	@RequestMapping(value="/issuelist", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<IssueInfoVO>> issuelistPOST(@RequestParam(value="selectedDep", required=false) String selectedDep,
-															@RequestParam(value="selectedArr", required=false) String selectedArr){
+															@RequestParam(value="selectedArr", required=false) String selectedArr) throws Exception{
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
 		ResponseEntity<List<IssueInfoVO>> entity = null;
@@ -127,6 +126,60 @@ public class CourseController {
 	}
 	
 	
+	@RequestMapping(value = "/insertCourse", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> insertCoursePOST(@RequestParam(value="m_id", required=false)String m_id,
+													@RequestParam(value="i_name", required=false)String i_name,
+													@RequestParam(value="c_name", required=false)String c_name,
+													@RequestParam(value="details", required=false)String details) throws Exception{
+		ResponseEntity<String> entity = null;
+		
+		
+		try {
+			CourseVO c = new CourseVO();
+			c.setM_id(m_id);
+			c.setC_name(c_name);
+			c.setI_name(i_name);
+			c.setC_filename("test");
+			
+			List<String> detail_list = JSONArray.fromObject(details);
+			
+			List<CourseDetailVO> cds = new ArrayList<CourseDetailVO>();
+			for(int i=0; i<detail_list.size(); i++){
+
+				String[] data = detail_list.get(i).split("#");	//출발역#출발시간#도착역#도착시간 --> #으로 나눠서 배열에 저장 --> 인덱스 0:출발역 1:출발시간 2:도착역 3:도착시간
+				
+				CourseDetailVO cd = new CourseDetailVO();
+				cd.setCd_start(data[0]);
+				cd.setCd_stime(data[1]);
+				cd.setCd_end(data[2]);
+				cd.setCd_etime(data[3]);
+				
+				cds.add(cd);
+			}
+			
+			service.courseRegist(c, cds);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
 	
+	
+	
+	@RequestMapping(value="/editCourse{c_id}",method=RequestMethod.GET)	//코스짜기 페이지 열기
+	public ModelAndView courseModifyGET(@PathVariable int c_id) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/course/editCourse");
+		
+		CourseVO course = service.courseRead(c_id);
+		List<CourseDetailVO> details = service.courseDetailList(c_id);
+		mav.addObject("course", course);
+		mav.addObject("details", details);
+		
+		return mav;
+	}
 
 }

@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import starrail.course.domain.CourseDetailVO;
+import starrail.course.domain.CourseVO;
 import starrail.course.domain.IssueInfoVO;
 import starrail.course.persistence.CourseDAO;
 
@@ -25,6 +27,30 @@ public class CourseServiceImpl implements CourseService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public void courseRegist(CourseVO c, List<CourseDetailVO> cds) throws Exception {
+		int c_id = dao.selectC_id()+1;
+		
+		c.setC_id(c_id);
+
+		dao.courseInsert(c);
+		for(int i=0; i<cds.size(); i++){
+			cds.get(i).setC_id(c_id);
+			cds.get(i).setCd_id(dao.selectCd_id()+1);
+			dao.courseDetailInsert(cds.get(i));
+		}
+	}
+
+	@Override
+	public CourseVO courseRead(Integer c_id) throws Exception {
+		return dao.courseSelect(c_id);
+	}
+
+	@Override
+	public List<CourseDetailVO> courseDetailList(Integer c_id) throws Exception {
+		return dao.courseDetailList(c_id);
 	}
 
 	
