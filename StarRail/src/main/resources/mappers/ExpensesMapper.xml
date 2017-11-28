@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="railro.review.mapper.ExpensesMapper">
+	<cache />
+
+	<insert id="expensesInsert" parameterType="ExpensesVO">
+		insert into expenses(e_no, c_id, m_id, e_title, e_sdate, e_edate, e_total)
+		values(#{e_no}, #{c_id}, #{m_id}, #{e_title}, #{e_sdate}, #{e_edate}, #{e_total})
+	</insert>
+	
+	<select id="selectE_no" resultType="Integer">
+		select max(e_no) from expenses
+	</select>
+</mapper>	

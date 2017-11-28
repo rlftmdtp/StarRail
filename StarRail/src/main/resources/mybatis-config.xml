@@ -9,6 +9,7 @@
 		<package name="starrail.main.domain"/>
 		<package name="starrail.review.domain"/>
 		<package name="starrail.message.domain"/>
+		<package name="starrail.expenses.domain"/>
 	</typeAliases>
 	
 	

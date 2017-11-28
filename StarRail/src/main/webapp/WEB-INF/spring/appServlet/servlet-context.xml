@@ -21,6 +21,7 @@
 	<context:component-scan base-package="starrail.course.controller" />
 	<context:component-scan base-package="starrail.review.controller" />
 	<context:component-scan base-package="starrail.message.controller" />
+	<context:component-scan base-package="starrail.expenses.controller" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->

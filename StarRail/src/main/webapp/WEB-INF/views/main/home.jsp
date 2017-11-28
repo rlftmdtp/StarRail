@@ -60,7 +60,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                   <li><a href="#">추천</a></li>
                   <li><a href="#">플래너 공유</a></li>
                   <li><a href="/starrail/review/review_list">여행 후기</a></li>
-                  <li><a href="#">여행 경비</a></li>
+                  <li><a href="/starrail/expenses/railro_expenses">여행 경비</a></li>
                   
                   
                   <!--  메뉴 눌렀을때 밑에 리스트 달아야 하면 이 코드 사용하기

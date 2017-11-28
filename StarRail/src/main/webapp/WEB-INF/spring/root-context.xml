@@ -21,6 +21,9 @@
 	<context:component-scan base-package="starrail.message.service"/>
 	<context:component-scan base-package="starrail.message.persistence"/>
 	
+	<context:component-scan base-package="starrail.expenses.service"/>
+	<context:component-scan base-package="starrail.expenses.persistence"/>
+	
 	<!-- DB 설정 -->
 	<!-- Oracle 연결 -->
 	<bean id="dataSource"
