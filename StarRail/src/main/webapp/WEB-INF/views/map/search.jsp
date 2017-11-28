@@ -17,7 +17,7 @@
 
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=FeSf9NchU5GMk0kap7Kn"></script>
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=FeSf9NchU5GMk0kap7Kn&submodules=geocoder"></script>
 <script type="text/javascript"
 	src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
 <script src="/starrail/resources/js/map/mapsearch.js"

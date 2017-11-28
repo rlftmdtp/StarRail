@@ -99,8 +99,8 @@ public class MapServiceImpl implements MapService {
 				foodVO.setCategory((String)entity.get("category"));
 				foodVO.setDescription((String)entity.get("description"));
 				foodVO.setAddress((String)entity.get("address"));
-				foodVO.setMapx((String)entity.get("mapx"));
-				foodVO.setMapy((String)entity.get("mapy"));
+				foodVO.setMapx(Integer.parseInt((String)entity.get("mapx")));
+				foodVO.setMapy(Integer.parseInt((String)entity.get("mapy")));
 				
 				System.out.println("가게좌표" + foodVO.getMapx());
 				
