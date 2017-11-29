@@ -1,6 +1,7 @@
 package starrail.course.domain;
 
 public class CourseDetailVO {
+
 	private int cd_id;
 	private int c_id;
 	private String cd_start;
@@ -11,6 +12,7 @@ public class CourseDetailVO {
 	public CourseDetailVO(){}
 
 	public CourseDetailVO(int cd_id, int c_id, String cd_start, String cd_stime, String cd_end, String cd_etime) {
+
 		super();
 		this.cd_id = cd_id;
 		this.c_id = c_id;
