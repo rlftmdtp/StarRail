@@ -4,12 +4,21 @@ $(function() {
 	var GREEN_FACTORY = new naver.maps.LatLng(37.3595953, 127.1053971);
 	var location = GREEN_FACTORY; // 역을 담을 좌표 변수
 	
-	var foodLatlngs = [];
-	var markerFoodList = [];
-	var foodInfos = [];
+	var tbody = $('#foodList');
+	var info2 = $('.info2');
 	
+	// 전체 목록 ( 맛집 ) 
+	var markerFoodList = [];
+	var infoFoodList = [];
+	var chartFoodList = [];
+	
+	// 임시 목록
+	var tempChartFoodList = [];
+	
+	// 숙박
 	var stayLatLatlngs = [];
 	
+	// 관광지
 	var tourLatlngs = [];
 	
 	// 지도 설정
@@ -78,24 +87,12 @@ $(function() {
 			alert("DB에 있는 x좌표 " + coord.s_x);
 			
 			location = new naver.maps.LatLng(coord.s_x, coord.s_y);
-			
+
 			// 그 역으로 이동
 			map.panTo(location);
 
 			getTourList(station);
 		})
-		
-		/*
-		 * ( $.ajax({ type : 'post', url : '/starrail/maprest/getTourList',
-		 * dataType : 'text', headers : { "Content-type" : "application/text" },
-		 * data : station, success : function(result) { alert(result); } });
-		 */
-
-		/*
-		 * $('.').click(function(){ // 그래프에 데이터 도출
-		 * $.getJSON("/starrail/maprest/datalab/"+station, function(data){
-		 * alert("결과과돌아왔습니다"); }); });
-		 */
 	});
 	
 		// 반경 변경시 원의 범위 변경
@@ -117,10 +114,8 @@ $(function() {
 		function getTourList(station){ // 반경까지 전달해서 service에서 처리를 해야하나 ...?
 			$.getJSON("/starrail/maprest/tourlist/" + station, function(data) {
 				
-				var tbody = $('#foodList'); 
-				tbody.empty();
-				//-- 추가 : 지도위에 있는 것도 지워야 한다.
-				
+				var foodLatlngs = [];
+								
 				//-------------------- 푸드 -----------------
 				$(data.foodList).each(function(number){
 					// 검색 API에서 얻은 좌표는 TM128(카텍좌표계) 이므로 지도 API에서
@@ -131,9 +126,7 @@ $(function() {
 					var latlng = naver.maps.TransCoord.fromTM128ToLatLng(tm128);
 					foodLatlngs.push(latlng);
 					
-					tbody.append('<tr> <th scope="row">'+(number+1)+ '</th> <td>' + this.title + '</td> </tr> <tr>');
-					
-					// 정보창 생성
+					// Info 정보창 생성
 					var contentString = [
 						 '<div class="iw_inner">',
 					        '   <h3>'+this.title+'</h3>',
@@ -145,13 +138,23 @@ $(function() {
 					        '   </p>',
 					        '</div>'
 					].join('') // join함수는 배열을 문자열로 바꾼다.
+					infoFoodList.push(contentString);
 					
-					foodInfos.push(contentString);
-					//--------------------------------------------
+					/*
+					var tbody = $('#foodList'); 
+					tbody.empty();
+					//-- 추가 : 지도위에 있는 것도 지워야 한다.
+					tbody.append('<tr> <th scope="row">'+(number+1)+ '</th> <td>' + this.title + '</td> </tr>');
+					*/
 					
-					// 숙박, 여행지 코드 반복
+					var chartString = [
+						'<td>' + this.title + '</td>',
+						'</tr>'
+					].join('');
+					chartFoodList.push(chartString);
 				})
-								
+				
+				// 마커정보생성
 				for(var i=0; i<foodLatlngs.length; i++){
 					var icon = {
 							url : "/starrail/resources/images/map/food32.png"
@@ -176,6 +179,22 @@ $(function() {
 			});
 		}
 		
+		/*
+		 * ( $.ajax({ type : 'post', url : '/starrail/maprest/getTourList',
+		 * dataType : 'text', headers : { "Content-type" : "application/text" },
+		 * data : station, success : function(result) { alert(result); } });
+		 */
+
+		
+		// 그래프에 데이터 도출
+		function getDataLab(){
+			$.getJSON("/starrail/maprest/datalab/"+station, function(data){
+				  alert("결과과돌아왔습니다"); 
+				  });
+		}
+		  
+		 
+		
 		function draw(radius){
 			// 영역 만큼 원과 직선을 그린다
 						circle.setOptions({
@@ -197,21 +216,57 @@ $(function() {
 		function updateMarkers(){
 			
 			var circleBounds = circle.getBounds();
+			// 기존에 있던 목록들을 삭제한다.
+			tempChartFoodList = [];
+			tbody.empty();
 			
 			for(var i=0; i < markerFoodList.length; i++){
 				var marker = markerFoodList[i];
 				var position = marker.getPosition();
 				
 				if(circleBounds.hasLatLng(position)){
+					// 범위 안에 존재하면 chartFoodList에서 꺼내서 넣어야 한다
+					tempChartFoodList.push(chartFoodList[i]); 
 					showMarker(marker);
 				}
 				else{
 					hideMarker(marker);
 				}
 			}
+			
+			for(var i=0; tempChartFoodList.length; i++){
+				tbody.append('<tr> <th scope="row">' + (i +1) + '</th>' + tempChartFoodList.pop(i)); // 차트 목록에 추가
+			}
 		}
-		function showMarker(marker) {
+		
+		// -- 위도 경도를 이용한 좌표간의 거리 구하기 공식 함수
+		/*
+		function distance(circleRadius) {  
+			
+			for(var i=0; i<markerFoodList.length; i++)
+			{
+				var marker = markerFoodList[i];
+				var position = marker.getPosition();
+				
+				 var p = 0.017453292519943295;    // Math.PI / 180
+				 var c = Math.cos;
+				 var a = 0.5 - c((position.lat() - location.lat()) * p)/2 + 
+				          c(location.lat() * p) * c(position.lat() * p) * 
+				          (1 - c((position.lng() - location.lng()) * p))/2;
 
+				 var distance = 1000 * 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+			
+				 if(distance.toFixed(0) < circleRadius){
+					 showMarker(marker);
+				 }
+				 else{
+					 hideMarker(marker);
+				 }
+			}
+			}
+			*/
+		//------------------------------------------
+		function showMarker(marker) {
 		    if (marker.getMap()) return;
 		    marker.setMap(map);
 		}
@@ -232,10 +287,15 @@ $(function() {
 			})
 			
 			// 정보창의 내용을 바꾸고 정보창을 띄운다
-			
-						
-			infoWindow.setContent(foodInfos[seq]);
+			infoWindow.setContent(infoFoodList[seq]);
 			infoWindow.open(map, marker);
+			
+			// 1.지도 하단오른쪽에 상세한 가게정보 로드
+			info2.empty();
+			info2.append(infoFoodList[seq]);
+			
+			// 2.차트에서 보여주기
+			// 3.제일 하단에 그래프 보여주기
 		}
 		function onMouseOut(e){
 			var marker = e.overlay
@@ -248,6 +308,5 @@ $(function() {
 			infoWindow.close(map, marker);
 			infoRadius.open(map,location);
 		}
-		
 		
 });

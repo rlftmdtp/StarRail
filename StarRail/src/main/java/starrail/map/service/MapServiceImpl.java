@@ -41,6 +41,8 @@ public class MapServiceImpl implements MapService {
 	@Inject
 	private MapDAO dao;
 	
+	private StationXYVO stationXYVO;
+	
 	@Override
 	public List<CourseVO> courseList(String m_id) {
 		return dao.courseList(m_id);
@@ -53,6 +55,7 @@ public class MapServiceImpl implements MapService {
 
 	@Override
 	public StationXYVO stationXY(String station) {
+		stationXYVO = dao.stationXY(station);
 		return dao.stationXY(station);
 	}
 
@@ -103,6 +106,7 @@ public class MapServiceImpl implements MapService {
 				foodVO.setMapy(Integer.parseInt((String)entity.get("mapy")));
 				
 				System.out.println("가게좌표" + foodVO.getMapx());
+				System.out.println("해당 역의 좌표" + stationXYVO.getS_x());
 				
 				foodList.add(foodVO);
 			}
@@ -114,9 +118,7 @@ public class MapServiceImpl implements MapService {
 				break;
 			}
 		}
-		
-		
-
+	
 		return foodList;
 	}
 
@@ -131,54 +133,6 @@ public class MapServiceImpl implements MapService {
 		String tour = station + "역 관광지";
 		return null;
 	}
-
-	public String useNaverAPI(String kind,int start) {
-
-		StringBuffer response = new StringBuffer();
-
-		try {
-			String text = URLEncoder.encode(kind, "UTF-8");
-			String apiURL = "https://openapi.naver.com/v1/search/local?query=" + text + "&display=100&sort=comment&start=" + start; // json
-																														// 결과
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("X-Naver-Client-Id", clientId);
-			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			if (responseCode == 200) { // 정상 호출
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // 에러 발생
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			System.out.println(response.toString());
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return response.toString();
-	}
-
-	public ResponseEntity<NaverAPI> getJsonResult(String kind) throws Exception {
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("X-Naver-Client-Id", clientId);
-		httpHeaders.add("X-Naver-Client-Secret", clientSecret);
-
-		String url = "https://openapi.naver.com/v1/search/local?query=" + kind;
-
-		// restTemplate.exchange(url, HttpMethod.GET, new
-		// HttpEntity(httpHeaders), String.class);
-		System.out.println(restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), String.class));
-		return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), NaverAPI.class);
-	}
-
 	@Override
 	public void dataLab(String station) {
 
@@ -219,7 +173,56 @@ public class MapServiceImpl implements MapService {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 	}
+	
+	// 네이버 검색 API 연동 메서드
+	public String useNaverAPI(String kind,int start) {
+
+		StringBuffer response = new StringBuffer();
+
+		try {
+			String text = URLEncoder.encode(kind, "UTF-8");
+			String apiURL = "https://openapi.naver.com/v1/search/local?query=" + text + "&display=100&sort=comment&start=" + start; // json
+																														// 결과
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("X-Naver-Client-Id", clientId);
+			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return response.toString();
+	}
+	
+	/*
+	public ResponseEntity<NaverAPI> getJsonResult(String kind) throws Exception {
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("X-Naver-Client-Id", clientId);
+		httpHeaders.add("X-Naver-Client-Secret", clientSecret);
+
+		String url = "https://openapi.naver.com/v1/search/local?query=" + kind;
+
+		// restTemplate.exchange(url, HttpMethod.GET, new
+		// HttpEntity(httpHeaders), String.class);
+		System.out.println(restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), String.class));
+		return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity(httpHeaders), NaverAPI.class);
+	}
+	*/
 
 }

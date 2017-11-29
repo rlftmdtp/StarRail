@@ -27,9 +27,6 @@
 <body>
 	<div class="container-fluid">
 		<div class="row rails">star 레일</div>
-
-		<div class="text">왜안됨</div>
-
 		<div class="row course">
 			여행코스고르는 곳
 			<div class="row" id="courseButtons">
@@ -71,7 +68,7 @@
 						<!-- Tab panes -->
 						<div class="tab-content info-content">
 							<div role="tabpanel" class="tab-pane active" id="food">
-								<table>
+								<table class="table table-hover">
 									<caption>맛 집 순 위</caption>
 									<thead>
 										<tr>
@@ -92,7 +89,11 @@
 				</div>
 
 			</div>
-			<div class="col-md-6 info2"></div>
+			<div class="col-md-6 info2">
+				<table class="table table-hover">
+					
+				</table>
+			</div>
 		</div>
 		<div class="row graph"></div>
 	</div>
