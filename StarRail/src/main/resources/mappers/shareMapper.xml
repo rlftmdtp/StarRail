@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="starrail.sharetext.mappers.ShareMapper">
+
+ 	<insert id="create" parameterType="ShareTextVO">
+ 		insert into shareText(sh_no, c_id, m_id, sh_subject, sh_title, sh_content, sh_pw, sh_date, sh_hit, sh_shareok)
+ 			values(sharetext_seq.nextval, #{c_id}, #{m_id}, #{sh_subject}, #{sh_title}, #{sh_content}, #{sh_pw}
+ 						, sysdate , 0 , 'Y')
+ 	</insert>
+
+ 	
+ 	
+ 	<select id="listAll" resultType="ShareTextVO">
+ 		<![CDATA[
+			 select 
+			   sh_no, sh_subject, sh_title, m_id, sh_date, sh_hit
+			 from 
+			   shareText 			   
+			 where sh_no > 0
+		]]>  	 
+			 
+			 
+			 
+		<![CDATA[	  
+			 order by sh_no desc,  sh_date desc
+ 		]]>  
+ 	</select>
+ 	
+ 	<!-- 카운트 숫자 페이징 -->
+	<select id="countPaging" resultType="int">
+ 		<![CDATA[	  
+			 select count(sh_no)
+			 	from sharetext
+			 	where sh_no>0
+ 		]]>
+ 	</select>
+
+ 	
+ 	<select id="read" resultType="ShareTextVO">
+ 		select 
+   			sh_no, c_id, m_id, sh_subject, sh_title, sh_content, sh_date, sh_hit
+ 		from 
+  			 shareText
+ 			 where sh_no = #{sh_no}
+ 	</select>
+
+	<update id="update" parameterType="ShareTextVO">
+		update shareText set sh_title =#{sh_title}, sh_content =#{sh_content}, sh_date=#{sh_date} 
+		where sh_no = #{sh_no}
+	</update>
+
+	<delete id="delete">
+		delete from shareText where sh_no = #{sh_no}
+	</delete>
+	
+	<select id="listPage" resultType="ShareTextVO">
+		<![CDATA[
+			select *
+				from shareText
+				where sh_no>0
+				order by sh_no desc, sh_date desc
+		]]>
+	</select>
+	
+	<select id="listCriteria" resultType="ShareTextVO">
+		<![CDATA[
+			select *
+				from shareText
+				where sh_no>0
+				order by sh_no desc, sh_date desc
+				
+		]]>
+	</select>
+	
+	<select id="listSearch" resultType="ShareTextVO">
+	<![CDATA[
+		select * 
+		from shareText
+		where sh_no > 0
+		]]>
+	<include refid="search"></include>
+		
+		<![CDATA[
+		order by sh_no desc
+		
+	]]>
+	</select>
+	<select id="listSearchCount" resultType="int">
+	<![CDATA[
+		select count(sh_no)
+		from shareText
+		where sh_no > 0
+		
+	]]>
+	<include refid="search"></include>
+	</select>
+	
+	
+	 	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and title like '%'|| #{keyword}||'%'
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and content like '%'|| #{keyword}||'%'
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and writer like '%'|| #{keyword}||'%'
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like '%'|| #{keyword}||'%' OR content like
+				'%'||
+				#{keyword}||'%')
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and ( content like '%'|| #{keyword}||'%' OR writer like
+				'%'||
+				#{keyword}||'%')
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				and ( title like '%'|| #{keyword}||'%'
+				OR
+				content like
+				'%'|| #{keyword}||'%'
+				OR
+				writer like '%'|| #{keyword}||'%')
+			</if>
+		</if>
+	</sql> 
+	
+	
+	
+	
+	
+	
+ 	
+	<!-- <select id="countPaging" resultType="int">
+	<![CDATA[
+		select count(bno) from tbl_board where bno > 0			
+	]]>		
+	
+	 <include refid="search"></include>
+	</select> -->
+	<!-- 
+	<update id="updateReplyCnt">
+		update sharetext set replycnt = replycnt + #{amount}
+			where sh_no = #{sh_no}
+	</update>
+	
+	<select id="getSh_no" resultType="int">
+		select sh_no from sharereply where sr_no = #{sr_no}
+	</select>
+	
+	 <update id="updateViewCnt">
+		update sharetext set sh_hit = sh_hit + 1 
+			where sh_no = #{sh_no}
+	</update> -->
+	
+	<!-- <insert id="addAttach" parameterType="FileVO">
+		insert into tbl_attach(fullname, bno) 
+			values(#{fullName}, #{bno})
+	</insert>-->
+	
+	<select id="maxNum" resultType="int">
+		select MAX(sh_no) from shareText	</select>
+	
+	<!-- <select id="getAttach" resultType="string">
+		select fullname from shareText where sh_no = #{sh_no} order by sh_data
+	</select> 
+
+
+	<insert id="addAttach" parameterType="FileVO"> 
+	insert into tbl_attach(fullname, bno) values(#{fullName}, #{bno}) 
+	</insert>
+  
+  	<insert id="deleteAttach">
+  	delete from tbl_attach where bno = #{bno}
+  	</insert>
+  	
+  	<insert id="replaceAttach">
+  	insert into tbl_attach(fullname, bno) values (#{fullName},#{bno})
+  	</insert> -->
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+

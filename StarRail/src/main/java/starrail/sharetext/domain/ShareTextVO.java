@@ -1,6 +1,7 @@
 package starrail.sharetext.domain;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 public class ShareTextVO {
 	private int sh_no;
@@ -10,14 +11,14 @@ public class ShareTextVO {
 	private String sh_title;
 	private String sh_content;
 	private String sh_pw;
-	private Timestamp sh_date;
+	private Date sh_date;
 	private int sh_hit;
 	private String sh_shareok;
 	
 	public ShareTextVO(){}
 
 	public ShareTextVO(int sh_no, int c_id, String m_id, String sh_subject, String sh_title, String sh_content,
-			String sh_pw, Timestamp sh_date, int sh_hit, String sh_shareok) {
+			String sh_pw, Date sh_date, int sh_hit, String sh_shareok) {
 		super();
 		this.sh_no = sh_no;
 		this.c_id = c_id;
@@ -87,11 +88,11 @@ public class ShareTextVO {
 		this.sh_pw = sh_pw;
 	}
 
-	public Timestamp getSh_date() {
+	public Date getSh_date() {
 		return sh_date;
 	}
 
-	public void setSh_date(Timestamp sh_date) {
+	public void setSh_date(Date sh_date) {
 		this.sh_date = sh_date;
 	}
 

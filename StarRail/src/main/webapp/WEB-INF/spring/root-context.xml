@@ -12,15 +12,11 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:component-scan base-package="starrail.main.persistence"/>
 	<context:component-scan base-package="starrail.main.service"/>
-	
 	<context:component-scan base-package="starrail.map.service"/>
-	
-	<!-- 파트너 service / persistence 설정 start-->
-	<context:component-scan base-package="starrail.partner.service"/>
-	<context:component-scan base-package="starrail.partner.persistence"/>
-	<!-- 파트너 service / persistence 설정 end -->
-	
-	
+	<context:component-scan base-package="starrail.sharetext.service"/>
+	<context:component-scan base-package="starrail.sharetext.persistence"/>
+	<context:component-scan base-package="starrail.reservation.service"/>
+	<context:component-scan base-package="starrail.reservation.persistence"/>
 	
 	
 	<!-- DB 설정 -->
@@ -43,8 +39,6 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	
-	
-	
+
 
 </beans>

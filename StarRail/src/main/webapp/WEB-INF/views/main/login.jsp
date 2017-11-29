@@ -83,7 +83,7 @@
                         <li><a href="#">회원가입</a></li>
                      </ul>
                   </li>
-                  <li><a href="#">예약하기</a></li>
+                  <li><a href="">예약하기</a></li>
                   <li><a href="#">마이 홈</a></li>
                </ul>            
             </div>

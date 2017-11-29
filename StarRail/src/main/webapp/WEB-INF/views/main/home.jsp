@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -59,7 +60,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                   <li><a href="/starrail/partner/partner">동행</a></li>
                   <li><a href="#">추천</a></li>
                   <li><a href="#">플래너 공유</a></li>
-                  <li><a href="#">여행 후기</a></li>
+                  <li><a href="/starrail/sharetext/listAll">여행 후기</a></li>
                   <li><a href="#">여행 경비</a></li>
                   
                   
@@ -97,7 +98,8 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                         <li><a href="#">회원가입</a></li>
                      </ul>
                   </li>
-                  <li><a href="#">예약하기</a></li>
+                  
+                  <li><a href="/starrail/reservation/Reservation_view">예약하기</a></li>
                   <li><a href="#">마이 홈</a></li>
                </ul>            
             </div>
