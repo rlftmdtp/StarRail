@@ -26,16 +26,13 @@ public class CourseDetailVO {
 		return cd_id;
 	}
 
-
 	public void setCd_id(int cd_id) {
 		this.cd_id = cd_id;
 	}
 
-
 	public int getC_id() {
 		return c_id;
 	}
-
 
 	public void setC_id(int c_id) {
 		this.c_id = c_id;
@@ -73,12 +70,10 @@ public class CourseDetailVO {
 		this.cd_etime = cd_etime;
 	}
 
-
 	@Override
 	public String toString() {
 		return "CourseDetailVO [cd_id=" + cd_id + ", c_id=" + c_id + ", cd_start=" + cd_start + ", cd_stime=" + cd_stime
-				+ ", cd_end=" + cd_end + ", cd_etime=" + cd_etime + "]\n";
+				+ ", cd_end=" + cd_end + ", cd_etime=" + cd_etime + "]";
 	}
-	
-	
+
 }
