@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/java/starrail/main/controller/MainController.java=UTF-8
+=======
+encoding//src/main/webapp/resources/js/course/course.js=UTF-8
+>>>>>>> refs/heads/Dev

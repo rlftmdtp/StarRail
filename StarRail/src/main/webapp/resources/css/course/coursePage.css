@@ -1,0 +1,236 @@
+@CHARSET "utf-8";
+ 
+body{margin:0; padding:0;}
+
+#courseWrap{
+	margin:0 auto;
+	width:1080px;
+	overflow: inherit;
+	
+	background:#E6F7FF;
+}
+
+
+#periodSetting{
+	width:1050px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:50px;
+	
+	background: #FFE5CC;
+}
+
+#dateSetting{
+	width:1050px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:70px;
+	
+	background: #FFE5CC;
+}
+
+#stationSetting{
+	width:1020px;
+	margin: 0px 10px 10px 10px;
+	padding: 10px 20px 10px 20px;
+	height: 200px;
+	
+	background: #FFE5CC;
+}
+
+.arrivals{
+	float:left;
+	width:480px;
+	margin:0px 10px 0px 0px;
+	padding: 10px;
+	height:180px;
+	border-radius:15px;
+	overflow:hidden;
+	overflow-y:auto;
+	
+	background: #FFFFCC;
+}
+
+.departures{
+	float:left;
+	width:480px;
+	margin:0px 0px 0px 10px;
+	padding:10px;
+	height:180px;
+	border-radius:15px;
+	overflow:hidden;
+	overflow-y:auto;
+	
+	background: #FFFFCC;
+}
+
+#courseSetting{
+	width:1040px;
+	margin:0px 10px 10px 10px;
+	padding:5px 10px 5px 10px;
+	height:690px;
+	
+	background: #FFE5CC;
+}
+
+#trainSetting{
+	float:left;
+	width:300px;
+	height:690px;
+	
+	background: #FFFFCC;
+}
+
+.hopingTime{
+	width:280px;
+	margin: 75px 10px 10px 10px;
+	height: 70px;
+	font-weight: bolder;
+	
+	background: #CCCCFF;
+}
+
+.hopingTime h4{
+	width:280px;
+	margin:0;
+}
+
+.hopingTime select{
+	margin-top:10px;
+	margin-left:2em;
+}
+
+.trainTimeTableTitle{
+	width:280px;
+	height:25px;
+	margin:0px 10px 5px 10px;
+	
+	background: #CCCCFF;
+}
+
+.trainTimeTable{
+	width:270px;
+	margin: 0px 10px 10px 10px;
+	height:360px;
+	padding:5px;
+	overflow:hidden;
+	overflow-y:auto;
+	
+	
+	background: #CCCCFF;
+}
+
+.trainListTable{
+	margin:0 auto;
+	width:250px;
+	border-collapse: collapse;
+}
+
+.trainListTable thead th{
+	height:30px;
+	border: 1px solid;
+	padding:0;
+	font-size: 11pt;
+	background: #BCBCBC;
+}
+
+.trainListTable thead th.th1{
+	width:120px;
+}
+
+.trainListTable thead th.th2{
+	width:80px;
+}
+
+.trainListTable thead th.th3{
+	width:50px;
+}
+
+.trainListTable tbody td{
+	height:25px;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
+}
+
+.addingBtn{
+	width:280px;
+	margin:0px 10px 0px 10px;
+	height: 50px;
+	text-align: right;
+	
+	background: #CCCCFF;
+}
+
+
+#mapArea{
+	float:left;
+	width:432px;
+	height:669px;
+	padding:10px 0px 11px 0px;
+	margin:0px 4px 0px 4px;
+	
+	background: #FFFFCC;
+}
+
+#couresDetailView{
+	float:left;
+	width:280px;
+	height:540px;
+	margin: 65px 0px 0px 0px;
+	padding:10px;
+	
+	background: #FFFFCC;
+}
+
+#couresDetailView h4.title{
+	width:280px;
+	margin:0;
+}
+
+#couresDetailView div.uls{
+	width:inherit;
+	height: 500px;
+	margin-top:9px;
+	padding-top:10px;
+	overflow: hidden;
+	overflow-y: auto;
+	background: #CCCCFF;
+}
+
+#couresDetailView h4.date{
+	width:270px;
+	margin:0;
+	padding-left:10px;
+}
+
+#couresDetailView ul{
+	width:260px;
+	padding-left:20px;
+	margin:0px 0px 15px 0px;
+	list-style: none;
+}
+
+#couresDetailView ul li:before{
+	content: "•";
+    padding-right: 8px;
+}
+
+
+#issueSetting{
+	width:1040px;
+	margin: 0px 10px 10px 10px;
+	padding: 10px;
+	height:100px;
+	
+	background: #FFE5CC;
+}
+
+#allSavingBtn{
+	width:1050px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:50px;
+	text-align: right;
+	
+	background: #FFE5CC;
+}
