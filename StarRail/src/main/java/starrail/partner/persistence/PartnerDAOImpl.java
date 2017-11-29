@@ -33,7 +33,7 @@ public class PartnerDAOImpl implements PartnerDAO {
 
 	@Override
 	public List<CourseDetailVO> mySchedule_List(HashMap<String, Object> map) {
-		//System.out.println(map);
+		//System.out.println("dao : " + session.selectList(namespace+".mySchedule_Select", map));
 		return session.selectList(namespace+".mySchedule_Select", map);
 	}
 
@@ -42,6 +42,18 @@ public class PartnerDAOImpl implements PartnerDAO {
 	public List<CourseDetailVO> courseDetail_List(List<Integer> list) {
 		
 		return session.selectList(namespace+".courseDetail_Select", list);
+	}
+
+
+	@Override
+	public List<UserVO> partnerSearch_List(CourseDetailVO courseDetailVO) {
+		return session.selectList(namespace+".partnerSearch_Select", courseDetailVO);
+	}
+
+
+	@Override
+	public CourseDetailVO courseDetail_Search_List(Integer cd_id) {
+		return session.selectOne(namespace+".cd_Select", cd_id);
 	}
 	
 	
