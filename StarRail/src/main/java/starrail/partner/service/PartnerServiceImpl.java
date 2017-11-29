@@ -20,18 +20,21 @@ public class PartnerServiceImpl implements PartnerService {
 	@Inject
 	private PartnerDAO dao;
 
+	
 	@Override
 	public List<CourseVO> myCourse_List_service(UserVO userVO) {
 		// System.out.println("서비스 : " + userVO);
 		return dao.myCourse_List(userVO);
 	}
 
+	
 	@Override
 	public List<CourseDetailVO> mySchedule_List_service(HashMap<String, Object> map) {
-		System.out.println("서비스 : " + dao.mySchedule_List(map));
+		//System.out.println("서비스 : " + dao.mySchedule_List(map));
 		return dao.mySchedule_List(map);
 	}
 
+	
 	@Override
 	public List<CourseDetailVO> courseDetail_List_service(Map<String, String> list) {
 		List<Integer> list_value = new ArrayList<Integer>();
@@ -44,20 +47,26 @@ public class PartnerServiceImpl implements PartnerService {
 		return dao.courseDetail_List(list_value);
 	}
 
+	
 	@Override
-	public Map<String, Object> partnerSearch_List_service(List<CourseDetailVO> list) {		
-		Map<String, Object> map = new HashMap<String, Object>();
+	public List<UserVO> partnerSearch_List_service(CourseDetailVO courseDetailVO) {		
+/*		Map<String, Object> map = new HashMap<String, Object>();
 		
 		for(int i=0; i<list.size(); i++){			
 			List<UserVO> user_list = dao.partnerSearch_List(list.get(i));
 			map.put("course"+i, user_list);
-			
-			System.out.println("--"+map.get("course"+i));
-			System.out.println((i+1) + "번째");
-		}
-		System.out.println("dao결과"+map);
+		}		
+		System.out.println("####map사이즈 : "+map.size());*/
 		
-		return map;
+		
+		List<UserVO> user_list = dao.partnerSearch_List(courseDetailVO);		
+		return user_list;
+	}
+
+
+	@Override
+	public CourseDetailVO courseDetail_Search_List_service(Integer cd_id) {
+		return  dao.courseDetail_Search_List(cd_id);
 	}
 
 }

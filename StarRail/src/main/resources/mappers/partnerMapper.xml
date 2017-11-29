@@ -62,5 +62,10 @@
 				                        and cd.CD_END = #{cd_end})
 	</select>
 
+	<select id="cd_Select" resultType="CourseDetailVO">
+		select * from coursedetail where cd_id=#{cd_id}
+	</select>
+
+
 
 </mapper>  

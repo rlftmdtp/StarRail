@@ -25,6 +25,11 @@ public class MainController {
 		
 	}
 	
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	public void mainGET() throws Exception{
+		
+	}
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto){
 		

@@ -49,6 +49,12 @@ public class PartnerDAOImpl implements PartnerDAO {
 	public List<UserVO> partnerSearch_List(CourseDetailVO courseDetailVO) {
 		return session.selectList(namespace+".partnerSearch_Select", courseDetailVO);
 	}
+
+
+	@Override
+	public CourseDetailVO courseDetail_Search_List(Integer cd_id) {
+		return session.selectOne(namespace+".cd_Select", cd_id);
+	}
 	
 	
 	

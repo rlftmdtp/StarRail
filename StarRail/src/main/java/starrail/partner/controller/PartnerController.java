@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class PartnerController {
 	@RequestMapping(value = "/partner", method = RequestMethod.GET)
 	public void partnerGET(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-
+		System.out.println("ddddfdfdf");
 		UserVO uservo = (UserVO) session.getAttribute("login");
 		System.out.println(uservo);
 
@@ -48,7 +49,7 @@ public class PartnerController {
 
 	// 썸네일 이미지 클릭 시 코스 아이디을 넘겨받아 코스 디테일을 찾고 버튼을 생성하기 위해 정보를 넘겨줌	
 	@RequestMapping(value = "/scheduleSearch", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<List<CourseDetailVO>> scheduleSearch_POST(HttpServletRequest request, Integer c_id) {
+	public @ResponseBody ResponseEntity<List<CourseDetailVO>> scheduleSearch_POST(HttpServletRequest request,@RequestParam Integer c_id) {
 		HttpSession session = request.getSession();
 		UserVO uservo = (UserVO) session.getAttribute("login");
 		
@@ -69,17 +70,33 @@ public class PartnerController {
 	}
 	
 	
-	//원하는 일정 선택 후 동반자 찾기 버튼 클릭 시 cd_id가 넘어옴
+/*	//원하는 일정 선택 후 동반자 찾기 버튼 클릭 시 cd_id가 넘어옴
 	//cd_id를 통해 해당하는 파트너를 찾아줌
 	@RequestMapping(value = "/partnerSearch", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> partnerSearch_POST(@RequestParam Map<String,String> list)throws Exception{
-		System.out.println("컨트롤러1");
-		List<CourseDetailVO> cd_list = service.courseDetail_List_service(list);					
-		System.out.println("*컨트롤러2"+service.partnerSearch_List_service(cd_list));
+		List<CourseDetailVO> cd_list = service.courseDetail_List_service(list);			
 		
-		ResponseEntity<Map<String, Object>> a = new ResponseEntity<Map<String, Object>>(service.partnerSearch_List_service(cd_list), HttpStatus.OK);
-		System.out.println(a);
-		return a;
+		//System.out.println("*컨트롤러2"+service.partnerSearch_List_service(cd_list));
+		ResponseEntity<Map<String, Object>> entity = null;
+		entity =   new ResponseEntity<Map<String,Object>>(service.partnerSearch_List_service(cd_list), HttpStatus.OK);
+
+		return entity;
+	}*/
+	
+	//원하는 일정 선택 후 동반자 찾기 버튼 클릭 시 cd_id가 넘어옴
+	//cd_id를 통해 해당하는 파트너를 찾아줌
+	@RequestMapping(value = "/partnerSearch", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<UserVO>> partnerSearch_POST(@RequestParam Integer cd_id)throws Exception{
+		CourseDetailVO courseDetailVO =  service.courseDetail_Search_List_service(cd_id);
+		List<UserVO> user_list = service.partnerSearch_List_service(courseDetailVO);
+		
+		ResponseEntity<List<UserVO>> entity = null;		
+		entity =   new ResponseEntity<List<UserVO>>(user_list, HttpStatus.OK);
+		
+		return entity;
 	}
+	
+	
 }
