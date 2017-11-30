@@ -38,7 +38,7 @@
 		where c_id = #{c_id}
 	</select>
 	
-	<update id="courseUpdate" parameterType="Integer">
+	<update id="courseUpdate" parameterType="CourseVO">
 		update course set i_name=#{i_name}, c_name=#{c_name}, c_filename=#{c_filename}
 		where c_id =#{c_id}
 	</update>

@@ -53,6 +53,19 @@ public class CourseServiceImpl implements CourseService {
 		return dao.courseDetailList(c_id);
 	}
 
+	@Override
+	public void courseModify(CourseVO c, List<CourseDetailVO> cds) throws Exception {
+		dao.courseDetailDelete(c.getC_id());
+		dao.courseUpdate(c);
+		
+		for(int i=0; i<cds.size(); i++){
+			cds.get(i).setC_id(c.getC_id());
+			cds.get(i).setCd_id(dao.selectCd_id()+1);
+			dao.courseDetailInsert(cds.get(i));
+		}
+		
+	}
+
 	
 
 }

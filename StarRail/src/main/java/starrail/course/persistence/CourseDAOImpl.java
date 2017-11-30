@@ -56,4 +56,15 @@ public class CourseDAOImpl implements CourseDAO {
 		return session.selectList(namespace+".courseDetailList", c_id);
 	}
 
+	@Override
+	public void courseUpdate(CourseVO c) throws Exception {
+		session.update(namespace+".courseUpdate", c);
+		
+	}
+
+	@Override
+	public void courseDetailDelete(Integer c_id) throws Exception {
+		session.delete(namespace+".courseDetailDelete", c_id);
+	}
+
 }

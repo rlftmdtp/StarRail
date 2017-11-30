@@ -19,4 +19,6 @@ public interface CourseDAO {
 	public CourseVO courseSelect(Integer c_id) throws Exception;
 	public List<CourseDetailVO> courseDetailList(Integer c_id) throws Exception;
 
+	public void courseUpdate(CourseVO c) throws Exception;
+	public void courseDetailDelete(Integer c_id) throws Exception;
 }

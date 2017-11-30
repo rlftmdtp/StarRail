@@ -268,7 +268,7 @@ $(function() {
 						if(value!=null){
 							if($('.issuelist tbody tr td input:radio[value="'+value.i_name+'"]').length<=0){
 								$('.issuelist tbody').append('<tr>'
-										+'<td><input type="radio" name="selectedIssue" value="'+ value.i_name +'"></td>'
+										+'<td><center><input type="radio" name="selectedIssue" value="'+ value.i_name +'"></center></td>'
 										+'<td>'+ value.i_name +'</td>'
 										+'<td>'+ value.i_food +'</td>'
 										+'<td>'+ value.i_stay +'</td>'
@@ -303,11 +303,11 @@ $(function() {
 			}
 			
 			if($('li[sDep="'+dep+'"]').length<=0 && $('li[sArr="'+dep+'"]').length<=0 ){
-				$('.issuelist tbody tr td input:radio[value="'+dep+'"]').parent().parent().remove();
+				$('.issuelist tbody tr td input:radio[value="'+dep+'"]').parent().parent().parent().remove();
 			}
 			
 			if($('li[sDep="'+arr+'"]').length<=0 && $('li[sArr="'+arr+'"]').length<=0){
-				$('.issuelist tbody tr td input:radio[value="'+arr+'"]').parent().parent().remove();
+				$('.issuelist tbody tr td input:radio[value="'+arr+'"]').parent().parent().parent().remove();
 			}
 			
 		});

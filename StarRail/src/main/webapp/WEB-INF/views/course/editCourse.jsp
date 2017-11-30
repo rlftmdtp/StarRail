@@ -17,8 +17,8 @@
 	href="/starrail/resources/bootstrap/css/bootstrap.css">
 
 
-<!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css">
+<!-- 코스 수정 페이지 css -->
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css?ver=1">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -181,7 +181,7 @@
 
 		<!-- 전체 코스 저장 버튼 영역 -->
 		<div id="allSavingBtn">
-			<button type="button" class="btn btn-outline-success saveBtn" disabled>수정 내용 저장</button>
+			<button type="button" class="btn btn-outline-success saveBtn" disabled>수정 완료</button>
 		</div>
 		<!-- 전체 코스 저장 버튼 영역 closing -->
 

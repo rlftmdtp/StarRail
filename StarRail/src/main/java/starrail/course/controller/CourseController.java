@@ -140,7 +140,7 @@ public class CourseController {
 			c.setM_id(m_id);
 			c.setC_name(c_name);
 			c.setI_name(i_name);
-			c.setC_filename("test");
+			c.setC_filename("test");	//추후 파일 업로드 구현 후에 수정
 			
 			List<String> detail_list = JSONArray.fromObject(details);
 			
@@ -181,5 +181,46 @@ public class CourseController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/updateCourse",method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> updateCoursePOST(@RequestParam(value="c_id", required=false)Integer c_id,
+													@RequestParam(value="i_name", required=false)String i_name,
+													@RequestParam(value="c_name", required=false)String c_name,
+													@RequestParam(value="details", required=false)String details) throws Exception{
+		ResponseEntity<String> entity = null;
+		
+		try {
+			CourseVO c = new CourseVO();
+			c.setC_id(c_id);
+			c.setC_name(c_name);
+			c.setI_name(i_name);
+			c.setC_filename("test2");	//추후 파일 업로드 구현 후에 수정
+			
+			List<String> detail_list = JSONArray.fromObject(details);
+			
+			List<CourseDetailVO> cds = new ArrayList<CourseDetailVO>();
+			for(int i=0; i<detail_list.size(); i++){
 
+				String[] data = detail_list.get(i).split("#");	//출발역#출발시간#도착역#도착시간 --> #으로 나눠서 배열에 저장 --> 인덱스 0:출발역 1:출발시간 2:도착역 3:도착시간
+				
+				CourseDetailVO cd = new CourseDetailVO();
+				cd.setCd_start(data[0]);
+				cd.setCd_stime(data[1]);
+				cd.setCd_end(data[2]);
+				cd.setCd_etime(data[3]);
+				
+				cds.add(cd);
+				
+				service.courseModify(c, cds);
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}
 }

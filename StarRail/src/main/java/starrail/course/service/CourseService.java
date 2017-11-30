@@ -13,4 +13,6 @@ public interface CourseService {
 	
 	public CourseVO courseRead(Integer c_id) throws Exception;
 	public List<CourseDetailVO> courseDetailList(Integer c_id) throws Exception;
+	
+	public void courseModify(CourseVO c, List<CourseDetailVO> cds) throws Exception;
 }
