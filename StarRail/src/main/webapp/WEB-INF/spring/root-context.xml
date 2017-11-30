@@ -13,6 +13,15 @@
 	<context:component-scan base-package="starrail.main.persistence"/>
 	<context:component-scan base-package="starrail.main.service"/>
 	<context:component-scan base-package="starrail.map.service"/>
+	<context:component-scan base-package="starrail.map.persistence"/>
+	
+	<!-- 파트너 service / persistence 설정 start-->
+	<context:component-scan base-package="starrail.partner.service"/>
+	<context:component-scan base-package="starrail.partner.persistence"/>
+	<!-- 파트너 service / persistence 설정 end -->
+	
+	
+	
 	
 	<!-- 파트너 service / persistence 설정 start-->
 	<context:component-scan base-package="starrail.partner.service"/>
