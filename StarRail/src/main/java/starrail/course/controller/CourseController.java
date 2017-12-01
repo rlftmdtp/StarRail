@@ -2,6 +2,7 @@ package starrail.course.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ import net.sf.json.JSONArray;
 import starrail.course.domain.CourseDetailVO;
 import starrail.course.domain.CourseVO;
 import starrail.course.domain.IssueInfoVO;
+import starrail.course.domain.StationCoorVO;
 import starrail.course.domain.StationVO;
 import starrail.course.domain.TrainTimeVO;
 import starrail.course.service.CourseService;
@@ -73,14 +75,14 @@ public class CourseController {
 			List<StationVO> allNodes = stationParser.stationList(cityCodes);
 			List<StationVO> arrStations = stationParser.arrStationList(depNode, depDate, allNodes);
 			
-			entity = new ResponseEntity<List<StationVO>>(arrStations, responseHeaders, HttpStatus.OK);  //200OK
-							//ResponseEntity<String>는 실행결과, HttpStatus결과를 가져와 넣기 위한 것
+			entity = new ResponseEntity<List<StationVO>>(arrStations, responseHeaders, HttpStatus.OK); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}
 		return entity;
 	}
+	
 	
 	@RequestMapping(value="/trainTime", method=RequestMethod.POST)	//출발 희망시간 선택 후 시간표 출력
 	@ResponseBody
@@ -104,19 +106,28 @@ public class CourseController {
 	
 	@RequestMapping(value="/issuelist", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<IssueInfoVO>> issuelistPOST(@RequestParam(value="selectedDep", required=false) String selectedDep,
+	public ResponseEntity<HashMap<String, Object>> issuelistPOST(@RequestParam(value="selectedDep", required=false) String selectedDep,
 															@RequestParam(value="selectedArr", required=false) String selectedArr) throws Exception{
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=UTF-8");
-		ResponseEntity<List<IssueInfoVO>> entity = null;
+		ResponseEntity<HashMap<String, Object>> entity = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		try {
 			List<String> nodes = new ArrayList<String>();
 			nodes.add(selectedDep);
 			nodes.add(selectedArr);
+			List<IssueInfoVO> issues = service.issueList(nodes);
 			
-			List<IssueInfoVO> list = service.issueList(nodes);
-			entity = new ResponseEntity<List<IssueInfoVO>>(list, responseHeaders, HttpStatus.OK);
+			StationCoorVO depCoor = service.getCoordinateService(selectedDep);
+			StationCoorVO arrCoor = service.getCoordinateService(selectedArr);
+
+			
+			map.put("issues", issues);
+			map.put("depCoor", depCoor);
+			map.put("arrCoor", arrCoor);
+			
+			entity = new ResponseEntity<HashMap<String, Object>>(map, responseHeaders, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,7 +180,7 @@ public class CourseController {
 	
 	
 	
-	@RequestMapping(value="/editCourse{c_id}",method=RequestMethod.GET)	//코스짜기 페이지 열기
+	@RequestMapping(value="/editCourse{c_id}",method=RequestMethod.GET)	//코스수정 페이지 열기
 	public ModelAndView courseModifyGET(@PathVariable int c_id) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/course/editCourse");

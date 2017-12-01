@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import starrail.course.domain.CourseDetailVO;
 import starrail.course.domain.CourseVO;
 import starrail.course.domain.IssueInfoVO;
+import starrail.course.domain.StationCoorVO;
 import starrail.course.persistence.CourseDAO;
 
 @Service
@@ -64,6 +65,12 @@ public class CourseServiceImpl implements CourseService {
 			dao.courseDetailInsert(cds.get(i));
 		}
 		
+	}
+
+	@Override
+	public StationCoorVO getCoordinateService(String stc_name) throws Exception {
+		
+		return dao.getCoordinate(stc_name);
 	}
 
 	

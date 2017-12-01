@@ -16,7 +16,7 @@
 
 
 <!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css?ver=1">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -38,6 +38,7 @@
 
 </head>
 <body>
+<img id="myImage">
 	<div id="courseWrap">
 		<div id ="courseName">
 			코스명:&nbsp;<input type="text" name="c_name">
@@ -130,7 +131,11 @@
 			<!-- 열차시간표 조회/선택 closing -->
 
 			<!-- 지도 표시 -->
-			<div id="mapArea">mapArea</div>
+			<div id="mapArea">
+				<canvas id ="drowMap" width="432" height="669">
+					
+				</canvas>
+			</div>
 			<!-- 지도 표시 closing -->
 
 			<!-- 일정 리스트 -->
