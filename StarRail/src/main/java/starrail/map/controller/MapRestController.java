@@ -5,17 +5,28 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import starrail.course.domain.CourseDetailVO;
+import starrail.map.domain.FoodVO;
+import starrail.map.domain.StationXYVO;
+import starrail.map.domain.StayVO;
+import starrail.map.domain.TourVO;
 import starrail.map.service.MapService;
 
 @RestController
@@ -25,44 +36,78 @@ public class MapRestController {
 	@Inject
 	private MapService service;
 	
-	public static final String clientId = "FeSf9NchU5GMk0kap7Kn";//애플리케이션 클라이언트 아이디값";
-	public static final String clientSecret = "PFQhfHmyH1";//애플리케이션 클라이언트 시크릿값";
+	@RequestMapping(value="/coursedetail/{c_id}", method=RequestMethod.GET)
+	public List<String> stationList(@PathVariable("c_id") String c_id){
+		System.out.println("coursedetail Controller " +  c_id);
+		
+		// 코스 아이디를 통해 해당하는 역들이 온다.
+		List<CourseDetailVO> courseDetailList = service.courseDetailList(c_id);
+		
+		// 하나씩 뽑아보면서 중복되는 역 이름은 빼야한다.
+		List<String> stations = new ArrayList<String>();
+		for(int i=0; i<courseDetailList.size(); i++){
+			
+			if(!stations.contains(courseDetailList.get(i).getCd_start())) // 값을 포함하고 있으면 넣지않는다
+			{
+				stations.add(courseDetailList.get(i).getCd_start());
+			}
+			
+			if(!stations.contains(courseDetailList.get(i).getCd_end())) // 값을 포함하고 있으면 넣지않는다
+			{
+				stations.add(courseDetailList.get(i).getCd_end());
+			}
+		}
+		
+		return stations;
+	}
+		
+	@RequestMapping(value="/stationXY/{station}", method=RequestMethod.GET)
+	public StationXYVO stationXY(@PathVariable("station") String station){
+		System.out.println("stationXY Controller " +  station);
+		
+		StationXYVO stationXY = service.stationXY(station);
+		System.out.println(stationXY.getS_x());
+		return stationXY;
+	}
 	
 	@RequestMapping(value="/tourlist/{station}", method=RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> tourList(@PathVariable("station") String station){
-		System.out.println("누른곳의 역은 " +station);
-	
-		useNaverAPI(station + "역 맛집");
 		
+		ResponseEntity<Map<String,Object>> entity = null;
 		
-		return null;
+		try {
+			Map<String,Object> map = new HashMap<String,Object>();
+			
+			List<FoodVO> foodList = service.foodList(station);
+			List<StayVO> stayList = service.stayList(station);
+			List<TourVO> tourList = service.tourList(station);
+			
+			// 각 지점과 거리를 구하는 로직....?
+			//---------------------------
+			
+			map.put("foodList", foodList);			
+			//map.put("stayList", stayList);			
+			//map.put("tourList", tourList);
+			
+			entity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return entity;
 	}
 	
-	public void useNaverAPI(String station){
-		 try {
-	            String text = URLEncoder.encode(station, "UTF-8");
-	            String apiURL = "https://openapi.naver.com/v1/search/local?query="+ text; // json 결과
-	            URL url = new URL(apiURL);
-	            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	            con.setRequestMethod("GET");
-	            con.setRequestProperty("X-Naver-Client-Id", clientId);
-	            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-	            int responseCode = con.getResponseCode();
-	            BufferedReader br;
-	            if(responseCode==200) { // 정상 호출
-	                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	            } else {  // 에러 발생
-	                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-	            }
-	            String inputLine;
-	            StringBuffer response = new StringBuffer();
-	            while ((inputLine = br.readLine()) != null) {
-	                response.append(inputLine);
-	            }
-	            br.close();
-	            System.out.println(response.toString());
-	        } catch (Exception e) {
-	            System.out.println(e);
-	        } 
+	@RequestMapping(value="/datalab/{station}", method=RequestMethod.GET)
+	public void dataLab(@PathVariable("station") String station){
+		System.out.println("datalabController " + station);
+		
+		try {
+			service.dataLab(station);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

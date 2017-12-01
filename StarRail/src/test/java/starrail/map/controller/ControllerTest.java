@@ -1,7 +1,5 @@
 package starrail.map.controller;
 
-import static org.junit.Assert.*;
-
 import javax.inject.Inject;
 
 import org.junit.Before;
@@ -20,7 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 public class ControllerTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ControllerTest.class);
@@ -37,8 +35,8 @@ public class ControllerTest {
 	}
 	
 	@Test
-	public void test() throws Exception{
-		mockMvc.perform(MockMvcRequestBuilders.get("/doA"));
+	public void testDoA() throws Exception{
+		mockMvc.perform(MockMvcRequestBuilders.get("/map/search"));
 	}
 
 }
