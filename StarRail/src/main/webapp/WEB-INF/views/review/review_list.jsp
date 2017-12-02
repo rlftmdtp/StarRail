@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -27,13 +26,10 @@
 	href="/starrail/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="/starrail/resources/css/main/header_footer.css">
-<style type="text/css">
-.pagination>li>a, .pagination>li>span {
-	border-radius: 50% !important;
-	margin: 0 5px;
-}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="/starrail/resources/css/review/review_list.css">
 </head>
+
 <body>
 	<div class="container">
 		<div class="row">
@@ -127,40 +123,11 @@
 							</c:if>
 						</ul>
 					</div>
-
-					<%-- <div class="clearfix"></div>
-					<ul class="pagination pull-right">
-						<c:if test="${pageMaker.prev}">
-							<li class="disabled"><a
-								href="/starrail/review/review_list${pageMaker.makeQuery(pageMaker.startPage - 1) }"><span
-									class="glyphicon glyphicon-chevron-left"></span> </a></li>
-						</c:if>
-
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="idx">
-							<li class="active"
-								<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-								<a
-								href="/starrail/review/review_list${pageMaker.makeQuery(idx)}">${idx}</a>
-							</li>
-						</c:forEach>
-
-
-						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-							<li><a
-								href="/starrail/review/review_list${pageMaker.makeQuery(pageMaker.endPage +1) }">
-									<span class="glyphicon glyphicon-chevron-right"></span>
-							</a></li>
-						</c:if>
-					</ul>
-
-				</div> --%>
-
 				</div>
 			</div>
 		</div>
 
-
+<!-- 
 		<div class="modal fade" id="edit" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
 			<div class="modal-dialog">
@@ -195,13 +162,13 @@
 						</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
+				/.modal-content
 			</div>
-			<!-- /.modal-dialog -->
-		</div>
+			/.modal-dialog
+		</div> -->
 
 
-
+<!-- 
 		<div class="modal fade" id="delete" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
 			<div class="modal-dialog">
@@ -231,47 +198,32 @@
 						</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
+				/.modal-content
 			</div>
-			<!-- /.modal-dialog -->
+			/.modal-dialog
 		</div>
-
-</div>
+ -->
+ 
+ <!-- 검색어 찾아주기 -->
 		<script>
-			$(document)
-					.ready(
-							function() {
+			$(document).ready(function(){
+				$('#searchBtn').on("click", function(event) {
+					self.location = "/starrail/review/review_list"
+									+ '${pageMaker.makeQuery(1)}'
+									+ "&searchType="
+									+ $("select option:selected").val()
+									+ "&keyword="
+									+ $('#keywordInput').val();
 
-								$('#searchBtn')
-										.on(
-												"click",
-												function(event) {
+					});
 
-													self.location = "/starrail/review/review_list"
-															+ '${pageMaker.makeQuery(1)}'
-															+ "&searchType="
-															+ $(
-																	"select option:selected")
-																	.val()
-															+ "&keyword="
-															+ $('#keywordInput')
-																	.val();
-
-												});
-
-								$('#newBtn')
-										.on(
-												"click",
-												function(evt) {
-
-													self.location = "/starrail/review/review_insert";
-
-												});
-
-							});
+					$('#newBtn').on("click", function(evt) {
+						self.location = "/starrail/review/review_insert";
+					});
+				});
 		</script>
 
-		<script>
+		<!-- <script>
 			$(document).ready(function() {
 				$("#mytable #checkall").click(function() {
 					if ($("#mytable #checkall").is(':checked')) {
@@ -288,6 +240,6 @@
 
 				$("[data-toggle=tooltip]").tooltip();
 			});
-		</script>
+		</script> -->
 </body>
 </html>

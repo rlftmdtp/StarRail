@@ -38,9 +38,6 @@
 							<span class="glyphicon glyphicon-comment"></span> Message
 						</p>
 					</div>
-					<div class="col-md-2 col-xs-2" style="text-align: right;">
-						<a href="#"><span class="glyphicon glyphicon-minus icon_minim"></span></a>
-					</div>
 				</div>
 
 				<!-- Message body	-->
@@ -49,15 +46,15 @@
 					<form action="#">
 						<table>
 							<tr class="form-group">
-								<th class="form-control" id="msg_sendid">보낸사람 : ${messageVO.msg_sendid }</th>
+								<th id="msg_sendid">보낸사람 : ${messageVO.msg_sendid }</th>
 							</tr>
 							<tr class="form-group">
-								<th class="form-control" id="msg_sendid">
+								<th id="msg_sendid">
 									<fmt:formatDate pattern="yyyy-MM-dd (HH:mm)" value="${messageVO.msg_date}"/>
 								</th>
 							</tr>
 							<tr class="form-group">
-								<td colspan="2" class="form-control" id="msg_sendid">
+								<td colspan="2" class="form-control" id="msg_content">
 									${messageVO.msg_content }
 								</td>
 							</tr>
@@ -85,21 +82,7 @@
 </body>
 
 
-<script type="text/javascript">
-	$(document).on('click', '.panel-heading span.icon_minim', function(e) {
-		var $this = $(this);
-		if (!$this.hasClass('panel-collapse')) {
-			$this.parents('.panel').find('.panel-body').slideUp();
-			$this.addClass('panel-collapse');
-			$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
-		} else {
-			$this.parents('.panel').find('.panel-body').slideDown();
-			$this.removeClass('panel-collapse');
-			$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-		}
-	});
-</script>
-
+<!-- 확인 버튼 눌렸을 때 자식창 닫히게 -->
 <script type="text/javascript">
 $("#submit").on('click', function(){
 	$.ajax({

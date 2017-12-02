@@ -1,50 +1,70 @@
 @CHARSET "UTF-8";
 
-body {
-	width: 1080px;
-	height: 980px;
-	margin: 0 auto;
+
+/* 저장버튼 */
+#submit {
+	background-color: #FFA7A7;
 }
 
-.container{
-	margin-left: 30px;
-	width: 60%;
-}
-
-#submit{
-	background-color: #FFA7A7; 
-}
-
-#kategories{
-	background: #E8D9FF;
-}
-
+/* 하나하나의 div */
 .input-group {
-	width: 30%;
-	height: 15%;
+	
+	height: 30px;
+	width : 90%;
+	margin-top : 20px;
 	margin-bottom: 10px;
 }
-.tab-content{
+
+.form-control{
+	height: 40px;
+}
+
+/* tab안에 감싸는 div */
+.tab-content {
 	margin-top: 0px;
 }
-.kategories{
-	padding-top : 30px;
+
+/* 예산경비 등록하는 form */
+.expenseslist{
+	position: pixed;
+	
+}
+
+/* 오늘총사용금액, 남은예산 */
+p{
 	margin-bottom: 0px;
 }
 
+/* 지출내역에 등록하는 form */
+#katelist{
+	position: pixed;
+	float : left;
+	margin-left: 0px;
+	width: 50%;
+	margin-top: 15px;
+	
+}
+
+/* 지출내역에 보여지는 list form */
+#amountlist{
+	float : right;
+	width: 50%;
+}
+
+/* 지출내역 보여주는 list 높이 */
+.hero-widget{
+	width : 350px;
+	height: 300px;
+}
+
+/* 출발일 input태그 background */
 #calanderimg {
 	background-color: #eee;
-	background-position : right;
-	background-size : 5px;
+	background-position: right;
 	border-radius: 5px;
-	height: 10px;
 	border-color: #ccc;
 }
 
-.panel panel-primary {
-	width: 80%;
-	height: 980px;
-}
 
 
 /*Panel tabs*/

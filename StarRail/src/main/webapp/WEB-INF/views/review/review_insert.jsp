@@ -20,16 +20,9 @@
 	href="/starrail/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="/starrail/resources/css/main/header_footer.css">
-<style>
-.fileDrop {
-	width: 80%;
-	height: 100px;
-	border: 1px dotted gray;
-	background-color: lightslategrey;
-	margin: auto;
-}
+<link rel="stylesheet" type="text/css"
+	href="/starrail/resources/css/review/review_insert.css">
 
-</style>
 
 <section class="content">
 	<div class="row">
@@ -176,7 +169,7 @@
 </script>
 
 
-
+<!-- 자동완성 -->
 <script type="text/javascript">
 	
 		$("#hashSearchForm").keyup(function() {

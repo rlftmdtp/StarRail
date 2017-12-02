@@ -36,10 +36,7 @@ small {
 			event.preventDefault();
 		});
 
-		$(".fileDrop")
-				.on(
-						"drop",
-						function(event) {
+		$(".fileDrop").on("drop", function(event) {
 							event.preventDefault();
 
 							var files = event.originalEvent.dataTransfer.files;

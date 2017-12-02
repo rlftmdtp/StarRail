@@ -2,36 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" type="text/css"
+	href="/starrail/resources/css/review/review_detail.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style type="text/css">
-.popup {
-	position: absolute;
-}
 
-.back {
-	background-color: gray;
-	opacity: 0.5;
-	width: 100%;
-	height: 300%;
-	overflow: hidden;
-	z-index: 1101;
-}
-
-.front {
-	z-index: 1110;
-	opacity: 1;
-	boarder: 1px;
-	margin: auto;
-}
-
-.show {
-	position: relative;
-	max-width: 1200px;
-	max-height: 800px;
-	overflow: auto;
-}
-</style>
 
 <div class='popup back' style="display: none;"></div>
 <div id="popup_front" class='popup front' style="display: none;">
@@ -68,8 +43,17 @@
 			<td colspan="3">${reviewVO.r_title }</td>
 		</tr>
 
-		<tr height="30">
-			<td align=center colspan="4">${reviewVO.r_content}</td>
+		<tr height="60">
+			<td align=center colspan="4">
+			${reviewVO.r_content}
+			</td>
+		</tr>
+		<tr class = "hashtag" >
+			<td colspan="4">
+				
+					<input type = "text" class="form-control" value="${hasgTag}">
+				
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
@@ -96,9 +80,9 @@
 
 </section>
 
+<!-- 후기삭제, 수정, 목록 -->
 <script type="text/javascript">
 	function remove() {
-		alert("??");
 		location.href = "/starrail/review/review_remove?r_no=${reviewVO.r_no }";
 	}
 
@@ -114,10 +98,9 @@
 </script>
 
 <script src="/starrail/resources/js/upload.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-
+<!-- 파일 업로드 뷰 -->
 <script id="templateAttach" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
   <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
@@ -169,7 +152,7 @@
 	});
 </script>
 
-
+<!-- 파일 삭제 -->
 <script>
 	$(document).ready(function() {
 

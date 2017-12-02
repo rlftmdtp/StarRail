@@ -1,30 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<%@ page session="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/starrail/resources/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css"
-	href="/starrail/resources/css/main/header_footer.css">
-<link rel='stylesheet prefetch'
-	href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link rel="stylesheet" type="text/css"
 	href="/starrail/resources/css/message/msg_list.css">
+	<!-- Bootstrap core CSS -->
+<link href="/starrail/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Custom fonts for this template -->
+<link rel="stylesheet"
+	href="/starrail/resources/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="/starrail/resources/vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli"
+	rel="stylesheet">
+<!-- Plugin CSS -->
+<link rel="stylesheet"
+	href="/starrail/resources/device-mockups/device-mockups.min.css">
+<link href="/starrail/resources/css/partner/small-business.css"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+
+
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script
+	src="/starrail/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script
+	src="/starrail/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 </head>
 <body>
-
+	<header class="header_color">
+	 <%@include file="../main/nav_page.jsp"%>
+	 <div style="margin-top: 30px;"></div>
+	 </header>
 	<div class="mail-box">
 		<aside class="sm-side">
 		<div class="user-head">
@@ -132,8 +156,12 @@
 		</div>
 		</aside>
 	</div>
+		<div style="margin-top: 0;">
+        	<%@include file="../main/footer.jsp"%>	
+	</div>
 </body>
 
+<!-- 쪽지보내기 버튼 눌렀을 때 자식창열리게 -->
 <script type="text/javascript">
 	function openTest() {
 		var child = window.open(
@@ -143,27 +171,13 @@
 	};
 </script>
 
+<!-- 쪽지창 상세보기 눌렀을 때 자식창 뜨게 -->
 <script type="text/javascript">
 	function detail_click(msg_no) {
 		var child = window.open(
 						'/starrail/message/msg_detail'+msg_no,
 						'childWindow',
 						'resizable=no, width=360, height=380, left=500, top=200, menubar=no, status=no, scrollbars=no');
-	
-		
-/* 			$.ajax({
-				url : '/starrail/message/msg_updatehit',
-				type : 'POST',
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				data : msg_no,
-				dataType : "text",
-				success : function(data) {
-					 history.go(0);
-				}
-		}); */
-		
 	};
 	
 	
@@ -171,7 +185,7 @@
 
 
 
-
+<!-- 체크박스 전체선택, 해제 -->
 <script type="text/javascript">
 	$(".mail-group-checkbox").on("click", function(){
 		var mailCheckBox = document.getElementsByName('check');
@@ -196,6 +210,7 @@
 	})
 </script>
 
+<!-- 쪽지 삭제하고 새로고침 -->
 <script type="text/javascript">
 	function fn_delete() {
 		
@@ -218,6 +233,7 @@
 	}
 </script>
 
+<!-- 리플래쉬 눌렀을 때 새로고침 -->
 <script type="text/javascript">
 	function refresh() {
 		history.go(0);

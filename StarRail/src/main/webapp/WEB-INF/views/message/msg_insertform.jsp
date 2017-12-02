@@ -15,33 +15,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<link rel="stylesheet" type="text/css"
+	href="/starrail/resources/css/message/msg_insertform.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
-	
-</script>
-
-<style type="text/css">
-.red {
-	color: red;
-}
-
-.form-area {
-	background-color: #FAFAFA;
-	padding: 1px 30px 5px;
-	margin: 1px 0px 5px;
-	border: 1px solid GREY;
-}
-
-.form-control {
-	padding: 5px 5px 5px 5px;
-}
-
-.form-group {
-	margin-top: 10px;
-}
-</style>
 
 </head>
 <body>
@@ -83,6 +60,7 @@
 	</div>
 </body>
 
+<!-- 글자수 체크 300자 -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#characterLeft').text('300 characters left');
@@ -103,6 +81,7 @@
 	});
 </script>
 
+<!-- 보내기 버튼 클릭시 보내지고 문 닫히기 -->
 <script type="text/javascript">
 	$("#submitBtn").on('click', function() {
 		$.ajax({

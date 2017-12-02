@@ -38,7 +38,7 @@ public class MessageController {
 
 	@RequestMapping(value = "/msg_insertform", method = RequestMethod.POST)
 	public void msg_insertformPOST(MessageVO message) throws Exception {
-		//보내기 누르면 regist를 통해 보내져
+		//보내기 누르면 쪽지가 상대방에게 보내진다!
 		service.regist(message);
 	}
 
@@ -55,26 +55,14 @@ public class MessageController {
 		return entity;
 	}
 	
-/*	@RequestMapping(value = "/msg_updatehit", method = RequestMethod.POST)
-	public ResponseEntity<Integer> msg_updatehitPOST(@RequestBody int msg_no) throws Exception {
-		//쪽지 자세히보고 확인 누르면 닫히게 하려고 
-		ResponseEntity<Integer> entity = null;
-		service.msg_hit(msg_no);
-		try {
-			entity = new ResponseEntity<Integer>(service.msg_hit(msg_no), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
-*/
 
 	@RequestMapping(value = "/msg_list", method = RequestMethod.GET)
 	public ModelAndView msg_listGET(Model model, MessageVO messageVO) throws Exception {
 		//로그인한 아이디의 받은 쪽지를 가져온다
 		ModelAndView mav = new ModelAndView();
 		messageVO.setM_id("dlwotmd");
+		
+		//msg_list로 아래의 3가지를 가지고 가겠다.
 		mav.setViewName("/message/msg_list");
 		mav.addObject("m_id", "dlwotmd");
 		mav.addObject("updatenum", service.update_hit(messageVO.getM_id()));
@@ -103,7 +91,7 @@ public class MessageController {
 
 	@RequestMapping(value = "/msg_detail", method = RequestMethod.POST)
 	public ResponseEntity<String> MessageDetailPOST() throws Exception {
-		//쪽지 자세히보고 확인 누르면 닫히게 하려고 
+		//쪽지 자세히보고 확인 누르면 자식창 닫히게 하려고 
 		ResponseEntity<String> entity = null;
 		try {
 			entity = new ResponseEntity<String>("", HttpStatus.OK);

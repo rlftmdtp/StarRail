@@ -1,5 +1,7 @@
 package starrail.review.domain;
 
+
+//r_no를 통한 내 해시태그 저장
 public class HashTag {
 	private int h_no;
 	private int r_no;

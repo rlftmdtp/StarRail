@@ -1,5 +1,7 @@
 package starrail.review.domain;
 
+
+//해시태그 전체 테이블
 public class Hash_SearchVO {
 	private int hs_no;
 	private String hs_search;

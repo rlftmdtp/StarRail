@@ -132,6 +132,7 @@
 	</div>
 </body>
 
+<!-- 쪽지보내기 눌렀을 때 자식창 -->
 <script type="text/javascript">
 	function openTest() {
 		var child = window.open(
@@ -143,7 +144,7 @@
 
 
 
-
+<!-- 전체 선택 삭제 -->
 <script type="text/javascript">
 	$(".mail-group-checkbox").on("click", function(){
 		var mailCheckBox = document.getElementsByName('check');
@@ -168,6 +169,7 @@
 	})
 </script>
 
+<!-- 삭제 눌렀을 때 -->
 <script type="text/javascript">
 	function fn_delete() {
 		
@@ -190,6 +192,7 @@
 	}
 </script>
 
+<!-- 새로고침 -->
 <script type="text/javascript">
 	function refresh() {
 		history.go(0);

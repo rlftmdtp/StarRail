@@ -1,6 +1,6 @@
 package starrail.expenses.domain;
 
-
+//예상경비 테이블
 public class ExpensesVO {
 	private int e_no;
 	private int c_id;
@@ -8,7 +8,6 @@ public class ExpensesVO {
 	private String e_title;
 	private String e_sdate;
 	private String e_edate;
-//	@Pattern(regexp="[0-9]*", message="예산은 숫자만 입력가능합니다.")
 	private int e_total;
 	
 	public ExpensesVO(){}

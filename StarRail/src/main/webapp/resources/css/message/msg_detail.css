@@ -4,6 +4,26 @@
 	margin-bottom: 0px;
 	margin-top: 10px;
 }
+td{
+	size: 10px;
+}
+#msg_date{
+	background-color: yellow;
+	margin-left: 100px;
+}
+
+#msg_content{
+	margin-bottom: 15px;
+	margin-top: 15px;
+	width: 350px;;
+	height: 100px;
+}
+#submit{
+	width: 350px;;
+	height: 35px;
+}
+
+
 
 .top-bar {
 	background: #666;

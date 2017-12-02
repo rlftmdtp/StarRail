@@ -62,7 +62,7 @@ public class MessageServiceImpl implements MessageService {
 		return dao.detail(msg_no);
 	}
 
-	@Override
+	@Override	//보낸쪽지함
 	public List<MessageVO> sendemail(String m_id) throws Exception {
 		return dao.sendemail(m_id);
 	}

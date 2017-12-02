@@ -1,20 +1,14 @@
 package starrail.review.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-
 import starrail.review.domain.FileVO;
-import starrail.review.domain.Hash_SearchVO;
 import starrail.review.domain.ReviewVO;
 import starrail.review.domain.ReviewCriteria;
 import starrail.review.domain.ReviewSearchCriteria;
@@ -27,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDao dao;
 
 	@Transactional
-	@Override
+	@Override		//ÈÄ±â °Ô½ÃÆÇ µî·Ï
 	public void register(ReviewVO review) throws Exception {
 
 		int no = dao.selectR_no();
@@ -54,14 +48,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
-	@Override
+	@Override	//ÈÄ±â°Ô½ÃÆÇ »ó¼¼º¸±â
 	public ReviewVO read(Integer r_no) throws Exception {
 		dao.updateR_hit(r_no);
 		return dao.selectReview(r_no);
 	}
 
 	@Transactional
-	@Override
+	@Override	//ÈÄ±â°Ô½ÃÆÇ ¼öÁ¤ÇÏ±â
 	public void modify(ReviewVO review) throws Exception {
 		System.out.println("ì§±ë˜˜  : " + review.toString());
 		dao.updateReview(review);
@@ -79,18 +73,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Transactional
-	@Override
+	@Override	//ÈÄ±â°Ô½ÃÆÇ »èÁ¦
 	public void remove(Integer r_no) throws Exception {
 		dao.deleteAttach(r_no);
 		dao.deleteReview(r_no);
 	}
 
-	@Override
+	@Override	//ÀüÃ¼º¸±â
 	public List<ReviewVO> list() throws Exception {
 		return dao.listReview();
 	}
 
-	@Override
+	@Override	//ÆäÀÌÂ¡Ã³¸®
 	public List<ReviewVO> listCriteria(ReviewCriteria cri) throws Exception {
 		return dao.listCriteria(cri);
 	}
@@ -100,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.countPaging(cri);
 	}
 
-	@Override
+	@Override	//°Ë»ö + ÆäÀÌÂ¡
 	public List<ReviewVO> listSearchCriteria(ReviewSearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
@@ -110,12 +104,12 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.listSearchCount(cri);
 	}
 
-	@Override
+	@Override	//ÆÄÀÏ ºÒ·¯¿À±â
 	public List<String> getAttach(Integer r_no) throws Exception {
 		return dao.getAttach(r_no);
 	}
 
-	@Override
+	@Override	//hash ±Û¹øÈ£ °¡Á®¿À±â
 	public int hash_no() throws Exception {
 		if (dao.hash_no() == null) {
 			return 0;
@@ -123,7 +117,7 @@ public class ReviewServiceImpl implements ReviewService {
 			return dao.hash_no();
 	}
 
-	@Override
+	@Override	//ÇØ½ÃÅÂ±× Ãß°¡
 	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception {
 		dao.tagAdd(h_no, r_no, r_hash);
 	}
@@ -137,9 +131,11 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
-	@Override
+	@Override	//ÇØ½ÃÅÂ±× ÀÚµ¿¿Ï¼º±â´É
 	public void hashtagInsert(ReviewVO review) throws Exception {
+		//Á¤±ÔÇ¥Çö½Ä
 		Pattern p = Pattern.compile("\\#([0-9a-zA-Z°¡-ÆR]*)");
+		//ÈÄ±â°Ô½ÃÆÇ ³»¿ë¿¡ ÀÖ´Â °Íµé °¡Á®¿Í¼­
 		Matcher m = p.matcher(review.getR_content());
 
 		int h_no = 0;
@@ -165,10 +161,16 @@ public class ReviewServiceImpl implements ReviewService {
 		return str;
 	}
 
-	@Override
+	@Override	//ÅÂ±× ÀüÃ¼ °¡Á®¿À±â
 	public List<String> hashSearch() throws Exception {
 
 		return dao.HashSearch();
+	}
+
+	@Override	//°Ô½ÃÆÇ »ó¼¼º¸±â¿¡ ³» ÇØ½ÃÅÂ±× °¡Á®¿À±â
+	public List<String> myHash(int r_no) throws Exception {
+		return dao.myHash(r_no);
+		
 	}
 
 

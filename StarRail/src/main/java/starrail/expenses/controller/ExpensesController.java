@@ -1,5 +1,8 @@
 package starrail.expenses.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import starrail.expenses.domain.ExpensesVO;
+import starrail.expenses.domain.StatementVO;
 import starrail.expenses.service.ExpensesService;
 
 @Controller
@@ -20,35 +24,59 @@ public class ExpensesController {
 	@Inject
 	public ExpensesService service;
 
+	//ê²½ë¹„ê´€ë¦¬í˜ì´ì§€ ë“¤ì–´ê°ˆ ë•Œ
 	@RequestMapping(value = "/railro_expenses", method = RequestMethod.GET)
 	public void railro_expensesGET(ExpensesVO expensesVO) throws Exception {
 	
-		System.out.println("?");
 	}
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void mainGET(ExpensesVO expensesVO) throws Exception {
-		System.out.println("?");
-	}
 
-	// ¿©Çà ÃÊ±âºñ¿ë ¼³Á¤
+	// ì˜ˆìƒê²½ë¹„ ì„¤ì •í•˜ê¸°
 	@RequestMapping(value = "/railro_expenses", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO) throws Exception {
 		
-			System.out.println(expensesVO.getE_title());
 			
 			expensesVO.setM_id("thf147");
-			expensesVO.setC_id(5);
+			expensesVO.setC_id(3);
 			
-			System.out.println("¼­ºñ½º·Î DB¿¡ µî·ÏµÌÀ½");
 			service.expensesRegist(expensesVO);
-			System.out.println("e_no" + expensesVO.getE_no());
+			System.out.println("ì˜ˆìƒ ê²½ë¹„ ì €ì¥ ì™„ë£Œ : " + expensesVO.getE_no());
 		
 		
-		//³ªÁß¿¡ ºÒ·¯¿À±â ÇÏ¸é return °ª¿¡ ³Ö¾îÁÖ¸é µÉµí Áö±İÀº x
+		//ê°€ì§€ê³  ê°ˆ ê°’ì„ ë„£ì–´ì£¼ë©´ë¨
 		return new ResponseEntity<Integer>(expensesVO.getE_no(), HttpStatus.OK);
 	}
+	
+	//ì§€ì¶œë‚´ì—­ ê³„ì‚° ë° ì €ì¥
+	@RequestMapping(value="/railro_amount", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> railro_amountPOST(@RequestBody StatementVO statementVO, ExpensesVO expensesVO) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		
+		statementVO.setEd_plma("+");
+		
+		//ì´ë‚¨ì€ ê¸ˆì•¡ - ì‚¬ìš©ê¸ˆì•¡ ê³„ì‚°í•œ ê²ƒ
+		int totalMoney =service.totalMoney(statementVO.getE_no(), statementVO.getEd_amount());
+	
+		//ê³„ì‚°í•˜ê³  ë‚œ í›„ ìµœì¢…ê°’ ìˆ˜ì • ë° ì§€ì¶œë‚´ì—­ ì €ì¥
+		service.amountRegist(statementVO, service.totalMoney(statementVO.getE_no(), statementVO.getEd_amount())); //
+		
+		//ì˜¤ëŠ˜ ì“´ ì´ ê¸ˆì•¡
+		int todayTotal = service.todayTotal(statementVO.getE_no(), statementVO.getEd_date());
+		
+		//mapì— ë‹´ì•„ jspë¡œ ê°€ì ¸ê°ˆê²ƒ
+				map.put("ed_date", statementVO.getEd_date());
+				map.put("ed_kategorie", statementVO.getEd_kategorie());
+				map.put("ed_katename", statementVO.getEd_katename());
+				map.put("ed_amount", statementVO.getEd_amount());
+				map.put("e_no", statementVO.getE_no());
+				map.put("e_total", totalMoney);
+				map.put("todayTotal", todayTotal);
+		
+		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK);
+	}
+	
 
 
 }

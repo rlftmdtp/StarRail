@@ -1,7 +1,6 @@
 package starrail.message.domain;
 
 import java.io.Serializable;
-import java.security.Timestamp;
 import java.util.Date;
 
 public class MessageVO implements Serializable{

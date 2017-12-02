@@ -5,7 +5,6 @@ public class FileVO {
 	private int r_no;
 	
 
-	
 	public String getRf_fullname() {
 		return rf_fullname;
 	}

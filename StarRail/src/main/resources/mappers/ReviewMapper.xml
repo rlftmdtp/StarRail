@@ -8,6 +8,7 @@
 		select max(r_no) from review
 	</select>
 
+	<!-- 후기게시물 등록  -->
 	<insert id="insertReview" parameterType="ReviewVO">
 		insert into review
 		values(
@@ -16,6 +17,7 @@
 		)
 	</insert>
 
+	<!-- 후기게시물 전체 보기  -->
 	<select id="listReview" resultType="ReviewVO">
 		select r_no, r_title, r_name,
 		r_date, r_hit
@@ -23,6 +25,7 @@
 		order by r_no desc, r_date desc
 	</select>
 
+	<!-- 페이징처리 -->
 	<select id="listPage" resultType="ReviewVO">
 	<![CDATA[ 
 		select r_no, r_title, r_name, r_date, r_hit 
@@ -41,6 +44,7 @@
 		]]>
 	</select>
 
+	<!-- 검색 -->
 	<select id="listSearch" resultType="ReviewVO">
 	<![CDATA[ 
 		select r_no, r_title, r_name, r_date, r_hit
@@ -88,7 +92,8 @@
 			</if>
 		</if>
 	</sql>
-
+	
+	<!-- 게시물 조회수 -->
 	<update id="updateR_hit">
 		update review set r_hit = r_hit + 1
 		where r_no= #{r_no}
@@ -103,6 +108,7 @@
 		]]>
 	</select>
 
+	<!-- 총게시물 갯수 -->
 	<select id="countPaging" resultType="int">
 	<![CDATA[ 
 		select count(r_no)
@@ -111,18 +117,21 @@
 		]]>
 	</select>
 
+	<!-- 게시물 상세보기 -->
 	<select id="detailReview" resultType="ReviewVO">
 		select * from review where
 		r_no = #{r_no}
 	</select>
 
+	<!-- 게시물 수정하기 -->
 	<update id="updateReview" parameterType="ReviewVO">
 		update Review set
 		r_title = #{r_title}, r_name = #{r_name}, r_content = #{r_content},
 		r_date = sysdate
 		where r_no = #{r_no}
 	</update>
-
+	
+	<!-- 게시물 삭제 -->
 	<delete id="deleteReview">
 		delete from Review where r_no = #{r_no}
 	</delete>
@@ -160,19 +169,14 @@
 	</insert>
 
 	<!-- 해시태그 -->
-	<!-- <insert id="addSearch"> insert into hash_search values( #{hs_no}, #{r_no}, 
-		#{hs_search}, 1 ) </insert> -->
-
-	<!-- <update id="searchCount"> update hash_search set hs_count = #{hs_count} 
-		+ 1 where hs_search = #{hs_search}; </update> -->
-
+	<!-- 내 글에 해시태그 추가하기 -->
 	<insert id="addHash" parameterType="hashMap">
 		insert into hash values(
 		#{h_no}, #{r_no}, #{r_hash}
 		)
 	</insert>
 
-
+	<!-- 전체 해시태그 가져가기 -->
 	<select id="tagGet" resultType="String">
 		select hs_search
 		from hash_search
@@ -181,6 +185,13 @@
 
 	<select id="selectH_no" resultType="Integer">
 		select max(h_no) from hash
+	</select>
+	
+	<!--게시판 상세보기에 해시태그 가져오기 -->
+	<select id="myhash" resultType="String">
+		select r_hash
+		from hash
+		where r_no = #{r_no}
 	</select>
 </mapper>
 

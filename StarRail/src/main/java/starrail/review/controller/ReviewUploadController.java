@@ -32,11 +32,13 @@ public class ReviewUploadController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
+	//파일 업로드
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
 	public void uploadFormGET() {
 
 	}
 
+	//파일업로드 게시할때
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
 	public String uploadFormPOST(MultipartFile file, Model model) throws Exception {
 

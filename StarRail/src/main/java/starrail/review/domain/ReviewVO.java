@@ -1,10 +1,10 @@
 package starrail.review.domain;
 
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
+//후기 게시판 테이블
 public class ReviewVO implements Serializable{
 	private int r_no;
 	private String m_id;
