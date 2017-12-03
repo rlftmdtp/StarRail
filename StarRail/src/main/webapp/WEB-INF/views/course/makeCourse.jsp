@@ -16,7 +16,7 @@
 
 
 <!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css?ver=1">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -41,7 +41,7 @@
 <img id="myImage">
 	<div id="courseWrap">
 		<div id ="courseName">
-			코스명:&nbsp;<input type="text" name="c_name">
+			코스명:&nbsp;<input type="text" name="c_name" size="30">
 		</div>
 
 		<!-- 여행 기간 설정 -->

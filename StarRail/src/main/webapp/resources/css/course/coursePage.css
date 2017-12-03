@@ -2,7 +2,7 @@
  
  
 body{margin:0; padding:0;}
-#myImage{display:none;}
+/* #myImage{display:none;} */
 h4{
 	font-weight: bolder;
 	font-size:12pt;

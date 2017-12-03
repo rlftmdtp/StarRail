@@ -3,8 +3,9 @@ $(function() {
 	//캔버스 설정
 	var canvas = document.getElementById("drowMap");
 	var ctx = canvas.getContext("2d");
-	var can2 = document.createElement("canvas");
+/*	var can2 = document.createElement("canvas");
 	var ctx2 = can2.getContext("2d");
+*/
 	
 	
 	var canvas_bg = new Image();
@@ -13,6 +14,10 @@ $(function() {
 		ctx.drawImage(canvas_bg,0,0);
 	}	//배경이미지 설정
 
+	
+	
+	
+	
 /*	ctx2.drawImage(canvas,0,0);	//가상 캔버스로 path 이미지화해서 옮기기
 	ctx.clearRect(0,0,432,669);	//기존 캔버스 클리어
 	ctx.drawImage(canvas_bg,0,0);	//기존 캔버스에 배경 다시 그리기
@@ -28,8 +33,11 @@ $(function() {
 		var lineCnt = 0;
 		var check=false;
 		var setStartDay;
-		$('#sandbox-container .input-group.date').datepicker({
-		});
+		
+		
+		
+		
+		
 		// 달력 UI (날짜 선택)
 		$('#datepicker').datepicker({
 			onSelect : function(dateText) {
@@ -94,9 +102,12 @@ $(function() {
 			interval.toString();
 		
 			for(var i=0; i<=parseInt(interval); i++){
-				
+				var mon = (startDay.getMonth()+1);
+				if(mon <10){month="0"+month;}
+				var da = startDay.getDate();
+				if(da <10){da = "0"+da;}
 				$('#beds-baths-group').append('<label class="nthBtnLabel btn btn-default beds-baths beds-baths-'+(i+1)+'">'
-						+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (startDay.getFullYear() + '/'+ (startDay.getMonth()+1) + '/' + startDay.getDate()) + '">'
+						+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (startDay.getFullYear() + '/'+ mon + '/' + da) + '">'
 						+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
 						+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 				startDay.setDate(startDay.getDate() + 1);
@@ -186,7 +197,12 @@ $(function() {
 			selectedDate = selectedDate.replace(/\//g,"");
 			
 			var current = new Date();
-			var currDate = current.getFullYear() + ''+(current.getMonth() + 1) + ''+current.getDate();
+			var MM = current.getMonth()+1;
+			if((current.getMonth()+1) < 10 ){var MM = '0'+ MM;}
+			var dd = current.getDate();
+			if( current.getDate() < 10 ){var dd='0'+dd;}
+			
+			var currDate = current.getFullYear() + ''+MM + ''+dd;
 			
 			var startTime = 0;
 			
@@ -258,7 +274,11 @@ $(function() {
 			$('#allSavingBtn .saveBtn').removeAttr('disabled');	//전체 저장 버튼 활성화
 			
 			var selectedDate = $('input:radio[name=days]:checked').val();	//선택한 날짜(n일차)
-			selectedDate = selectedDate.replace(/\//g,"-");	//yyyy-MM-dd 형태로
+			var tempArr = selectedDate.split("/");
+			if(tempArr[1].length<2){tempArr[1]="0"+tempArr[1];}
+			if(tempArr[2].length<2){tempArr[2]="0"+tempArr[2];}
+			selectedDate = tempArr[0]+"-"+tempArr[1]+"-"+tempArr[2];	//yyyy-MM-dd 형태로
+			
 			var selectedDep =$('input:radio[name="depStation"]:checked').parent().find('span').text();	//선택한 출발역
 			var selectedArr = $('input:radio[name="arrStation"]:checked').parent().find('span').text();	//선택한 도착역
 			var selectedDepTime = $('input:radio[name="selectedTrain"]:checked').parent().prev().text();	//선택한 열차의 출발시간
@@ -305,17 +325,17 @@ $(function() {
 					var nth=$('input:radio[name=days]:checked').attr('id');
 					if(nth=='option1'){
 						ctx.strokeStyle="#F85555";
-					} else if(nth='option2'){
+					} else if(nth=='option2'){
 						ctx.strokeStyle="#12A9F5";
-					}else if(nth='option3'){
+					}else if(nth=='option3'){
 						ctx.strokeStyle="#FCA736";
-					}else if(nth='option4'){
+					}else if(nth=='option4'){
 						ctx.strokeStyle="#8181FC";
-					}else if(nth='option5'){
+					}else if(nth=='option5'){
 						ctx.strokeStyle="#E6ED1E";
-					}else if(nth='option6'){
+					}else if(nth=='option6'){
 						ctx.strokeStyle="#DA44E5";
-					}else if(nth='option7'){
+					}else if(nth=='option7'){
 						ctx.strokeStyle="#5DF478";
 					}
 					
@@ -375,17 +395,65 @@ $(function() {
 				
 			} else {
 				$(this).parent().remove();
+				
 			}
-
-			//미리 빈 배열을 하나 선언하고, idx=0 해놓음. 이건 loop 밖에서 해놔야 함
-			//이 영역의 ul 갯수를 샌다 --> 그 수만큼 loop
-			//loop 안에서 새 배열 선언해서 li 받고
-			//미리 선언한 배열[idx++]=li배열값 <----중첩 loop
+		
+			$('#couresDetailView li').each(function(){
+				
+				
+				
+				var dep_name = $(this).attr('sDep');
+				var dep_x = $(this).attr('dep_x');
+				var dep_y = $(this).attr('dep_y');
+				
+				var arr_name = $(this).attr('sArr');
+				var arr_x = $(this).attr('arr_x');
+				var arr_y = $(this).attr('arr_y');
+				
+				
+				ctx.beginPath();
+				ctx.moveTo(dep_x, dep_y);
+				ctx.lineTo(arr_x, arr_y);
+				ctx.lineWidth=2;
+				
+				var dateCheck = $(this).parent().attr('name').replace(/-/g,"/");
 			
-			//완성된 큰 배열 크기만큼 다시 loop
-			//li 속성값으로부터 출발역, 도착역, 출발역좌표, 도착역좌표 get ----> 점 찍고 선 긋고
-			//this.parent = ul의 name값을 get
-			//(.nthBtnLabel radio[value=ul의 name값]).attr('id')==option1, option2 ... << 조건문 ------> 선에 색칠하기
+				if(dateCheck==$('input:radio[id="option1"]').val()){
+					ctx.strokeStyle="#F85555";
+				} else if(dateCheck==$('input:radio[id="option2"]').val()){
+					ctx.strokeStyle="#12A9F5";
+				}else if(dateCheck==$('input:radio[id="option3"]').val()){
+					ctx.strokeStyle="#FCA736";
+				}else if(dateCheck==$('input:radio[id="option4"]').val()){
+					ctx.strokeStyle="#8181FC";
+				}else if(dateCheck==$('input:radio[id="option5"]').val()){
+					ctx.strokeStyle="#E6ED1E";
+				}else if(dateCheck==$('input:radio[id="option6"]').val()){
+					ctx.strokeStyle="#DA44E5";
+				}else if(dateCheck==$('input:radio[id="option7"]').val()){
+					ctx.strokeStyle="#5DF478";
+				}
+				
+				
+				
+				ctx.closePath();
+				ctx.stroke();
+				
+				ctx.beginPath();	//그리기 시작
+				ctx.font="15pt 고딕";
+				
+				ctx.fillText(dep_name, dep_x, dep_y);	//출발역 이름 출력
+				ctx.arc(dep_x, dep_y, 3, 0, (Math.PI/180)*360, false);	//출발역 점 찍기
+				ctx.fill();	//점 안쪽 색칠
+				
+				ctx.fillText(arr_name, arr_x, arr_y);	//도착역 이름 출력
+				ctx.arc(arr_x, arr_y, 3, 0, (Math.PI/180)*360, false);	//도착역 점 찍기
+				ctx.fill();	//점 안쪽 색칠
+				ctx.closePath();
+				
+				
+				
+			});
 			
 			//발권역 정보 삭제
 			if($('li[sDep="'+dep+'"]').length<=0 && $('li[sArr="'+dep+'"]').length<=0 ){
@@ -403,8 +471,14 @@ $(function() {
 		$('#allSavingBtn .saveBtn').click(function(){
 			var m_id = 'yuryna';	//추후 세션에서 받아오기로..
 			var i_name = $('input:radio[name="selectedIssue"]:checked').val();
-			var c_name = '코스이름';	//추후 input text로 수정
+			var c_name = $('#courseName input:text[name="c_name"]').val();	//추후 input text로 수정
 			
+		
+			var myImage = document.getElementById('myImage');
+			myImage.src = canvas.toDataURL("image/png");
+			
+			var c_filename = canvas.toDataURL("image/png");
+			console.log(c_filename);
 			var details = $('span[class="coureDetail"]').map(function() {
 				return $(this).text();
 			}).get();
@@ -417,6 +491,7 @@ $(function() {
 					'm_id' : m_id,
 					'i_name' : i_name,
 					'c_name' : c_name,
+					'c_filename' : c_filename,
 					'details' : JSON.stringify(details)
 				},
 				contenttype : "application/json; charset=utf-8",

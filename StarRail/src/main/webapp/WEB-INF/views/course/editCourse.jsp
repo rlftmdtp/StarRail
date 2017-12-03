@@ -18,7 +18,7 @@
 
 
 <!-- 코스 수정 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css?ver=1">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -27,7 +27,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 코스 js -->
-<script src="/starrail/resources/js/course/editCourse.js" type="text/javascript"></script>
+<script src="/starrail/resources/js/course/editCourse.js?ver=1" type="text/javascript"></script>
 
 <!-- n일차 버튼 css -->
 <link rel="stylesheet" href="/starrail/resources/css/course/nthBtn.css">
@@ -52,9 +52,10 @@
 	<span id="cd_etime">${detail.cd_etime}</span>
 </c:forEach>
 </div>
+<img id="myImage">
 	<div id="courseWrap">
 		<div id ="courseName">
-			코스명:&nbsp;<input type="text" name="c_name" value="${course.c_name}">
+			코스명:&nbsp;<input type="text" name="c_name" value="${course.c_name}" size="30">
 		</div>
 		<!-- 여행 기간 설정 -->
 
@@ -143,7 +144,11 @@
 			<!-- 열차시간표 조회/선택 closing -->
 
 			<!-- 지도 표시 -->
-			<div id="mapArea">mapArea</div>
+			<div id="mapArea">
+				<canvas id ="drowMap" width="432" height="669">
+					
+				</canvas>
+			</div>
 			<!-- 지도 표시 closing -->
 
 			<!-- 일정 리스트 -->

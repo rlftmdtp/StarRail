@@ -2,14 +2,12 @@
  
  
 body{margin:0; padding:0;}
-
+ #myImage{display:none;} 
+ #getdetaildata{display:none;}
 h4{
 	font-weight: bolder;
 	font-size:12pt;
 	line-height: inherit;
-}
-#getdetaildata{
-	display: none;
 }
 #courseWrap{
 	margin:0 auto;
@@ -199,6 +197,10 @@ h4{
 	
 	background: #FFFFCC;
 }
+
+/* #drowMap{
+	background-image: url("/starrail/resources/images/course/map.png");
+} */
 
 #couresDetailView{
 	float:left;

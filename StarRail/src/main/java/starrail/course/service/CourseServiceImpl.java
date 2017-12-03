@@ -1,6 +1,8 @@
 package starrail.course.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,7 +53,17 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<CourseDetailVO> courseDetailList(Integer c_id) throws Exception {
-		return dao.courseDetailList(c_id);
+		List<CourseDetailVO> list = dao.courseDetailList(c_id);
+		Collections.sort(list, new Comparator<CourseDetailVO>(){
+
+			@Override
+			public int compare(CourseDetailVO o1, CourseDetailVO o2) {
+				String cd_stime1=o1.getCd_stime();
+				String cd_stime2=o2.getCd_stime();
+				return cd_stime1.compareTo(cd_stime2);
+			}
+		});
+		return list;
 	}
 
 	@Override

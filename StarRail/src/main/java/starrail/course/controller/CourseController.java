@@ -142,6 +142,7 @@ public class CourseController {
 	public ResponseEntity<String> insertCoursePOST(@RequestParam(value="m_id", required=false)String m_id,
 													@RequestParam(value="i_name", required=false)String i_name,
 													@RequestParam(value="c_name", required=false)String c_name,
+													@RequestParam(value="c_filename", required=false)String c_filename,
 													@RequestParam(value="details", required=false)String details) throws Exception{
 		ResponseEntity<String> entity = null;
 		
@@ -151,7 +152,7 @@ public class CourseController {
 			c.setM_id(m_id);
 			c.setC_name(c_name);
 			c.setI_name(i_name);
-			c.setC_filename("test");	//추후 파일 업로드 구현 후에 수정
+			c.setC_filename(c_filename);	//추후 파일 업로드 구현 후에 수정
 			
 			List<String> detail_list = JSONArray.fromObject(details);
 			
@@ -197,7 +198,8 @@ public class CourseController {
 	@ResponseBody
 	public ResponseEntity<String> updateCoursePOST(@RequestParam(value="c_id", required=false)Integer c_id,
 													@RequestParam(value="i_name", required=false)String i_name,
-													@RequestParam(value="c_name", required=false)String c_name,
+													@RequestParam(value="c_name", required=false)String c_name, 
+													@RequestParam(value="c_filename", required=false)String c_filename,
 													@RequestParam(value="details", required=false)String details) throws Exception{
 		ResponseEntity<String> entity = null;
 		
@@ -206,7 +208,7 @@ public class CourseController {
 			c.setC_id(c_id);
 			c.setC_name(c_name);
 			c.setI_name(i_name);
-			c.setC_filename("test2");	//추후 파일 업로드 구현 후에 수정
+			c.setC_filename(c_filename);	//추후 파일 업로드 구현 후에 수정
 			
 			List<String> detail_list = JSONArray.fromObject(details);
 			
