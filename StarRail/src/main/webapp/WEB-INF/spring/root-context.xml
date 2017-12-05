@@ -20,7 +20,10 @@
 	<context:component-scan base-package="starrail.partner.persistence"/>
 	<!-- 파트너 service / persistence 설정 end -->
 	
-	
+	<!-- 추천 service / persistence 설정 start-->
+	<context:component-scan base-package="starrail.recommend.service"/>
+	<context:component-scan base-package="starrail.recommend.persistence"/>
+	<!-- 추천 service / persistence 설정 end -->
 	
 	
 	<!-- DB 설정 -->

@@ -38,7 +38,6 @@ public class PartnerController {
 	@RequestMapping(value = "/partner", method = RequestMethod.GET)
 	public void partnerGET(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		System.out.println("ddddfdfdf");
 		UserVO uservo = (UserVO) session.getAttribute("login");
 		System.out.println(uservo);
 

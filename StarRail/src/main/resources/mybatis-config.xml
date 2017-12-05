@@ -12,6 +12,7 @@
 		<package name="starrail.partner.domain"/>
 		<package name="starrail.sharetext.domain"/>
 		<package name="starrail.course.domain"/>
+		<package name="starrail.recommend.domain"/>
 	</typeAliases>
 	
 	
