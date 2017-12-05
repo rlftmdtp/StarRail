@@ -10,33 +10,23 @@
 
 <meta name="viewport" content="width=divice-width" , initial-scale="1">
 <title>Edit Course</title>
-<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!-- bootstrap에서 받아온 js파일+css파일 사용 하기 위함 -->
-<script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/starrail/resources/bootstrap/css/bootstrap.css">
+
 
 
 <!-- 코스 수정 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css?ver=1">
 
-<!-- 달력 ui css -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-
-<!-- 달력 js -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<!-- 코스 js -->
-<script src="/starrail/resources/js/course/editCourse.js?ver=1" type="text/javascript"></script>
 
 <!-- n일차 버튼 css -->
-<link rel="stylesheet" href="/starrail/resources/css/course/nthBtn.css">
-
-<!-- n일차 js -->
-<script src="/starrail/resources/js/course/nthBtn.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/starrail/resources/css/course/nthBtn.css?ver=1">
 
 <!-- 역 선택 버튼 css -->
-<link rel="stylesheet" href="/starrail/resources/css/course/stationBtn.css">
+<link rel="stylesheet" href="/starrail/resources/css/course/stationBtn.css?ver=1">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
+<link rel="stylesheet" href="/starrail/resources/css/course/datepicker-style.css">
 
 </head>
 <body>
@@ -52,6 +42,8 @@
 	<span id="cd_etime">${detail.cd_etime}</span>
 </c:forEach>
 </div>
+<%@include file="../main/nav_page.jsp"%>
+	<div style="margin-top: 60px;"></div>  
 <img id="myImage">
 	<div id="courseWrap">
 		<div id ="courseName">
@@ -60,7 +52,14 @@
 		<!-- 여행 기간 설정 -->
 
 		<div id="periodSetting">
-			출발일 선택&nbsp;<input type="text" id="datepicker" size="10">&nbsp;&nbsp;
+			<div class="labeling">여행 시작일 선택</div>
+			<div class="input-daterange input-group" id="datepicker">
+		     <div class="form-item">
+		     <span class="fontawesome-calendar"></span>
+		      <input class="input-sm form-control" type="text" id="start-date" name="start" placeholder=""/>
+		    </div>
+    
+ 			 </div>
 			<input type="radio" class="tripLong" name="tripLong" value="5" disabled>5일권
 			<input type="radio" class="tripLong" name="tripLong" value="7" disabled>7일권<br />
 
@@ -108,6 +107,7 @@
 			<div id="trainSetting">
 
 				<!-- 출발 희망 시간 선택 -->
+				<div class="hopingCover">
 				<div class="hopingTime">
 					<h4>출발 시간</h4>
 					<select class="departTime" name="departTime">
@@ -133,12 +133,13 @@
 					</table>
 				</div>
 				<!-- 열차 시간표 closing -->
-
+				</div>
 				<!-- 일정추가버튼영역 -->
 				<div class="addingBtn">
 					<button type="button" class="btn btn-outline-success addBtn" disabled>일정 추가</button>
 				</div>
 				<!-- 일정추가버튼영역 closing -->
+				
 
 			</div>
 			<!-- 열차시간표 조회/선택 closing -->
@@ -192,5 +193,23 @@
 
 	</div>
 	<!-- courseWrap closing -->
+	<div style="margin-top: 30px;">
+    	<%@include file="../main/footer.jsp"%>   
+    </div>   
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js'></script>
+   <!--  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js'></script> -->
+    
+<!-- JS File -->
+   <!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+	
+	<!-- 코스 js -->
+	<script src="/starrail/resources/js/course/editCourse.js" type="text/javascript"></script>
+
+	<!-- n일차 js -->
+	<script src="/starrail/resources/js/course/nthBtn.js" type="text/javascript"></script>
+	
+	
+	
 </body>
 </html>

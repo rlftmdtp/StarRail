@@ -1,4 +1,5 @@
 $(function() {
+	$('#allSavingBtn .saveBtn').prop('disabled',false);	//수정완료 버튼 활성화
 	//기존 데이터 받기
 	var c_id=$('#c_id').val();
 	var	i_name=$('#i_name').val();
@@ -26,7 +27,7 @@ $(function() {
 	
 	
 	//기존 데이터 뷰에 뿌려주기
-	$('#datepicker').val(cd_stime[0].substring(0,4)+"-"+cd_stime[0].substring(4,6)+"-"+cd_stime[0].substring(6,8));	//여행출발일
+	$('#start-date').val(cd_stime[0].substring(0,4)+"-"+cd_stime[0].substring(4,6)+"-"+cd_stime[0].substring(6,8));	//여행출발일
 	$('input[name="tripLong"]').removeAttr('disabled');	//5,7일권 선택버튼 활성화
 	
 	for(var i=0; i<cd_id.length; i++){
@@ -92,52 +93,87 @@ $(function() {
 	}
 	
 	
+	//코스디테일 수에 따라 n일차 버튼 생성
+	
+	var savedStartDay = new Date();
+	
+	var savedStrArr = $('#start-date').val().split('-');
+	
+	savedStartDay.setMonth(Number(savedStrArr[1])-1);
+	savedStartDay.setFullYear(savedStrArr[0]);
+	savedStartDay.setDate(savedStrArr[2]);
+	
+	var savedEndDay = new Date();
+	
+	savedEndDay.setMonth(Number(savedStrArr[1])-1);
+	savedEndDay.setFullYear(savedStrArr[0]);
+	savedEndDay.setDate(savedStartDay.getDate()+cd_id.length -1);
+	
+	
+	var old_interval = savedEndDay.getTime() - savedStartDay.getTime();
+	old_interval = Math.floor(old_interval / (1000 *  60 * 60 * 24));
+	old_interval.toString();
+	$('.tripLong[value="'+cd_id.length+'"]').prop('checked',true);
+	
+	for(var i=0; i<=parseInt(old_interval); i++){
+		var savedMon = (savedStartDay.getMonth()+1);
+		if(savedMon <10){savedMon="0"+savedMon;}
+		var savedDa = savedStartDay.getDate();
+		if(savedDa <10){savedDa = "0"+savedDa;}
+		$('#beds-baths-group').append('<label class="nthBtnLabel btn btn-default beds-baths beds-baths-'+(i+1)+'">'
+				+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (savedStartDay.getFullYear() + '/'+ savedMon + '/' + savedDa) + '">'
+				+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
+				+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
+		savedStartDay.setDate(savedStartDay.getDate() + 1);
+	}
+	
+	
 	//캔버스 설정
 	var canvas = document.getElementById("drowMap");
 	var ctx = canvas.getContext("2d");
-	var can2 = document.createElement("canvas");
-	var ctx2 = can2.getContext("2d");
-	
 	
 	var canvas_bg = new Image();
 	canvas_bg.src="/starrail/resources/images/course/map.png";
-	canvas_bg.onload=function(){
-		ctx.drawImage(canvas_bg,0,0);
+	
+
+	var savedCanvasBg = new Image();
+	savedCanvasBg.src=c_filename;
+	
+	savedCanvasBg.onload=function(){
+		ctx.drawImage(savedCanvasBg,0,0);
 	}	//배경이미지 설정
+
 	
 	
 		var setStartDay;
 		
-		// 달력 UI (날짜 선택)
+		// 달력: 데이트피커
 		$('#datepicker').datepicker({
-			onSelect : function(dateText) {
+			
+			autoclose: true,
+			format: "yyyy-mm-dd",
+			maxViewMode: 0,
+			altField: ".input-sm",
+			//startDate: "now"
 				
-				
-				// 삭제
-				$('#beds-baths-group').empty();	//n일차 버튼 비우기
-				$('.departures div.btn-group').empty();	//출발역 목록 비우기
-				$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
-				$('.trainListTable tbody').empty();	//열차 시간표 비우기
-				$('.departTime').empty();	//출발희망시간 비우기
-				$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
-				$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
-				$('#allSavingBtn .saveBtn').prop('disabled',true);	//전체 저장 버튼 비활성화
-				$('#couresDetailView .uls').empty();	//일정 세부 비우기
-				$('.issuelist tbody').empty();	//발권역 혜택 비우기
-				
-
-				setStartDay = new Date(dateText);
-				$('input[name="tripLong"]').removeAttr('disabled');
-				$('input[name="tripLong"]').prop('checked', false);
-				
-
-			},
-			//minDate : 0, // 이전 날짜 선택불가
-			showOn : "button",
-			buttonImage : "/starrail/resources/images/course/littlecalendar.PNG",
-			buttonImageOnly : true,
-			showAnim: "slideDown",
-			dateFormat: 'yy-mm-dd'
+		}).on('change', function() {
+			$('#beds-baths-group').empty();	//n일차 버튼 비우기
+			$('.departures div.btn-group').empty();	//출발역 목록 비우기
+			$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			$('#allSavingBtn .saveBtn').prop('disabled',true);	//전체 저장 버튼 비활성화
+			$('#couresDetailView .uls').empty();	//일정 세부 비우기
+			$('.issuelist tbody').empty();	//발권역 혜택 비우기
+			ctx.clearRect(0,0,canvas.width, canvas.height);
+			ctx.drawImage(canvas_bg,0,0);	//캔버스 초기화
+			
+			$('input[name="tripLong"]').removeAttr('disabled');
+			$('input[name="tripLong"]').prop('checked', false);
+			
+		 
 		});
 
 		// 5일권 7일권 선택
@@ -154,7 +190,7 @@ $(function() {
 			
 			var startDay = new Date();
 			
-			var strArr = $('#datepicker').val().split('-');
+			var strArr = $('#start-date').val().split('-');
 			
 			startDay.setMonth(Number(strArr[1])-1);
 			startDay.setFullYear(strArr[0]);
@@ -172,9 +208,12 @@ $(function() {
 			interval.toString();
 		
 			for(var i=0; i<=parseInt(interval); i++){
-				
+				var mon = (startDay.getMonth()+1);
+				if(mon <10){month="0"+month;}
+				var da = startDay.getDate();
+				if(da <10){da = "0"+da;}
 				$('#beds-baths-group').append('<label class="nthBtnLabel btn btn-default beds-baths beds-baths-'+(i+1)+'">'
-						+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (startDay.getFullYear() + '/'+ (startDay.getMonth()+1) + '/' + startDay.getDate()) + '">'
+						+'<input type="radio" name="days" id="option'+(i+1)+'" autocomplete="off" value="' + (startDay.getFullYear() + '/'+ mon + '/' + da) + '">'
 						+'<span class="icon icon-blank-space"></span><span class="beds-baths-word">'
 						+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 				startDay.setDate(startDay.getDate() + 1);
@@ -264,7 +303,12 @@ $(function() {
 			selectedDate = selectedDate.replace(/\//g,"");
 			
 			var current = new Date();
-			var currDate = current.getFullYear() + ''+(current.getMonth() + 1) + ''+current.getDate();
+			var MM = current.getMonth()+1;
+			if((current.getMonth()+1) < 10 ){var MM = '0'+ MM;}
+			var dd = current.getDate();
+			if( current.getDate() < 10 ){var dd='0'+dd;}
+			
+			var currDate = current.getFullYear() + ''+MM + ''+dd;
 			
 			var startTime = 0;
 			
@@ -336,7 +380,11 @@ $(function() {
 			$('#allSavingBtn .saveBtn').removeAttr('disabled');	//전체 저장 버튼 활성화
 			
 			var selectedDate = $('input:radio[name=days]:checked').val();	//선택한 날짜(n일차)
-			selectedDate = selectedDate.replace(/\//g,"-");	//yyyy-MM-dd 형태로
+			var tempArr = selectedDate.split("/");
+			if(tempArr[1].length<2){tempArr[1]="0"+tempArr[1];}
+			if(tempArr[2].length<2){tempArr[2]="0"+tempArr[2];}
+			selectedDate = tempArr[0]+"-"+tempArr[1]+"-"+tempArr[2];	//yyyy-MM-dd 형태로
+			
 			var selectedDep =$('input:radio[name="depStation"]:checked').parent().find('span').text();	//선택한 출발역
 			var selectedArr = $('input:radio[name="arrStation"]:checked').parent().find('span').text();	//선택한 도착역
 			var selectedDepTime = $('input:radio[name="selectedTrain"]:checked').parent().prev().text();	//선택한 열차의 출발시간
@@ -455,15 +503,10 @@ $(function() {
 				$(this).parent().remove();
 				
 			}
-			
-			var startDay = new Date();
-			var strArr = $('#datepicker').val().split('-');
-			
-			startDay.setMonth(Number(strArr[1])-1);
-			startDay.setFullYear(strArr[0]);
-			startDay.setDate(strArr[2]);
-			
+		
 			$('#couresDetailView li').each(function(){
+				
+				
 				
 				var dep_name = $(this).attr('sDep');
 				var dep_x = $(this).attr('dep_x');
@@ -474,37 +517,26 @@ $(function() {
 				var arr_y = $(this).attr('arr_y');
 				
 				
-				var endDay = new Date();
-				var strArr2 =$(this).parent().attr('name').split('-');
-				endDay.setMonth(Number(strArr2[1])-1);
-				endDay.setFullYear(strArr2[0]);
-				endDay.setDate(strArr2[2]);
-				
-				var interval = endDay.getTime() - startDay.getTime();
-				interval = Math.floor(interval / (1000 *  60 * 60 * 24));
-				interval = interval.toString();
-				
-				
-				
 				ctx.beginPath();
 				ctx.moveTo(dep_x, dep_y);
 				ctx.lineTo(arr_x, arr_y);
 				ctx.lineWidth=2;
 				
+				var dateCheck = $(this).parent().attr('name').replace(/-/g,"/");
 			
-				if(parseInt(interval)==0){
+				if(dateCheck==$('input:radio[id="option1"]').val()){
 					ctx.strokeStyle="#F85555";
-				} else if(parseInt(interval)==1){
+				} else if(dateCheck==$('input:radio[id="option2"]').val()){
 					ctx.strokeStyle="#12A9F5";
-				}else if(parseInt(interval)==2){
+				}else if(dateCheck==$('input:radio[id="option3"]').val()){
 					ctx.strokeStyle="#FCA736";
-				}else if(parseInt(interval)==3){
+				}else if(dateCheck==$('input:radio[id="option4"]').val()){
 					ctx.strokeStyle="#8181FC";
-				}else if(parseInt(interval)==4){
+				}else if(dateCheck==$('input:radio[id="option5"]').val()){
 					ctx.strokeStyle="#E6ED1E";
-				}else if(parseInt(interval)==5){
+				}else if(dateCheck==$('input:radio[id="option6"]').val()){
 					ctx.strokeStyle="#DA44E5";
-				}else if(parseInt(interval)==6){
+				}else if(dateCheck==$('input:radio[id="option7"]').val()){
 					ctx.strokeStyle="#5DF478";
 				}
 				
@@ -527,7 +559,7 @@ $(function() {
 				
 				
 				
-			})
+			});
 			
 			//발권역 정보 삭제
 			if($('li[sDep="'+dep+'"]').length<=0 && $('li[sArr="'+dep+'"]').length<=0 ){
@@ -540,11 +572,15 @@ $(function() {
 			
 		});
 
-
 		//수정완료 버튼 클릭 ------> 코스 업데이트, 기존 코스디테일 삭제, 현재 일정 세부로 코스디테일 재삽입 
 		$('#allSavingBtn .saveBtn').click(function(){
 			var newI_name = $('input:radio[name="selectedIssue"]:checked').val();
-			var newC_name = '코스이름2';	//추후 input text로 수정
+			var newC_name = $('#courseName input:text[name="c_name"]').val();	//추후 input text로 수정
+			
+			var myImage = document.getElementById('myImage');
+			myImage.src = canvas.toDataURL("image/png");
+			
+			var c_filename = canvas.toDataURL("image/png");
 			
 			var details = $('span[class="coureDetail"]').map(function() {
 				return $(this).text();
@@ -558,6 +594,7 @@ $(function() {
 					'c_id' : c_id,
 					'i_name' : newI_name,
 					'c_name' : newC_name,
+					'c_filename' : c_filename,
 					'details' : JSON.stringify(details)
 				},
 				contenttype : "application/json; charset=utf-8",

@@ -1,5 +1,18 @@
 $(function() {
 	
+	
+	var session_m_id = $('input:hidden[id=m_id]').val();	//m_id 가져오기
+	
+	if(session_m_id==''){	//로그인 여부 검사
+		$('#allSavingBtn .saveBtn').hide();
+		$('#allSavingBtn .unlogin_msg').show();
+		var doLogin = confirm('로그인을 하지 않으면 일정을 저장할 수 없습니다.\n로그인 하시겠습니까?');
+		if(doLogin){
+			location.href='/starrail/main/login';
+		}
+	}
+	
+	
 	//캔버스 설정
 	var canvas = document.getElementById("drowMap");
 	var ctx = canvas.getContext("2d");
@@ -17,57 +30,38 @@ $(function() {
 	
 	
 	
-	
-/*	ctx2.drawImage(canvas,0,0);	//가상 캔버스로 path 이미지화해서 옮기기
-	ctx.clearRect(0,0,432,669);	//기존 캔버스 클리어
-	ctx.drawImage(canvas_bg,0,0);	//기존 캔버스에 배경 다시 그리기
-	ctx.drawImage(can2,0,0);	//가상 캔버스에 옮겨둔 이미지화된 path 덮어쓰기
-*///이건 전체 저장 버튼 누를 때!
-	
-	
-
-	/*var myImage = document.getElementById('myImage');
-	myImage.src = canvas.toDataURL("image/png");	//캔버스 전체 png 이미지로 변환
-*/	
-
 		var lineCnt = 0;
 		var check=false;
 		var setStartDay;
 		
 		
-		
-		
-		
-		// 달력 UI (날짜 선택)
+		// 달력: 데이트피커
 		$('#datepicker').datepicker({
-			onSelect : function(dateText) {
+			
+			autoclose: true,
+			format: "yyyy-mm-dd",
+			maxViewMode: 0,
+			altField: ".input-sm",
+			//startDate: "now"
 				
-				
-				// 삭제
-				$('#beds-baths-group').empty();	//n일차 버튼 비우기
-				$('.departures div.btn-group').empty();	//출발역 목록 비우기
-				$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
-				$('.trainListTable tbody').empty();	//열차 시간표 비우기
-				$('.departTime').empty();	//출발희망시간 비우기
-				$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
-				$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
-				$('#allSavingBtn .saveBtn').prop('disabled',true);	//전체 저장 버튼 비활성화
-				$('#couresDetailView .uls').empty();	//일정 세부 비우기
-				$('.issuelist tbody').empty();	//발권역 혜택 비우기
-				
-
-				setStartDay = new Date(dateText);
-				$('input[name="tripLong"]').removeAttr('disabled');
-				$('input[name="tripLong"]').prop('checked', false);
-				
-
-			},
-			//minDate : 0, // 이전 날짜 선택불가
-			showOn : "button",
-			buttonImage : "/starrail/resources/images/course/littlecalendar.PNG",
-			buttonImageOnly : true,
-			showAnim: "slideDown",
-			dateFormat: 'yy-mm-dd'
+		}).on('change', function() {
+			$('#beds-baths-group').empty();	//n일차 버튼 비우기
+			$('.departures div.btn-group').empty();	//출발역 목록 비우기
+			$('.arrivals div.btn-group').empty();	//도착역 목록 비우기
+			$('.trainListTable tbody').empty();	//열차 시간표 비우기
+			$('.departTime').empty();	//출발희망시간 비우기
+			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
+			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
+			$('#allSavingBtn .saveBtn').prop('disabled',true);	//전체 저장 버튼 비활성화
+			$('#couresDetailView .uls').empty();	//일정 세부 비우기
+			$('.issuelist tbody').empty();	//발권역 혜택 비우기
+			ctx.clearRect(0,0,canvas.width, canvas.height);
+			ctx.drawImage(canvas_bg,0,0);	//캔버스 초기화
+			
+			$('input[name="tripLong"]').removeAttr('disabled');
+			$('input[name="tripLong"]').prop('checked', false);
+			
+		 
 		});
 
 		// 5일권 7일권 선택
@@ -82,9 +76,12 @@ $(function() {
 			$('.departTime').append('<option>--------------</option>');	//출발희망시간 디폴트옵션 재추가
 			$('.addingBtn .btn-outline-success').prop('disabled', true);	//일정추가버튼 비활성화
 			
+			
+			$('input:text[name=c_name]').val($('#start-date').val() + '부터 ' + $(this).val() + '일간 내일로 여행');
+			
 			var startDay = new Date();
 			
-			var strArr = $('#datepicker').val().split('-');
+			var strArr = $('#start-date').val().split('-');
 			
 			startDay.setMonth(Number(strArr[1])-1);
 			startDay.setFullYear(strArr[0]);
@@ -140,6 +137,8 @@ $(function() {
 						$('.departures div.btn-group').append('<label class="btn btn-default">'
 								+'<input type="radio" name="depStation" value="'+value.id +'">'
 								+'<span>'+value.name+'</span></label>');
+						
+						
 						})
 				}
 			})
@@ -469,16 +468,16 @@ $(function() {
 
 		//전체코스 저장 버튼 클릭 ------> 일정 세부에 있는 내용으로 코스저장
 		$('#allSavingBtn .saveBtn').click(function(){
-			var m_id = 'yuryna';	//추후 세션에서 받아오기로..
+			var m_id =session_m_id;	//추후 세션에서 받아오기로..
 			var i_name = $('input:radio[name="selectedIssue"]:checked').val();
-			var c_name = $('#courseName input:text[name="c_name"]').val();	//추후 input text로 수정
+			var c_name = $('#courseName input:text[name="c_name"]').val();	
 			
 		
 			var myImage = document.getElementById('myImage');
 			myImage.src = canvas.toDataURL("image/png");
 			
 			var c_filename = canvas.toDataURL("image/png");
-			console.log(c_filename);
+			
 			var details = $('span[class="coureDetail"]').map(function() {
 				return $(this).text();
 			}).get();

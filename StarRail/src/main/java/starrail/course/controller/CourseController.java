@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +31,7 @@ import starrail.course.domain.StationVO;
 import starrail.course.domain.TrainTimeVO;
 import starrail.course.service.CourseService;
 import starrail.course.util.StationParsingUtil;
+import starrail.main.domain.UserVO;
 
 @Controller
 @RequestMapping("/course/*")
@@ -40,8 +44,15 @@ public class CourseController {
 	private CourseService service;
 	
 	@RequestMapping(value="/makeCourse",method=RequestMethod.GET)	//코스짜기 페이지 열기
-	public void courseGET() throws Exception{
-			
+	public void courseGET(HttpServletRequest request, Model model) throws Exception{
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("login");
+		if(user !=null){
+			model.addAttribute("m_id", user.getM_id());
+		} else {
+			model.addAttribute("m_id", "");
+		}
+		
 	}
 	
 	@RequestMapping(value="/depList", method=RequestMethod.POST)	//n일차 선택 후 출발역 리스트 불러오기
@@ -152,7 +163,7 @@ public class CourseController {
 			c.setM_id(m_id);
 			c.setC_name(c_name);
 			c.setI_name(i_name);
-			c.setC_filename(c_filename);	//추후 파일 업로드 구현 후에 수정
+			c.setC_filename(c_filename);	
 			
 			List<String> detail_list = JSONArray.fromObject(details);
 			
@@ -208,7 +219,7 @@ public class CourseController {
 			c.setC_id(c_id);
 			c.setC_name(c_name);
 			c.setI_name(i_name);
-			c.setC_filename(c_filename);	//추후 파일 업로드 구현 후에 수정
+			c.setC_filename(c_filename);
 			
 			List<String> detail_list = JSONArray.fromObject(details);
 			
@@ -224,12 +235,10 @@ public class CourseController {
 				cd.setCd_etime(data[3]);
 				
 				cds.add(cd);
-				
-				service.courseModify(c, cds);
-				entity = new ResponseEntity<String>("success", HttpStatus.OK);
 			}
 			
-			
+			service.courseModify(c, cds);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,9 +29,11 @@ public class StationParsingUtil {
 		BufferedInputStream bis = new BufferedInputStream(url.openStream());
 		xpp.setInput(bis, "utf-8");
 		
-		String tag = null;
+		
 		int eventType = xpp.getEventType();
+		
 		ArrayList<String> list = new ArrayList<String>();
+		String tag = null;
 		String str = null;
 		
 		while(eventType != XmlPullParser.END_DOCUMENT){
@@ -254,7 +256,6 @@ public class StationParsingUtil {
 							list.add(vo);	
 						}
 					}
-					
 				}
 			}
 			
@@ -268,7 +269,7 @@ public class StationParsingUtil {
 /*	public static void main(String[] args){
 		StationParsingUtil a = new StationParsingUtil();
 		try {
-			List<StationVO> list = a.stationList(a.getCityCode());
+			List<String> list = a.stationList(a.getCityCode());
 			
 			System.out.println(list.size());
 		} catch (Exception e) {
