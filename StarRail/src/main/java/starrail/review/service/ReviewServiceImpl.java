@@ -1,6 +1,9 @@
 package starrail.review.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
@@ -9,6 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import starrail.review.domain.FileVO;
+import starrail.review.domain.Hash_SearchVO;
 import starrail.review.domain.ReviewVO;
 import starrail.review.domain.ReviewCriteria;
 import starrail.review.domain.ReviewSearchCriteria;
@@ -117,11 +121,6 @@ public class ReviewServiceImpl implements ReviewService {
 			return dao.hash_no();
 	}
 
-	@Override	//ÇØ½ÃÅÂ±× Ãß°¡
-	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception {
-		dao.tagAdd(h_no, r_no, r_hash);
-	}
-
 	@Override
 	public int selectR_no() throws Exception {
 		if (dao.selectR_no() == null) {
@@ -131,23 +130,32 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
-	@Override	//ÇØ½ÃÅÂ±× ÀÚµ¿¿Ï¼º±â´É
-	public void hashtagInsert(ReviewVO review) throws Exception {
+	@Override	//ÇØ½ÃÅÂ±× Á¤±ÔÇ¥Çö½ÄÀ¸·Î ÀÚ¸£±â
+	public List<String> hashtagInsert(ReviewVO review, Hash_SearchVO searchVO) throws Exception {
 		//Á¤±ÔÇ¥Çö½Ä
 		Pattern p = Pattern.compile("\\#([0-9a-zA-Z°¡-ÆR]*)");
 		//ÈÄ±â°Ô½ÃÆÇ ³»¿ë¿¡ ÀÖ´Â °Íµé °¡Á®¿Í¼­
 		Matcher m = p.matcher(review.getR_content());
-
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<String> list = new ArrayList<>();
 		int h_no = 0;
 		String r_hash = null;
 		while (m.find()) {
 			r_hash = specialCharacter_replace(m.group());
-
+			
 			if (r_hash != null) {
 				h_no = dao.hash_no() + 1;
-				dao.tagAdd(h_no, review.getR_no(), r_hash);
+				paramMap.put("h_no", h_no);
+				paramMap.put("r_no", review.getR_no());
+				paramMap.put("r_hash", r_hash);
+				dao.tagAdd(paramMap);
+				list.add(r_hash);
 			}
+			
 		}
+		
+		return list;
 
 	}
 
@@ -172,6 +180,31 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.myHash(r_no);
 		
 	}
+
+	@Override	//ÀüÃ¼ ÇØ½ÃÅ×ÀÌºí¿¡ ÇØ´çµÇ´Â ÇØ½Ã +1
+	public void updateHash(String r_hash) throws Exception {
+		System.out.println("update·Î ³Ñ¾î¿Â hash : " + r_hash);
+		dao.updatehash(r_hash);
+	}
+
+	@Override
+	public void insertHash(String r_hash) throws Exception {
+		System.out.println("insert·Î ³Ñ¾î¿Â hash : " + r_hash);
+		int hs_no = 0;
+		if(dao.select_hs_no()==null){
+			hs_no = 1;
+		}else{
+			hs_no = dao.select_hs_no()+1;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("hs_no", hs_no);
+		map.put("hs_search", r_hash);
+		dao.inserthash(map);
+	}
+
+
+
+
 
 
 

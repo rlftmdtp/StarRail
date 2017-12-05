@@ -15,6 +15,20 @@
 
 <title>New Age - Start Bootstrap Theme</title>
 
+ <!-- start Css File -->   
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"rel="stylesheet">
+<link rel="stylesheet" type="text/css"href="/starrail/resources/bootstrap/css/bootstrap.css?ver=1">
+<link href="/starrail/resources/vendor/bootstrap/css/bootstrap.min.css"rel="stylesheet">
+<link rel="stylesheet"href="/starrail/resources/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet"href="/starrail/resources/vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato"rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?fammily=Muli"rel="stylesheet"> -->
+<link rel="stylesheet"href="/starrail/resources/device-mockups/device-mockups.min.css">
+<link href="/starrail/resources/css/main/nav_page.css?ver=1"rel="stylesheet">
+
 <style type="text/css">
 .nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
     background:#fff;
@@ -22,9 +36,6 @@
 .dropdown {
     background:#fff;
     width:150px;    
-}
-.dropdown-menu>li>a {
-    color:#428bca;
 }
 .dropdown ul.dropdown-menu {
     border-radius:4px;
@@ -52,45 +63,24 @@
     right: 14px;
     z-index: 9;
 }
-</style>
+</style>		
+<!-- end Css File -->   
 
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
-	rel="stylesheet">
+<!-- start Script File -->
 
-<link rel="stylesheet" type="text/css"
-	href="/starrail/resources/bootstrap/css/bootstrap.css?ver=1">
+<script src="/starrail/resources/vendor/jquery/jquery.min.js"></script>
+<script src="/starrail/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/starrail/resources/vendor/jquery-easing/jquery.easing.min.js"></script>		
+<script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
+<!-- end Script File -->
 
-<!-- Bootstrap core CSS -->
-<link href="/starrail/resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Custom fonts for this template -->
-<link rel="stylesheet"
-	href="/starrail/resources/vendor/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="/starrail/resources/vendor/simple-line-icons/css/simple-line-icons.css">
-<link href="https://fonts.googleapis.com/css?family=Lato"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?fammily=Muli"
-	rel="stylesheet">
-
-<!-- Plugin CSS -->
-<link rel="stylesheet"
-	href="/starrail/resources/device-mockups/device-mockups.min.css">
-
-<!-- Custom styles for this template -->
-<link href="/starrail/resources/css/main/nav_page.css?ver=1"
-	rel="stylesheet">
 </head>
 
-<body>
 
+
+
+<body>
+<header>
 	<!-- Navigation -->
 	<nav	class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink"
 		id="mainNav1">
@@ -127,7 +117,7 @@
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;&nbsp;&nbsp;&nbsp;Recommend</a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#">Course  <span class="glyphicon glyphicon glyphicon-star pull-right"></span></a></li>
+		            <li><a href="/starrail/recommend/recommend">Course  <span class="glyphicon glyphicon glyphicon-star pull-right"></span></a></li>
 		            <li class="divider"></li>
 		            <li><a href="#">Travel Information <span class="glyphicon glyphicon glyphicon-map-marker pull-right"></span></a></li>
 		          </ul>
@@ -158,23 +148,12 @@
 	        </li>
 	      </ul>
 		</div>
-
-
-		
-
 	</div>
 	</nav>
-	<!-- Navigation -->
-	<!-- Bootstrap core JavaScript -->
-	<script src="/starrail/resources/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="/starrail/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</header>
 
-	<!-- Plugin JavaScript -->
-	<script
-		src="/starrail/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for this template -->
-	<!-- <script src="/starrail/resources/js/main/new-age.min.js"></script> -->
+
+
 </body>
 </html>

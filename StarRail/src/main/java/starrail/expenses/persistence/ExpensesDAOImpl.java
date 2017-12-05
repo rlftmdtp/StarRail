@@ -1,5 +1,6 @@
 package starrail.expenses.persistence;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -7,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import starrail.expenses.domain.ExCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 
@@ -51,6 +53,22 @@ public class ExpensesDAOImpl implements ExpensesDAO {
 	@Override	//사용자가 오늘 사용한 총 금액 가져오기
 	public Integer todayTotal(Map<String, Object> map) throws Exception {
 		return session.selectOne(namespace+".todayTotal", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> course(String id) throws Exception {
+		System.out.println("dao : " + id);
+		return session.selectList(namespace+".course" , id);
+	}
+
+	@Override
+	public List<StatementVO> recall(String m_id) throws Exception {
+		return session.selectList(namespace+".recall", m_id);
+	}
+
+	@Override
+	public Integer expenseCount(String m_id) throws Exception {
+		return session.selectOne(namespace+".expenseCount", m_id);
 	}
 
 

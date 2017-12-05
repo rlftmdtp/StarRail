@@ -1,12 +1,15 @@
 package starrail.expenses.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import starrail.expenses.domain.ExCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 import starrail.expenses.persistence.ExpensesDAO;
@@ -57,19 +60,42 @@ public class ExpensesServiceImpl implements ExpensesService {
 
 	@Override	//오늘 사용한 총 금액
 	public int todayTotal(int e_no, String ed_date) throws Exception {
-		System.out.println("서비스 : "+ e_no);
-		System.out.println("서비스 : "+ ed_date);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("e_no", e_no);
 		map.put("ed_date", ed_date);
-		System.out.println("여기는 서비스 오늘 총 금액 그ㅜ하기  : " +dao.todayTotal(map));
+
+		//잔액이 없으면 0
 		if(dao.todayTotal(map)==null){
 			return 0;
 		}else{
 			return dao.todayTotal(map);
 		}
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> course(String id) throws Exception {
+		System.out.println("service m_id는 : " +id);
+		List<Map<String, Object>> list = new ArrayList<>();	
+		
+		list = dao.course(id);
+		
+		for(int i=0; i<list.size(); i++){
+			System.out.println((i+1)+"c_id : "+list.get(i).get("c_name"));
+		}
+		
+		System.out.println("service list : " +list);
+		return list;
+	}
+
+	@Override
+	public List<StatementVO> recall(String m_id) throws Exception {
+		//만약 m_id에 대한 경비내역이 여러개라면..! 여기서 처리해줘야겠지?
+
+		if(dao.expenseCount(m_id)>1){
+			
+		}
+		return dao.recall(m_id);
 	}
 
 }

@@ -47,7 +47,8 @@ public interface ReviewDao {
 	//게시물 조회수
 	public void updateR_hit(Integer r_no) throws Exception;
 	//태그 추가
-	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception; // 여기말한거야 잠만
+//	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception; 
+	public void tagAdd(Map<String, Object> paramMap) throws Exception; 
 	
 	public Integer hash_no() throws Exception;
 	//전체 태그 조회
@@ -55,4 +56,10 @@ public interface ReviewDao {
 	
 	//게시판 상세보기에 해시태그 가져오기
 	public List<String> myHash(int r_no) throws Exception;
-	}
+	
+	public void updatehash(String r_hash) throws Exception;
+	
+	public void inserthash(Map<String, Object> map) throws Exception;
+	
+	public Integer select_hs_no() throws Exception;
+}

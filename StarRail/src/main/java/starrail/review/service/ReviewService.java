@@ -2,6 +2,7 @@ package starrail.review.service;
 
 import java.util.List;
 import starrail.review.domain.ReviewVO;
+import starrail.review.domain.Hash_SearchVO;
 import starrail.review.domain.ReviewCriteria;
 import starrail.review.domain.ReviewSearchCriteria;
 
@@ -30,12 +31,10 @@ public interface ReviewService {
 	public List<String> getAttach(Integer r_no) throws Exception;
 	
 	public int hash_no()throws Exception;
-	//태그 저장
-	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception;
 
 	public int selectR_no() throws Exception;
 	
-	public void hashtagInsert(ReviewVO review) throws Exception;
+	public List<String> hashtagInsert(ReviewVO review, Hash_SearchVO searchVO) throws Exception;
 	
 	public String specialCharacter_replace(String str) throws Exception;
 	//전체 태그 가져오기
@@ -43,4 +42,8 @@ public interface ReviewService {
 	
 	//게시판 상세보기에 해시태그 가져오기
 	public List<String> myHash(int r_no) throws Exception;
+	
+	public void updateHash(String r_hash) throws Exception;
+	public void insertHash(String r_hash) throws Exception;
+	
 }

@@ -1,6 +1,8 @@
 package starrail.expenses.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,11 +10,14 @@ import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import starrail.expenses.domain.ExCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 import starrail.expenses.service.ExpensesService;
@@ -26,8 +31,10 @@ public class ExpensesController {
 
 	//경비관리페이지 들어갈 때
 	@RequestMapping(value = "/railro_expenses", method = RequestMethod.GET)
-	public void railro_expensesGET(ExpensesVO expensesVO) throws Exception {
-	
+	public void railro_expensesGET(ExpensesVO expensesVO, Model model) throws Exception {
+		expensesVO.setM_id("wkdgmlwjd");
+		
+		model.addAttribute("m_id", expensesVO.getM_id());
 	}
 
 
@@ -36,8 +43,8 @@ public class ExpensesController {
 	@ResponseBody
 	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO) throws Exception {
 		
-			
-			expensesVO.setM_id("thf147");
+			System.out.println("???????????" + expensesVO);
+		//	expensesVO.setM_id("thf147");
 			expensesVO.setC_id(3);
 			
 			service.expensesRegist(expensesVO);
@@ -77,6 +84,28 @@ public class ExpensesController {
 		return new ResponseEntity<Map<String, Object>>(map ,HttpStatus.OK);
 	}
 	
-
+	//내 코스 가져올거야
+	@RequestMapping(value="/expense_course", method=RequestMethod.POST)
+	public ResponseEntity<List<Map<String, Object>>> expense_coursePOST(@RequestBody String m_id)throws Exception{
+		List<Map<String, Object>> list = new ArrayList<>();
+		System.out.println("컨트롤러 : "+m_id);
+		
+		list = service.course(m_id);
+		System.out.println("컨트롤러 list : " + list);
+		
+		return new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);
+	}
+	
+	//저장된 내역 불러오기
+	@RequestMapping(value="/expense_recall", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<StatementVO>> expense_recallPOST(@RequestBody String m_id)throws Exception{
+		List<StatementVO> list = new ArrayList<>();
+		list = service.recall(m_id);
+		
+		System.out.println("list : " + list);
+		
+		return new ResponseEntity<List<StatementVO>>(list, HttpStatus.OK);
+	}
 
 }

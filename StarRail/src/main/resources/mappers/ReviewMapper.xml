@@ -193,6 +193,26 @@
 		from hash
 		where r_no = #{r_no}
 	</select>
+	
+	<!-- 해시태그 hit수 증가 -->
+	<update id="updatehash" parameterType="String">
+		update hash_search set
+		hs_count = hs_count + 1
+		where hs_search = #{r_hash}
+	</update>
+	
+	<!-- 새로운 해시태그 생성 -->
+	<insert id="inserthash" parameterType="map">
+		insert into hash_search
+		values(
+		#{hs_no}, #{hs_search}, 1
+		)
+	</insert>
+	
+	<select id="select_hs_no" resultType="integer">
+		select max(hs_no)
+		from hash_search
+	</select>
 </mapper>
 
 

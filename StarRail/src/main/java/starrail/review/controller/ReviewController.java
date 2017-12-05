@@ -30,22 +30,22 @@ public class ReviewController {
 	public ReviewService service;
 	public ReviewDao dao;
 
-	//후기 글 작성하러 가는 창
+	// 후기 글 작성하러 가는 창
 	@RequestMapping(value = "/review_insert", method = RequestMethod.GET)
-	public void insertReviewGET(ReviewVO review, Hash_SearchVO hash, String hashSearch,Model model) throws Exception {
+	public void insertReviewGET(ReviewVO review, Hash_SearchVO hash, String hashSearch, Model model) throws Exception {
 		List<String> list = new ArrayList<String>();
-		//해시태그 전체 불러오기
+		// 해시태그 전체 불러오기
 		list = service.hashSearch();
-		for(int i=0;i<list.size();i++) {
-			list.set(i,  "\"" + list.get(i) + "\"");
+		for (int i = 0; i < list.size(); i++) {
+			list.set(i, "\"" + list.get(i) + "\"");
 		}
-		System.out.println("붙어오니? : "+ list);
+		System.out.println("붙어오니? : " + list);
 		model.addAttribute("list", list);
 	}
 
-	//후기 게시물 등록하기 눌렀을 떄
+	// 후기 게시물 등록하기 눌렀을 떄
 	@RequestMapping(value = "/review_insert", method = RequestMethod.POST)
-	public String insertReviewPOST(@ModelAttribute("review") ReviewVO review, HttpServletRequest request)
+	public String insertReviewPOST(@ModelAttribute("review") ReviewVO review, Hash_SearchVO searchVO, HttpServletRequest request)
 			throws Exception {
 		HttpSession session = request.getSession();
 		UserVO userVO = (UserVO) session.getAttribute("login");
@@ -55,13 +55,39 @@ public class ReviewController {
 
 		//후기 게시판에 등록
 		service.register(review);
-		//내 후기 글번호로 해시태그만 따로 저장
-		service.hashtagInsert(review);
 		
+		List<String> list = new ArrayList<String>();
+		//해시태그 전체 불러오기
+		list = service.hashSearch();
+	
+		System.out.println("list출력 : " + list);
+		
+		List<String> listHash = new ArrayList<String>();
+		
+		//내 후기 글번호로 해시태그만 따로 저장
+		listHash = service.hashtagInsert(review, searchVO);
+		System.out.println("해시태그 넘겨온 값 : " + service.hashtagInsert(review, searchVO));
+
+		boolean check = false;
+		for (int i = 0; i < listHash.size(); i++) {
+			check = false;
+			for (int j = 0; j < list.size(); j++) {
+				System.out.println(list.get(j) +  " : " +  listHash.get(i));
+				if (list.get(j).equals(listHash.get(i))) {
+					check = true;
+					service.updateHash(listHash.get(i));
+				}
+			}
+			if (check == false) {
+				service.insertHash(listHash.get(i));
+				System.out.println(listHash.get(i) + " : ");
+			}
+		}
+
 		return "redirect:/review/review_list";
 	}
 
-	//전체 후기 리스트
+	// 전체 후기 리스트
 	@RequestMapping(value = "/review_list", method = RequestMethod.GET)
 	public void listReviewGET(@ModelAttribute("cri") ReviewSearchCriteria cri, Model model) throws Exception {
 
@@ -73,7 +99,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 	}
 
-	//한개 상세보기 눌렀을 때
+	// 한개 상세보기 눌렀을 때
 	@RequestMapping(value = "/review_detail", method = RequestMethod.GET)
 	public void DetailReviewGET(@RequestParam("r_no") int r_no, @ModelAttribute("cri") ReviewSearchCriteria cri,
 			Model model) throws Exception {
@@ -82,7 +108,7 @@ public class ReviewController {
 		model.addAttribute(service.read(r_no));
 	}
 
-	//게시판 삭제
+	// 게시판 삭제
 	@RequestMapping(value = "/review_remove", method = RequestMethod.GET)
 	public String RemoveReviewGET(@RequestParam("r_no") int r_no, ReviewSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
@@ -95,14 +121,14 @@ public class ReviewController {
 		return "redirect:/review/review_list";
 	}
 
-	//게시판 수정 전
+	// 게시판 수정 전
 	@RequestMapping(value = "/review_modify", method = RequestMethod.GET)
 	public void ModifyReviewGET(@RequestParam("r_no") int r_no, @ModelAttribute("cri") ReviewSearchCriteria cri,
 			Model model) throws Exception {
 		model.addAttribute(service.read(r_no));
 	}
 
-	//게시판 수정 후
+	// 게시판 수정 후
 	@RequestMapping(value = "/review_modify", method = RequestMethod.POST)
 	public String ModifyReviewPOST(ReviewVO review, ReviewSearchCriteria cri, RedirectAttributes rttr)
 			throws Exception {
@@ -114,12 +140,10 @@ public class ReviewController {
 		return "redirect:/review/review_list";
 	}
 
-	//
 	@RequestMapping("/getAttach/{r_no}")
 	@ResponseBody
 	public List<String> getAttach(@PathVariable("r_no") Integer r_no) throws Exception {
 		return service.getAttach(r_no);
 	}
-	
 
 }

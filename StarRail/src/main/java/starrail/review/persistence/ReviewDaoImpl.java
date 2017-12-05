@@ -118,14 +118,8 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override	//내 태그 추가하기
-	public void tagAdd(Integer h_no, Integer r_no, String r_hash) throws Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("h_no", h_no);
-		paramMap.put("r_no", r_no);
-		paramMap.put("r_hash", r_hash);
-
+	public void tagAdd(Map<String, Object>paramMap) throws Exception {
 		session.insert(namespace+".addHash", paramMap);
-		
 	}
 
 	@Override
@@ -141,6 +135,21 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Override
 	public List<String> myHash(int r_no) throws Exception {
 		return session.selectList(namespace+".myhash", r_no);
+	}
+
+	@Override
+	public void updatehash(String r_hash) throws Exception {
+		session.update(namespace+".updatehash", r_hash);
+	}
+
+	@Override
+	public void inserthash(Map<String, Object> map) throws Exception {
+		session.insert(namespace+".inserthash", map);
+	}
+
+	@Override
+	public Integer select_hs_no() throws Exception {
+		return session.selectOne(namespace+".select_hs_no");
 	}
 	
 }

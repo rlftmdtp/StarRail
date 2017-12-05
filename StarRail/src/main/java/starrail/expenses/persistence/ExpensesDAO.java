@@ -1,7 +1,9 @@
 package starrail.expenses.persistence;
 
+import java.util.List;
 import java.util.Map;
 
+import starrail.expenses.domain.ExCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 
@@ -23,5 +25,11 @@ public interface ExpensesDAO {
 	
 	//사용자가 오늘 사용한 총 금액 가져오기
 	public Integer todayTotal(Map<String, Object> map) throws Exception;
+	
+	public List<Map<String, Object>> course(String id) throws Exception;
+	
+	public List<StatementVO> recall(String m_id) throws Exception;
+	//m_id에 해당하는 경비가 몇개있는지
+	public Integer expenseCount(String m_id) throws Exception;
 	
 }

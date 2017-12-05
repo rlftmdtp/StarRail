@@ -1,15 +1,18 @@
 @CHARSET "UTF-8";
 
-
 /* 저장버튼 */
 #submit {
 	background-color: #FFA7A7;
+}
+.input-daterange input-group{
+	margin-left : 6px;
+	width: 50%;
 }
 
 /* 하나하나의 div */
 .input-group {
 	
-	height: 30px;
+	height: 34px;
 	width : 90%;
 	margin-top : 20px;
 	margin-bottom: 10px;
@@ -45,6 +48,10 @@ p{
 	
 }
 
+.selected {
+	background-color: yellow;
+}
+
 /* 지출내역에 보여지는 list form */
 #amountlist{
 	float : right;
@@ -58,7 +65,7 @@ p{
 }
 
 /* 출발일 input태그 background */
-#calanderimg {
+#datepicker_expense {
 	background-color: #eee;
 	background-position: right;
 	border-radius: 5px;

@@ -1,6 +1,7 @@
 package starrail.expenses.service;
 
-
+import java.util.List;
+import java.util.Map;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 
@@ -17,6 +18,11 @@ public interface ExpensesService {
 	//사용자가 오늘 사용한 총 금액
 	public int todayTotal(int e_no, String ed_date)throws Exception;
 
-
+	//코스
+	public List<Map<String, Object>> course(String id) throws Exception;
+	
+	//불러오기
+	public List<StatementVO> recall(String m_id) throws Exception;
+	
 	
 }

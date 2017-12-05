@@ -10,6 +10,7 @@ public class StatementVO {
 	private String ed_katename;
 	private int ed_amount;
 	private String ed_plma;
+	
 	public int getEd_no() {
 		return ed_no;
 	}

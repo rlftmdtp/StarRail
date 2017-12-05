@@ -45,4 +45,18 @@
 		where ed_date = #{ed_date}
 		AND e_no = #{e_no}
 	</select>
+	
+	<!-- 예상 경비에서 코스 불러오기 -->
+	<select id="course" resultType="Map">
+		select c.c_id "c_id", c.c_name "c_name", c.C_FILENAME "c_filename"
+		from course c, member m 
+		where c.m_id = m.m_id
+   		AND m.M_ID = #{id}
+	</select>
+	
+	<select id="expenseCount">
+		select count(m_id)
+		from expenses
+		where m_id = #{m_id}
+	</select>
 </mapper>	

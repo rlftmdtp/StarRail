@@ -1,8 +1,8 @@
 // Make your own here: https://eternicode.github.io/bootstrap-datepicker
 
 var dateSelect     = $('#flight-datepicker');
-var dateDepart     = $('#start-date');
-var dateReturn     = $('#end-date');
+var dateDepart     = $('#datepicker_expense');
+var dateReturn     = $('#endDate');
 var spanDepart     = $('.date-depart');
 var spanReturn     = $('.date-return');
 var spanDateFormat = 'ddd, MMMM D yyyy';
@@ -18,3 +18,4 @@ dateSelect.datepicker({
   spanDepart.text(start);
   spanReturn.text(end);
 });
+
