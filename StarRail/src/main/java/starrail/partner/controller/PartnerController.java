@@ -34,11 +34,10 @@ public class PartnerController {
 	@Inject
 	private PartnerService service;
 
-	// 泥섏쓬 �룞�뻾 �럹�씠吏� �겢由� �떆 �떎�뻾�릺�뒗 而⑦듃濡ㅻ윭
-	@RequestMapping(value = "/partnerTest", method = RequestMethod.GET)
+	// 처음 동행 페이지 클릭 시 실행되는 컨트롤러
+	@RequestMapping(value = "/partner", method = RequestMethod.GET)
 	public void partnerGET(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		System.out.println("ddddfdfdf");
 		UserVO uservo = (UserVO) session.getAttribute("login");
 		System.out.println(uservo);
 
@@ -47,7 +46,7 @@ public class PartnerController {
 		model.addAttribute("courseVO", courseVO);
 	}
 
-	// �뜽�꽕�씪 �씠誘몄� �겢由� �떆 肄붿뒪 �븘�씠�뵒�쓣 �꽆寃⑤컺�븘 肄붿뒪 �뵒�뀒�씪�쓣 李얘퀬 踰꾪듉�쓣 �깮�꽦�븯湲� �쐞�빐 �젙蹂대�� �꽆寃⑥쨲	
+	// 썸네일 이미지 클릭 시 코스 아이디을 넘겨받아 코스 디테일을 찾고 버튼을 생성하기 위해 정보를 넘겨줌	
 	@RequestMapping(value = "/scheduleSearch", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<List<CourseDetailVO>> scheduleSearch_POST(HttpServletRequest request,@RequestParam Integer c_id) {
 		HttpSession session = request.getSession();
@@ -61,7 +60,7 @@ public class PartnerController {
 		System.out.println(map);
 		System.out.println(c_id);
 		
-		// cd_id瑜� 戮묒븘�삩�떎
+		// cd_id를 뽑아온다
 		//List<CourseDetailVO2> list = (List<CourseDetailVO2>)service.mySchedule_List_service(map);
 		List<CourseDetailVO> list = service.mySchedule_List_service(map);
 		System.out.println(list);
@@ -70,22 +69,22 @@ public class PartnerController {
 	}
 	
 	
-/*	//�썝�븯�뒗 �씪�젙 �꽑�깮 �썑 �룞諛섏옄 李얘린 踰꾪듉 �겢由� �떆 cd_id媛� �꽆�뼱�샂
-	//cd_id瑜� �넻�빐 �빐�떦�븯�뒗 �뙆�듃�꼫瑜� 李얠븘以�
+/*	//원하는 일정 선택 후 동반자 찾기 버튼 클릭 시 cd_id가 넘어옴
+	//cd_id를 통해 해당하는 파트너를 찾아줌
 	@RequestMapping(value = "/partnerSearch", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> partnerSearch_POST(@RequestParam Map<String,String> list)throws Exception{
 		List<CourseDetailVO> cd_list = service.courseDetail_List_service(list);			
 		
-		//System.out.println("*而⑦듃濡ㅻ윭2"+service.partnerSearch_List_service(cd_list));
+		//System.out.println("*컨트롤러2"+service.partnerSearch_List_service(cd_list));
 		ResponseEntity<Map<String, Object>> entity = null;
 		entity =   new ResponseEntity<Map<String,Object>>(service.partnerSearch_List_service(cd_list), HttpStatus.OK);
 
 		return entity;
 	}*/
 	
-	//�썝�븯�뒗 �씪�젙 �꽑�깮 �썑 �룞諛섏옄 李얘린 踰꾪듉 �겢由� �떆 cd_id媛� �꽆�뼱�샂
-	//cd_id瑜� �넻�빐 �빐�떦�븯�뒗 �뙆�듃�꼫瑜� 李얠븘以�
+	//원하는 일정 선택 후 동반자 찾기 버튼 클릭 시 cd_id가 넘어옴
+	//cd_id를 통해 해당하는 파트너를 찾아줌
 	@RequestMapping(value = "/partnerSearch", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<UserVO>> partnerSearch_POST(@RequestParam Integer cd_id)throws Exception{
