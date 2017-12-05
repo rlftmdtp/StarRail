@@ -4,6 +4,21 @@
 #submit {
 	background-color: #FFA7A7;
 }
+
+/* 썸네일 */
+
+.btn-radio {
+	width: 100%;
+}
+.img-radio {
+	opacity: 0.5;
+	margin-bottom: 5px;
+}
+
+.space-20 {
+    margin-top: 20px;
+}
+
 .input-daterange input-group{
 	margin-left : 6px;
 	width: 50%;

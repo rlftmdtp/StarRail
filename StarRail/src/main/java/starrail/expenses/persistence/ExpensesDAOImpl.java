@@ -2,13 +2,11 @@ package starrail.expenses.persistence;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import starrail.expenses.domain.ExCourseVO;
+import starrail.expenses.domain.ExpenseCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 
@@ -28,6 +26,16 @@ public class ExpensesDAOImpl implements ExpensesDAO {
 	@Override	//예산경비저장할 때 e_no 1씩 증가
 	public Integer selectE_no() throws Exception {
 		return session.selectOne(namespace+".selectE_no");
+	}
+	
+	@Override
+	public void expenseCourseInsert(ExpenseCourseVO exCourseVO) throws Exception {
+		session.insert(namespace+".expenseCourseInsert", exCourseVO);
+	}
+
+	@Override
+	public Integer selectCourseE_no() throws Exception {
+		return session.selectOne(namespace+".selectCourseE_no");
 	}
 
 	@Override	//지출내역 저장
@@ -70,6 +78,8 @@ public class ExpensesDAOImpl implements ExpensesDAO {
 	public Integer expenseCount(String m_id) throws Exception {
 		return session.selectOne(namespace+".expenseCount", m_id);
 	}
+
+
 
 
 

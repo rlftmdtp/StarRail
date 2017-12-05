@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 
-import starrail.expenses.domain.ExCourseVO;
+import starrail.expenses.domain.ExpenseCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 import starrail.expenses.persistence.ExpensesDAO;
@@ -31,6 +29,17 @@ public class ExpensesServiceImpl implements ExpensesService {
 		dao.expensesInsert(expensesVO);
 	}
 
+	@Override	//코스 있음
+	public void expenseCourseRegist(ExpenseCourseVO exCourseVO) throws Exception {
+		if (dao.selectCourseE_no() != null) {
+			exCourseVO.setE_no(dao.selectCourseE_no() + 1);
+		} else {
+			exCourseVO.setE_no(1);
+		}
+		dao.expenseCourseInsert(exCourseVO);
+		
+	}
+	
 	@Override
 	public Integer totalMoney(int e_no, int ed_amount) throws Exception {
 		// 총 잔액 - 사용금액 계산해주기
@@ -82,6 +91,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 		
 		for(int i=0; i<list.size(); i++){
 			System.out.println((i+1)+"c_id : "+list.get(i).get("c_name"));
+			System.out.println("c_id : "+list.get(i).get("c_id"));
 		}
 		
 		System.out.println("service list : " +list);
@@ -97,5 +107,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}
 		return dao.recall(m_id);
 	}
+
+
 
 }

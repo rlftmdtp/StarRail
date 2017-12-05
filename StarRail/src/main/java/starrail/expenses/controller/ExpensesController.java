@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,10 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import starrail.expenses.domain.ExCourseVO;
+import starrail.expenses.domain.ExpenseCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 import starrail.expenses.service.ExpensesService;
@@ -41,18 +38,19 @@ public class ExpensesController {
 	// 예상경비 설정하기
 	@RequestMapping(value = "/railro_expenses", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO) throws Exception {
+	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO, @RequestBody ExpenseCourseVO exCourseVO) throws Exception {
 		
 			System.out.println("???????????" + expensesVO);
-		//	expensesVO.setM_id("thf147");
-			expensesVO.setC_id(3);
-			
-			service.expensesRegist(expensesVO);
-			System.out.println("예상 경비 저장 완료 : " + expensesVO.getE_no());
+			if(exCourseVO.getC_id()==0){
+				System.out.println("나는 코스가 없소");
+				service.expensesRegist(expensesVO);
+				return new ResponseEntity<Integer>(expensesVO.getE_no(), HttpStatus.OK);
+			}else{
+				System.out.println("나는 코스가 있소");
+				service.expenseCourseRegist(exCourseVO);
+				return new ResponseEntity<Integer>(exCourseVO.getE_no(), HttpStatus.OK);
+			}
 		
-		
-		//가지고 갈 값을 넣어주면됨
-		return new ResponseEntity<Integer>(expensesVO.getE_no(), HttpStatus.OK);
 	}
 	
 	//지출내역 계산 및 저장

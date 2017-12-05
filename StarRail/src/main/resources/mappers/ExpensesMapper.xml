@@ -7,12 +7,22 @@
 	
 	<!-- 예상 경비 지정  -->
 	<insert id="expensesInsert" parameterType="ExpensesVO">
-		insert into expenses(e_no, c_id, m_id, e_title, e_sdate, e_edate, e_total)
-		values(#{e_no}, #{c_id}, #{m_id}, #{e_title}, #{e_sdate}, #{e_edate}, #{e_total})
+		insert into expenses(e_no, m_id, e_title, e_sdate, e_edate, e_total)
+		values(#{e_no}, #{m_id}, #{e_title}, #{e_sdate}, #{e_edate}, #{e_total})
 	</insert>
 	
 	<select id="selectE_no" resultType="Integer">
 		select max(e_no) from expenses
+	</select>
+	
+	<!-- 예상 경비 지정 코스있음  -->
+	<insert id="expenseCourseInsert" parameterType="ExpenseCourseVO">
+		insert into expense_Course(e_no, c_id, m_id, e_title, e_sdate, e_edate, e_total)
+		values(#{e_no}, #{c_id}, #{m_id}, #{e_title}, #{e_sdate}, #{e_edate}, #{e_total})
+	</insert>
+	
+	<select id="selectCourseE_no" resultType="Integer">
+		select max(e_no) from expense_Course
 	</select>
 	
 	<!-- 지출 항목 저장 -->
@@ -48,10 +58,14 @@
 	
 	<!-- 예상 경비에서 코스 불러오기 -->
 	<select id="course" resultType="Map">
-		select c.c_id "c_id", c.c_name "c_name", c.C_FILENAME "c_filename"
-		from course c, member m 
-		where c.m_id = m.m_id
-   		AND m.M_ID = #{id}
+	<![CDATA[ select course.*
+		from (select c.c_id "c_id", c.c_name "c_name" 
+          	  from course c, member m 
+          	  where c.m_id = m.m_id
+          	  AND m.M_ID = #{id}
+         	  order by c_id desc)course
+    	where ROWNUM <=3
+    	]]>
 	</select>
 	
 	<select id="expenseCount">

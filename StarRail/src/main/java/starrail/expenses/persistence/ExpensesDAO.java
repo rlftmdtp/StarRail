@@ -3,7 +3,7 @@ package starrail.expenses.persistence;
 import java.util.List;
 import java.util.Map;
 
-import starrail.expenses.domain.ExCourseVO;
+import starrail.expenses.domain.ExpenseCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 
@@ -12,6 +12,10 @@ public interface ExpensesDAO {
 	//예상경비 설정
 	public void expensesInsert(ExpensesVO expensesVO) throws Exception;
 	public Integer selectE_no() throws Exception;
+
+	//예상경비 설정 코스있음
+	public void expenseCourseInsert(ExpenseCourseVO exCourseVO) throws Exception;
+	public Integer selectCourseE_no() throws Exception;
 	
 	//총 남은금액 구해오기
 	public Integer totalMoney(int e_no) throws Exception;

@@ -29,9 +29,9 @@
 	<%@include file="../main/nav_page.jsp"%>
 	<div style="margin-top: 60px;"></div>
 	<br>
-	<div class="container" style="margin-top: 80px;">
+	<div class="container" style="margin-top: 50px;">
 		<div class="row">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary" style="width: 95%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">여행 경비 관리</h3>
 					<span class="pull-right"> </span>
@@ -39,12 +39,13 @@
 
 				<!-- Tab안 -->
 				<div class="panel-body">
+				 <div class = "col-md-4">
 					<div class="tab-content">
 
 						<!-- 예산경비 등록 폼 -->
 						<form action="#" id="expenseslist">
 							<div class="hero-widget well well-sm"
-								style="background-color: #FFFFFF; height: 350px;">
+								style="background-color: #FFFFFF; height: 450px;">
 								<input type="hidden" class="m_id" value="${m_id }" name="m_id">
 								<div class="input-group">
 									<span class="input-group-addon" id="basic-addon1"
@@ -57,12 +58,19 @@
 									<input id="courseId" type="checkbox" name="course"
 										class="course" value="couse" onclick="courseclick()">&nbsp;저장된
 									코스 가져오기
-									<div class="thumbnail">
-											
 									</div>
-								</div>
+									<div class="thumbnail" style="height: 100px; margin-top: 20px;">
+										<form class='form-horizontal well' action='#'>
+										<div class='row'>
+											<div class='col-md-12' id="thumbnail">
+											
+											</div>
+										</div>
+									</form>	
+									</div>
+								
 							
-						 		<div class="input-daterange input-group" id="flight-datepicker">
+						 		<div class="input-daterange input-group" id="flight-datepicker" style="margin-top: 10px;">
 						 		<span class="input-group-addon" id="basic-addon1" style="width: 25px;">
 						 		<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
 									<span class="fontawesome-calendar"></span>
@@ -171,7 +179,8 @@
 							</div>
 						</div>
 					</form>
-
+				</div>
+				<div class = "col-md-4">
 					<!-- 지출된 금액 계산해주고 view에 뿌려주는 list -->
 					<form action="#" id="amountlist">
 						<div class="hero-widget well well-sm"
@@ -189,11 +198,14 @@
 
 
 					</form>
-				</div>
-
+				</div>			
+				
+				<div class = "col-md-4">
 				<!-- 실시간 도표 -->
 				<form action="#" id="chartlist"></form>
 				<div class="hero-widget well well-sm"></div>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -225,7 +237,7 @@
 		}
 	}
 </script>
-<!-- 
+ 
  <!-- 코스불러오기버튼 눌렀을 때 -->
 <script type="text/javascript">
 	$('#recall').on('click', function(){
@@ -246,7 +258,7 @@
 			}
 		})
 	});
-</script>  -->
+</script>  
 
 <!--코스가져오기 눌렀을 때-->
 <script type="text/javascript">
@@ -264,26 +276,23 @@
 			success : function(data) {
 				alert("성공");
 				alert(data);
-				
+
+				 
+				var c_name = "";
+				var c_id =0;
+				 //map에서 꺼내기 위한 each문 두번
 				$.each(data, function(index, item) {
-					$.each(item, function(index1, item1) {
-						if(index1 == 'c_name'){
-							alert(item1);
-							$('.thumbnail').append("<form class='form-horizontal well' action='#'>"
-									+ "<div class='col-xs-4'>"
-									+ "<img src='/starrail/resourses/images/expenses/slide6.jpg' class='img-responsive img-radio'>"
-									+ "<button type='button' class='btn btn-primary btn-radio'>"+ item1 +"</button>"
-									+ "<input type='hidden' id='c_id' class='c_id' value='"+item+"'>"		
-									+ "</div></form>"		
-								);
-						}
-					})
-				})
+					$('#thumbnail').append("<div class='col-md-4'><img src='/starrail/resources/images/expenses/slide6.jpg' class='img-responsive img-radio'/>"
+							+ "<button type='button' class='btn btn-primary btn-radio' id='thumbnailBtn' data='"+ item["c_id"] +"'>"
+							+ item["c_name"]
+							+ "</button></div>");
+				}); 
 
 				
 			}
 		});
 	}
+
 </script>
 
 <!-- 출발일과 체크박스 선택시 도착일 계산 // 함수 datepicker사용 -->
@@ -304,7 +313,7 @@
 			},
 			autoclose: true,
 			format: "yyyy-mm-dd",
-		//	startDate: "now"
+			startDate: "now"
 		});
 		 		
 		$('.tripLong').click(function() {
@@ -355,8 +364,18 @@
 
 <!-- 예산 경비 저장 눌렀을 때  -->
 <script type="text/javascript">
+var thumbnailBtn;
+
+$('#thumbnail').on('click','#thumbnailBtn' ,function(){
+	alert("끌릭!");
+	alert($(this).attr('data'));
+	thumbnailBtn = $(this).attr('data');
+	
+})
+
 	function save() {
 		alert("등록합니다");
+		alert(thumbnailBtn);
 		$.ajax({
 
 					url : '/starrail/expenses/railro_expenses',
@@ -366,6 +385,7 @@
 					},
 					data : JSON.stringify({
 						'm_id' : $('.m_id').attr('value'),
+						'c_id' : thumbnailBtn,
 						'e_title' : $('#e_title').val(),
 						'e_sdate' : $('#datepicker_expense').val(),
 						'e_edate' : $('#endDate').val(),
