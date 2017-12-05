@@ -1,0 +1,357 @@
+@CHARSET "utf-8";
+ 
+ 
+body{margin:0; padding:0;}
+ #myImage{display:none;} 
+#getdetaildata{display:none;}
+#courseWrap{
+	margin:0 auto;
+	width:1080px;
+	overflow: inherit;
+	
+}
+
+#courseName{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding:5px;
+	font-size:10pt;
+	font-weight:bolder;
+}
+
+#periodSetting{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:50px;
+	
+	border-bottom: 1px solid;
+}
+.labeling{
+	margin-right:5px;
+	float:left;
+	font-size:12pt;
+	font-weight: bolder
+}
+
+#dateSetting{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:70px;
+	line-height:70px;
+	
+}
+
+#stationSetting{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding: 10px 20px 10px 20px;
+	height: 220px;
+	
+}
+
+.departures{
+	float:left;
+	width:500px;
+	margin:0px 10px 0px 0px;
+	padding: 10px;
+	height:200px;
+	border-radius:15px;
+	overflow:hidden;
+	overflow-y:auto;
+	background: #eef7ff;
+}
+
+.arrivals{
+	float:left;
+	width:500px;
+	margin:0px 0px 0px 10px;
+	padding:10px;
+	height:200px;
+	border-radius:15px;
+	overflow:hidden;
+	overflow-y:auto;
+	background: #eef7ff;
+}
+
+#courseSetting{
+	width:1060px;
+	margin:0px 10px 10px 10px;
+	padding:5px 10px 5px 10px;
+	height:700px;
+}
+
+#trainSetting{
+	float:left;
+	width:300px;
+	height:690px;
+	
+}
+.hopingCover{
+	border-radius: 30px;
+	background: #eef7ff;
+}
+.hopingTime{
+	width:280px;
+	margin: 75px 10px 10px 10px;
+	height: 70px;
+	font-weight: bolder;
+	
+	
+}
+
+.hopingTime h4{
+	font-weight: bolder;
+	font-size:12pt;
+	line-height: inherit;
+	width:280px;
+	margin:0;
+}
+
+.hopingTime select{
+	margin-top:10px;
+	margin-left:2em;
+	font-size:10pt;
+	
+}
+
+.hopingTime select option{
+	font-size:10pt;
+}
+
+h4.trainTimeTableTitle{
+	font-weight: bolder;
+	font-size:12pt;
+	line-height: inherit;
+	width:280px;
+	height:30px;
+	margin:0px 10px 5px 10px;
+
+	border-radius: 30px;
+	background: #eef7ff;
+}
+
+.trainTimeTable{
+	width:280px;
+	margin: 0px 10px 10px 10px;
+	height:370px;
+	padding:5px;
+	overflow:hidden;
+	overflow-y:auto;
+	
+	border-radius: 30px;
+	background: #eef7ff;
+}
+
+.trainListTable{
+	margin:0 auto;
+	width:250px;
+}
+
+.trainListTable thead th{
+	vertical-align:middle;
+	height:30px;
+	border: 1px solid;
+	padding:0;
+	font-size: 11pt;
+	background: #BCBCBC;
+	text-align: center;
+	
+}
+
+.trainListTable thead th.th1{
+	width:100px;
+}
+
+.trainListTable thead th.th2{
+	width:100px;
+}
+
+.trainListTable thead th.th3{
+	width:50px;
+}
+
+.trainListTable tbody td{
+	text-align:center;
+	height:25px;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
+	font-size:10pt;
+}
+
+.addingBtn{
+	width:280px;
+	margin:0px 10px 0px 10px;
+	height: 50px;
+	text-align: right;
+	padding-top:8px;
+}
+
+
+.addingBtn .btn-outline-success {
+    color: #8bccfc;
+    border-color: #8bccfc;
+}
+
+.addingBtn .btn-outline-success.disabled, .addingBtn .btn-outline-success:disabled{
+	color:  #BCBCBC;
+    border-color:  #BCBCBC;
+}
+
+
+.addingBtn .btn-outline-success:hover {
+    color:#8bccfc;
+   background-color: #eef7ff;
+    border-color: #8bccfc;
+}
+
+#mapArea{
+	float:left;
+	width:432px;
+	height:690px;
+	padding:10px 0px 11px 0px;
+	margin:0px 4px 0px 4px;
+	
+}
+
+
+#couresDetailView{
+	float:left;
+	width:300px;
+	height:560px;
+	margin: 65px 0px 0px 0px;
+	padding:10px;
+	border-radius: 30px;
+	background: #eef7ff;
+}
+
+#couresDetailView h4.title{
+	font-weight: bolder;
+	font-size:12pt;
+	line-height: inherit;
+	width:280px;
+	margin:0;
+}
+
+#couresDetailView div.uls{
+	width:280px;
+	height: 500px;
+	margin-top:9px;
+	padding-top:10px;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+#couresDetailView h4.date{
+	font-family: '맑은 고딕';
+	font-weight: bolder;
+	font-size:12pt;
+	line-height: inherit;
+	width:270px;
+	margin:0;
+	padding-left:10px;
+}
+
+#couresDetailView ul{
+	width:280px;
+	padding-left:20px;
+	margin:0px 0px 15px 0px;
+	list-style: none;
+}
+
+#couresDetailView ul li{
+	font-family: '맑은 고딕';
+	font-size:11pt;
+}
+
+#couresDetailView ul li:before{
+	content: "•";
+    padding-right: 8px;
+}
+
+span.coureDetail{
+	display: none;
+}
+
+#issueSetting{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding: 10px;
+	background: #eef7ff;
+	border-radius: 30px;
+}
+
+.trainListTable tbody td{
+	text-align:center;
+	height:25px;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
+}
+
+
+table.issuelist{
+	margin:0 auto;
+	width:1040px;
+	border-collapse: collapse;
+}
+
+.issuelist thead th{
+	vertical-align:middle;
+	height:30px;
+	border: 1px solid;
+	padding:0;
+	font-size: 11pt;
+	background: #BCBCBC;
+	text-align: center;
+}
+
+.issuelist thead th.th1{
+	width:60px;
+}
+
+.issuelist thead th.th2,
+.issuelist thead th.th3,
+.issuelist thead th.th4,
+.issuelist thead th.th5{
+	width:235px;
+}
+
+.issuelist thead th.th6{
+	width:40px;
+}
+
+.issuelist tbody td{
+	height:25px;
+	border:1px solid;
+	padding:0 0.5em 0 0.5em;
+	font-size:10pt;
+	vertical-align: middle;
+}
+
+#allSavingBtn{
+	width:1060px;
+	margin: 0px 10px 10px 10px;
+	padding: 5px;
+	height:60px;
+	text-align: right;
+}
+.unlogin_msg{
+	color: #ff0000;
+	display: none;
+}
+#allSavingBtn .btn-outline-success {
+    color: #8bccfc;
+    border-color: #8bccfc;
+}
+
+#allSavingBtn .btn-outline-success:hover {
+ color:#8bccfc;
+   background-color: #eef7ff;
+    border-color: #8bccfc;
+}
+
+#allSavingBtn .btn-outline-success.disabled, #allSavingBtn .btn-outline-success:disabled{
+	color: #BCBCBC;
+    border-color: #BCBCBC;
+}
