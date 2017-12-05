@@ -20,13 +20,16 @@
 	<context:component-scan base-package="starrail.partner.persistence"/>
 	<!-- 파트너 service / persistence 설정 end -->
 	
+
+	<context:component-scan base-package="starrail.review.service"/>
+	<context:component-scan base-package="starrail.review.persistence"/>
 	
+	<context:component-scan base-package="starrail.message.service"/>
+	<context:component-scan base-package="starrail.message.persistence"/>
 	
-	
-	<!-- 파트너 service / persistence 설정 start-->
-	<context:component-scan base-package="starrail.partner.service"/>
-	<context:component-scan base-package="starrail.partner.persistence"/>
-	<!-- 파트너 service / persistence 설정 end -->
+	<context:component-scan base-package="starrail.expenses.service"/>
+	<context:component-scan base-package="starrail.expenses.persistence"/>
+
 	
 	
 	<!-- 코스관련 bean 객체 생성 start -->
@@ -35,6 +38,7 @@
 	<context:component-scan base-package="starrail.course.service"/>
 	<!-- 코스관련 bean 객체 생성 end -->
 	
+
 	
 	<!-- DB 설정 -->
 	<!-- Oracle 연결 -->

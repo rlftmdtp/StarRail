@@ -61,8 +61,8 @@ $('#bootstrap-touch-slider').bsTouchSlider();
 
                   <li><a href="#">추천</a></li>
                   <li><a href="#">플래너 공유</a></li>
-                  <li><a href="#">여행 후기</a></li>
-                  <li><a href="#">여행 경비</a></li>
+                  <li><a href="/starrail/review/review_list">여행 후기</a></li>
+                  <li><a href="/starrail/expenses/railro_expenses">여행 경비</a></li>
                   
                   
                   <!--  메뉴 눌렀을때 밑에 리스트 달아야 하면 이 코드 사용하기
@@ -91,6 +91,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
             
                <!-- 접속메뉴 -->
                <ul class="nav navbar-nav navbar-right">
+               			<li><a href="/starrail/message/msg_list">쪽지함</a></li>
                   <li class="dropdown">
                      <a id="a" href="#"   class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="flase">접속하기<span   class="caret"></span></a>
@@ -128,7 +129,7 @@ $('#bootstrap-touch-slider').bsTouchSlider();
                 <div class="item active">
 
                     <!-- Slide Background -->
-                    <img src="https://images.pexels.com/photos/48726/pexels-photo-48726.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" alt="Bootstrap Touch Slider"  class="slide-image"/>
+                    <img src="/starrail/resources/images/main/railo_main2.jpg" alt="Bootstrap Touch Slider"  class="slide-image"/>
                     <div class="bs-slider-overlay"></div>
 
                     <div class="container">
