@@ -38,7 +38,6 @@ public class RecommenderController {
 				m_no = user.getM_no();
 				
 				list = service.preferList_service(m_no);
-				System.out.println("회원번호 : " + m_no);
 				tag_list = service.tagRecommend_service(list);
 				System.out.println("컨트롤러 결과값 : " + tag_list);
 				
