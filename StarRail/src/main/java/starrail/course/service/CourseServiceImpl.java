@@ -1,49 +1,71 @@
 package starrail.course.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import starrail.course.domain.CourseDetailVO;
+import starrail.course.domain.CourseVO;
+import starrail.course.domain.IssueInfoVO;
+import starrail.course.persistence.CourseDAO;
+
+@Service
 public class CourseServiceImpl implements CourseService {
 
-	public static void main(String[] args) throws IOException {
-
-		StringBuilder urlBuilder = new StringBuilder(
-				"http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyCodeList"); /* URL */
-		urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=TGcClofLdZE%2B0HSLqvPVVLrixz8HFOrgUW2yZUuIASicA0%2BIDXMxYLiT3MCirXZQ2xG%2Bfedyb38VIDSGlB3yzQ%3D%3D"); /*
-																															 * Service
-																															 * Key
-																															 */
-		urlBuilder.append(
-				"&" + URLEncoder.encode("파라미터영문명", "UTF-8") + "=" + URLEncoder.encode("파라미터기본값", "UTF-8")); /* 파라미터설명 */
-		URL url = new URL(urlBuilder.toString());
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
-		BufferedReader rd;
-		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		} else {
-			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	@Inject
+	private CourseDAO dao;
+	
+	@Override
+	public List<IssueInfoVO> issueList(List<String> nodes) throws Exception {
+		List<IssueInfoVO> list = new ArrayList<IssueInfoVO>();
+		
+		for(int i=0; i<nodes.size(); i++){
+			list.add(dao.issueSelect(nodes.get(i)));
 		}
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
-		rd.close();
-		conn.disconnect();
-		System.out.println(sb.toString());
+		
+		return list;
 	}
 
 	@Override
-	public void getArriveStation() throws Exception {
+	public void courseRegist(CourseVO c, List<CourseDetailVO> cds) throws Exception {
+		int c_id = dao.selectC_id()+1;
+		
+		c.setC_id(c_id);
 
+		dao.courseInsert(c);
+		for(int i=0; i<cds.size(); i++){
+			cds.get(i).setC_id(c_id);
+			cds.get(i).setCd_id(dao.selectCd_id()+1);
+			dao.courseDetailInsert(cds.get(i));
+		}
 	}
+
+	@Override
+	public CourseVO courseRead(Integer c_id) throws Exception {
+		return dao.courseSelect(c_id);
+	}
+
+	@Override
+	public List<CourseDetailVO> courseDetailList(Integer c_id) throws Exception {
+		return dao.courseDetailList(c_id);
+	}
+
+	@Override
+	public void courseModify(CourseVO c, List<CourseDetailVO> cds) throws Exception {
+		dao.courseDetailDelete(c.getC_id());
+		dao.courseUpdate(c);
+		
+		for(int i=0; i<cds.size(); i++){
+			cds.get(i).setC_id(c.getC_id());
+			cds.get(i).setCd_id(dao.selectCd_id()+1);
+			dao.courseDetailInsert(cds.get(i));
+		}
+		
+	}
+
+	
 
 }

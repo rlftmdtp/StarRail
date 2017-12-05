@@ -1,6 +1,96 @@
 $(function() {
-		var lineCnt = 0;
-		var check=false;
+	//기존 데이터 받기
+	var c_id=$('#c_id').val();
+	var	i_name=$('#i_name').val();
+	var c_filename=$('#c_filename').val();
+	
+	var cd_id = $('span[id="cd_id"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_start = $('span[id="cd_start"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_stime = $('span[id="cd_stime"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_end = $('span[id="cd_end"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	var cd_etime = $('span[id="cd_etime"]').map(function() {
+		return $(this).text();
+	}).get();
+	
+	
+	//기존 데이터 뷰에 뿌려주기
+	$('#datepicker').val(cd_stime[0].substring(0,4)+"-"+cd_stime[0].substring(4,6)+"-"+cd_stime[0].substring(6,8));	//여행출발일
+	$('input[name="tripLong"]').removeAttr('disabled');	//5,7일권 선택버튼 활성화
+	
+	for(var i=0; i<cd_id.length; i++){
+		var ms_date = cd_stime[i].substring(0,4)+"-"+cd_stime[i].substring(4,6)+"-"+cd_stime[i].substring(6,8);	//yyyy-MM-dd
+		var ms_depTime = cd_stime[i].substring(8,10)+":"+cd_stime[i].substring(10);	//HH:mm
+		var ms_arrTime = cd_etime[i].substring(8,10)+":"+cd_etime[i].substring(10);
+		
+		//일정 세부 뿌려주기
+		if($('h4[sDate="'+ ms_date +'"]').length<=0){
+			$('#couresDetailView .uls')	//첫 일정인 경우 날짜 출력, ul 태그 생성
+			.append('<h4 class="date" sDate="'+ms_date+'">'+ms_date+'</h4><ul name="'+ ms_date +'"></ul>');
+		}
+		
+		$('ul[name="'+  ms_date+'"]')
+		.append('<li sDep="'+cd_start[i]+'" sArr="'+ cd_end[i] +'">'+cd_start[i]+'('+ms_depTime+') -->'+ cd_end[i] +'('+ ms_arrTime +')&emsp;&emsp;'
+				+'<span class="delSchedule"><img src="/starrail/resources/images/course/x.png"></span>'
+				+'<span class="coureDetail">'+cd_start[i]+'#'+ms_date.replace(/-/g,"") +ms_depTime.replace(/:/g,"")+'#'+cd_end[i] +'#'+ms_date.replace(/-/g,"") +ms_arrTime.replace(/:/g,"")
+				+'</span></li>');
+		
+		
+		
+		//발권역 정보 가져오기
+		$.ajax({
+			type : 'post',
+			url : '/starrail/course/issuelist',
+			dataType : 'json',
+			data : {
+				"selectedDep" : cd_start[i],
+				"selectedArr" : cd_end[i]
+			},
+			contenttype : "application/json; charset=utf-8",
+		
+			success:function(result){
+			
+				
+				$.each(result, function(key, value){
+					if(value!=null){
+						if($('.issuelist tbody tr td input:radio[value="'+value.i_name+'"]').length<=0){
+							$('.issuelist tbody').append('<tr>'
+									+'<td><center><input type="radio" name="selectedIssue" value="'+ value.i_name +'"></center></td>'
+									+'<td>'+ value.i_name +'</td>'
+									+'<td>'+ value.i_food +'</td>'
+									+'<td>'+ value.i_stay +'</td>'
+									+'<td>'+ value.i_tour +'</td>'
+									+'<td>'+ value.i_etc +'</td>'
+									+'</tr>');
+						}
+					}
+					
+					
+				})
+				$('.issuelist tbody tr td input:radio[value="'+i_name+'"]').attr('checked',true);	//기존 설정한 발권역에 체크
+				
+			}
+			
+		});
+		
+		
+	}
+	
+	
+	
+	
+	
 		var setStartDay;
 		
 		// 달력 UI (날짜 선택)
@@ -61,7 +151,6 @@ $(function() {
 			endDay.setFullYear(strArr[0]);
 			endDay.setDate(startDay.getDate()+Number($(this).val())-1);
 			
-			
 			var interval = endDay.getTime() - startDay.getTime();
 			interval = Math.floor(interval / (1000 *  60 * 60 * 24));
 			interval.toString();
@@ -74,6 +163,7 @@ $(function() {
 						+(i+1)+'일차</span></label><span class="beds-baths-clearfix"></span>');
 				startDay.setDate(startDay.getDate() + 1);
 			}
+			
 			
 		});
 
@@ -313,11 +403,10 @@ $(function() {
 		});
 
 
-		//전체코스 저장 버튼 클릭 ------> 일정 세부에 있는 내용으로 코스저장
+		//수정완료 버튼 클릭 ------> 코스 업데이트, 기존 코스디테일 삭제, 현재 일정 세부로 코스디테일 재삽입 
 		$('#allSavingBtn .saveBtn').click(function(){
-			var m_id = 'yuryna';	//추후 세션에서 받아오기로..
-			var i_name = $('input:radio[name="selectedIssue"]:checked').val();
-			var c_name = '코스이름';	//추후 input text로 수정
+			var newI_name = $('input:radio[name="selectedIssue"]:checked').val();
+			var newC_name = '코스이름2';	//추후 input text로 수정
 			
 			var details = $('span[class="coureDetail"]').map(function() {
 				return $(this).text();
@@ -325,18 +414,18 @@ $(function() {
 			
 			$.ajax({
 				type : 'post',
-				url : '/starrail/course/insertCourse',
+				url : '/starrail/course/updateCourse',
 				dataType : 'text',
 				data : {
-					'm_id' : m_id,
-					'i_name' : i_name,
-					'c_name' : c_name,
+					'c_id' : c_id,
+					'i_name' : newI_name,
+					'c_name' : newC_name,
 					'details' : JSON.stringify(details)
 				},
 				contenttype : "application/json; charset=utf-8",
 			
 				success:function(result){
-					alert('코스를 저장했습니다.');
+					alert('코스를 수정했습니다.');
 				}
 				
 			})
