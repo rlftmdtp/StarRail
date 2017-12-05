@@ -80,6 +80,7 @@ public class RecommenderServiceImpl implements RecommenderService {
 				System.out.println("추천 결과 : " + m_No + "," + recommendation.getItemID());
 				list.add((int) recommendation.getItemID());
 				System.out.println(list);
+				System.out.println("dd");
 			}
 
 		} catch (IOException e) {
