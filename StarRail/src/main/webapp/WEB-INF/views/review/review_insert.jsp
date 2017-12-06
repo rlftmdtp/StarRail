@@ -36,17 +36,7 @@
 				<form id="registerForm" action="review_insert" method="post">
 					
 					<table border="1" align="center">
-						<tr height="30">
-							<td align="center" width="80" colspan="2">작성자</td>
-							<td width="170" colspan="2"><input type="text" name="r_name"
-								size="15" /></td>
 
-						</tr>
-						<tr height="30">
-							<td align="center" width="80" colspan="2">비밀번호</td>
-							<td width="170" colspan="2"><input type="password"
-								name="r_pw" size="16" /></td>
-						</tr>
 
 						<tr height="30">
 							<td align="center" width="80" colspan="2">제목</td>

@@ -6,22 +6,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Star Raile Partner</title>  
+<style type="text/css">
+/* 헤더에 색상주기 */
+.header_color{
+   /*  background-color: #F07575; */ /* 그레디언트가 지원되지 않는 경우의 색상(fallback color) */
+/*   background-image: -webkit-linear-gradient(top, hsl(0, 30%, 80%), #FFFF8F);
+  background-image:    -moz-linear-gradient(top, hsl(0, 30%, 80%), #FFFF8F); /* Fx 3.6 부터 Fx 15 까지 처리 
+  background-image:     -ms-linear-gradient(top, hsl(0, 30%, 80%), #FFFF8F); /* IE 10 Platform Previews, Consumer Preview 
+  background-image:      -o-linear-gradient(top, hsl(0, 30%, 80%), #FFFF8F); /* Opera 11.1 부터 12.0 까지 처리 
+  background-image:         linear-gradient(to bottom, hsl(0, 30%, 80%), #FFFF8F); /* 표준구문, 표준구문은 반드시 마지막에 삽입해야한다. */
+}
+</style>
 
-		
- <!-- Css File -->   
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Star Raile Partner</title>
+
+   <link rel="stylesheet" type="text/css"   href="/starrail/resources/css/partner/partner.css?ver=1">
+
+   <!-- Bootstrap core CSS -->
+    <link href="/starrail/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="/starrail/resources/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/starrail/resources/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="/starrail/resources/device-mockups/device-mockups.min.css">
     <link href="/starrail/resources/css/partner/small-business.css" rel="stylesheet">
- 	<link rel="stylesheet" type="text/css"   href="/starrail/resources/css/partner/partner.css?ver=1">
-<!-- datePicker CSS File -->
-<!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
-	<link rel="stylesheet" href="/starrail/resources/css/main/style.css"> -->
+    <!-- Custom styles for this template -->
+    
+
+
+   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
+   <script src="/starrail/resources/js/partner/partner.js"></script>
+   <script src="/starrail/resources/js/partner/partnerSearch.js"></script>
+   <!-- Bootstrap core JavaScript -->
+   <script src="/starrail/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- Plugin JavaScript -->
+   <script src="/starrail/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+   <!-- Custom scripts for this template -->
+   <!-- <script src="/starrail/resources/js/main/new-age.min.js"></script> -->
+
 </head>
+
 <body>
 
-	<%@include file="../main/nav_page.jsp"%>
-	<div style="margin-top: 60px;"></div>   
+
+<header  class="header_color">
+<%@include file="../main/nav_page.jsp"%><div style="margin-top: 30px;"></div>   
+</header>
 
   <!-- Page Content -->
     <div class="container">
@@ -97,7 +132,7 @@
         
         <div class="col-lg-5" style="margin-top: 50px;">
           <h1>Course schedule</h1>
-          <p></p> 
+          <p></p>
           
            <!-- 코스선택 시 나오는 일정 시작 -->
            <div class="row">
@@ -170,6 +205,9 @@
                   
              </div>
          </div>
+         
+         
+         <!-- <img class="src-image"  src="/starrail/resources/images2/partner/F.png"/> -->
       </div>
       <!-- 일정 선택 시 동반자 리스트 출력하는 곳 끝 -->
       <!-- /.row -->
@@ -178,21 +216,15 @@
     <!-- /.container -->
 
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="/starrail/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
       
-    <div style="margin-top: 30px;">
-    	<%@include file="../main/footer.jsp"%>   
-    </div>   
+        <div style="margin-top: 30px;">
+           <%@include file="../main/footer.jsp"%>   
+      </div>   
 
-
-<!-- datepicker JS File : 무조건 코드 맨마지막에 넣어야 실행됨 -->   
-<!--      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js'></script>
-    <script src="/starrail/resources/js/main/index.js"></script>   -->
-<!-- JS File -->
-   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-   <script src="/starrail/resources/js/partner/partner.js"></script>
-   <script src="/starrail/resources/js/partner/partnerSearch.js"></script>
 
   </body>
 </html>

@@ -28,9 +28,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override		//후기 게시판 등록
 	public void register(ReviewVO review) throws Exception {
 
-		int no = dao.selectR_no();
-		if (no != 0) {
+		
+		if (dao.selectR_no() != null) {
 			review.setR_no(dao.selectR_no() + 1);
+		}else{
+			review.setR_no(1);
 		}
 
 		dao.insertReview(review);
@@ -122,7 +124,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public int selectR_no() throws Exception {
+	public Integer selectR_no() throws Exception {
 		if (dao.selectR_no() == null) {
 			return 0;
 		} else {
@@ -141,19 +143,23 @@ public class ReviewServiceImpl implements ReviewService {
 		List<String> list = new ArrayList<>();
 		int h_no = 0;
 		String r_hash = null;
+		
 		while (m.find()) {
 			r_hash = specialCharacter_replace(m.group());
-			
-			if (r_hash != null) {
+			System.out.println("서비스 r_hash : " + r_hash);
+			if (dao.hash_no() != null) {
 				h_no = dao.hash_no() + 1;
+				System.out.println("서비스 h_no : "+h_no);
+			}else{
+				h_no = 1;
+			}
 				paramMap.put("h_no", h_no);
 				paramMap.put("r_no", review.getR_no());
 				paramMap.put("r_hash", r_hash);
+				System.out.println("서비스 : "+paramMap);
 				dao.tagAdd(paramMap);
 				list.add(r_hash);
 			}
-			
-		}
 		
 		return list;
 
