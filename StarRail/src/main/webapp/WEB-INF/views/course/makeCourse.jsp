@@ -11,7 +11,7 @@
 <title>Course</title>
 
 <!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css?ver=1">
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
 
 
 <!-- n일차 버튼 css -->
@@ -70,8 +70,10 @@
 
 		<!-- 출발 도착역 선택 -->
 		<div id="stationSetting">
-
+			<div class="depTitle"><h4>출발역 선택</h4></div><div class="arrTitle"><h4>도착역 선택</h4></div>
 			<!-- 출발역 리스트 -->
+			
+			
 			<div class="departures">				
 			    <div class="btn-group">
 			    
@@ -79,11 +81,14 @@
 			</div>
 			
 			<!-- 도착역 리스트 -->
+			
+			
 			<div class="arrivals">
 				<div class="btn-group">
 			        <!-- 도착역 데이터 -->
 			    </div>
 			</div>
+			
 			<!-- 도착역 리스트 closing-->
 			
 
@@ -156,7 +161,9 @@
 
 
 		<!-- 발권역 선택 -->
+		<h4 id="issueTitle">발권역 선택</h4>
 		<div id="issueSetting">
+			
 			<table class="issuelist">
 				<thead>
 					<tr>

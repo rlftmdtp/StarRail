@@ -79,7 +79,7 @@
 
 		<!-- 출발 도착역 선택 -->
 		<div id="stationSetting">
-
+			<div class="depTitle"><h4>출발역 선택</h4></div><div class="arrTitle"><h4>도착역 선택</h4></div>
 			<!-- 출발역 리스트 -->
 			<div class="departures">				
 			    <div class="btn-group">
@@ -166,7 +166,9 @@
 
 
 		<!-- 발권역 선택 -->
+		<h4 id="issueTitle">발권역 선택</h4>
 		<div id="issueSetting">
+			
 			<table class="issuelist">
 				<thead>
 					<tr>

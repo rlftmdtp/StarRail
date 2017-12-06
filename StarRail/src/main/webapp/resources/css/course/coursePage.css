@@ -51,6 +51,23 @@ body{margin:0; padding:0;}
 	
 }
 
+div.depTitle{
+	float:left;
+	width:500px;
+	margin: 0px 10px 0px 0px;
+}
+
+div.arrTitle{
+	float:left;
+	width:500px;
+	margin: 0px 0px 0px 10px;
+}
+
+.depTitle h4,
+.arrTitle h4{
+	font-weight: bolder;
+}
+
 .departures{
 	float:left;
 	width:500px;
@@ -157,6 +174,7 @@ h4.trainTimeTableTitle{
 	font-size: 11pt;
 	background: #BCBCBC;
 	text-align: center;
+	font-weight: bolder;
 	
 }
 
@@ -282,6 +300,10 @@ span.coureDetail{
 	border-radius: 30px;
 }
 
+#issueTitle{
+	font-weight: bolder;
+}
+
 .trainListTable tbody td{
 	text-align:center;
 	height:25px;
@@ -304,6 +326,7 @@ table.issuelist{
 	font-size: 11pt;
 	background: #BCBCBC;
 	text-align: center;
+	font-weight: bolder;
 }
 
 .issuelist thead th.th1{
