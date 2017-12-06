@@ -89,7 +89,7 @@
 									<td>${reviewVO.r_no}</td>
 									<td><a
 										href="/starrail/review/review_detail${pageMaker.makeQuery(pageMaker.cri.page) }&r_no=${reviewVO.r_no}">${reviewVO.r_title }</a></td>
-									<td>${reviewVO.r_name }</td>
+									<td>${reviewVO.m_id }</td>
 									<td><fmt:formatDate value="${reviewVO.r_date }"
 											pattern="yyyy-MM-dd" /></td>
 									<td>${reviewVO.r_hit }</td>

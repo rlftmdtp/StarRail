@@ -12,14 +12,14 @@
 	<insert id="insertReview" parameterType="ReviewVO">
 		insert into review
 		values(
-		#{r_no}, #{m_id}, #{r_name}, #{r_title}, #{r_content}, #{r_pw},
-		SYSDATE, 0
+		#{r_no}, #{m_id}, #{r_title}, #{r_content},
+		SYSDATE, 0,0
 		)
 	</insert>
 
 	<!-- 후기게시물 전체 보기  -->
 	<select id="listReview" resultType="ReviewVO">
-		select r_no, r_title, r_name,
+		select r_no, r_title, m_id,
 		r_date, r_hit
 		from review
 		order by r_no desc, r_date desc
@@ -28,7 +28,7 @@
 	<!-- 페이징처리 -->
 	<select id="listPage" resultType="ReviewVO">
 	<![CDATA[ 
-		select r_no, r_title, r_name, r_date, r_hit 
+		select r_no, r_title, m_id, r_date, r_hit 
 		from review
 		where r_no > 0
 		order by r_no desc, r_date desc
@@ -37,7 +37,7 @@
 
 	<select id="listCriteria" resultType="ReviewVO">
 	<![CDATA[ 
-		select r_no, r_title, r_name, r_date, r_hit 
+		select r_no, r_title, m_id, r_date, r_hit 
 		from review
 		where r_no > 0
 		order by r_no desc, r_date desc
@@ -47,7 +47,7 @@
 	<!-- 검색 -->
 	<select id="listSearch" resultType="ReviewVO">
 	<![CDATA[ 
-		select r_no, r_title, r_name, r_date, r_hit
+		select r_no, r_title, m_id, r_date, r_hit
 		from review
 		where r_no > 0
 			]]>
@@ -68,7 +68,7 @@
 				and r_content like '%'|| #{keyword}||'%'
 			</if>
 			<if test="searchType == 'w'.toString()">
-				and r_name like '%'|| #{keyword}||'%'
+				and m_id like '%'|| #{keyword}||'%'
 			</if>
 
 			<if test="searchType == 'tc'.toString()">
@@ -78,7 +78,7 @@
 				#{keyword}||'%')
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( r_content like '%'|| #{keyword}||'%' OR r_name like
+				and ( r_content like '%'|| #{keyword}||'%' OR m_id like
 				'%'||
 				#{keyword}||'%')
 			</if>
@@ -88,7 +88,7 @@
 				r_content like
 				'%'|| #{keyword}||'%'
 				OR
-				r_name like '%'|| #{keyword}||'%')
+				m_id like '%'|| #{keyword}||'%')
 			</if>
 		</if>
 	</sql>
@@ -126,7 +126,7 @@
 	<!-- 게시물 수정하기 -->
 	<update id="updateReview" parameterType="ReviewVO">
 		update Review set
-		r_title = #{r_title}, r_name = #{r_name}, r_content = #{r_content},
+		r_title = #{r_title}, r_content = #{r_content},
 		r_date = sysdate
 		where r_no = #{r_no}
 	</update>

@@ -47,10 +47,8 @@ private static final Logger logger = LoggerFactory.getLogger(ControllerTest.clas
 	        ReviewVO review = new ReviewVO();
 	        review.setR_no(88);
 	        review.setM_id("rlftmdtp");
-	        review.setR_name("юЕ╪ж");
-	        review.setR_title("юл╬ъ ©╘гЮюл╢ы!!!!!");
-	        review.setR_content("гогогогогогогого");
-	        review.setR_pw("1234");
+	        review.setR_title("О©╫л╬О©╫ О©╫О©╫О©╫О©╫О©╫л╢О©╫!!!!!");
+	        review.setR_content("О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫");
 	        review.setR_date(timestamp);
 	        review.setR_hit(0);
 	       
