@@ -29,16 +29,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 		dao.expensesInsert(expensesVO);
 	}
 
-	@Override	//코스 있음
-	public void expenseCourseRegist(ExpenseCourseVO exCourseVO) throws Exception {
-		if (dao.selectCourseE_no() != null) {
-			exCourseVO.setE_no(dao.selectCourseE_no() + 1);
-		} else {
-			exCourseVO.setE_no(1);
-		}
-		dao.expenseCourseInsert(exCourseVO);
-		
-	}
 	
 	@Override
 	public Integer totalMoney(int e_no, int ed_amount) throws Exception {
@@ -99,15 +89,37 @@ public class ExpensesServiceImpl implements ExpensesService {
 	}
 
 	@Override
-	public List<StatementVO> recall(String m_id) throws Exception {
-		//만약 m_id에 대한 경비내역이 여러개라면..! 여기서 처리해줘야겠지?
-
-		if(dao.expenseCount(m_id)>1){
-			
+	public List<Map<String, Object>> recall(String m_id) throws Exception {
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		list = dao.recall(m_id);
+		for(int i=0; i<list.size(); i++){
+			System.out.println("e_no : "+list.get(i).get("e_no"));
+			System.out.println("e_title : "+list.get(i).get("e_title"));
 		}
-		return dao.recall(m_id);
+		
+		return list;
 	}
 
 
-
+	@Override
+	public List<Map<String, Object>> recallData(int e_no) throws Exception {
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		list = dao.recallData(e_no);
+		for(int i=0; i<list.size(); i++){
+			System.out.println("e_no : " + list.get(i).get("e_no"));
+			System.out.println("e_sdate : " + list.get(i).get("e_sdate"));
+			System.out.println("e_edate : " + list.get(i).get("e_edate"));
+			System.out.println("e_total : " + list.get(i).get("e_total"));
+			System.out.println("ed_no : " + list.get(i).get("ed_no"));
+			System.out.println("ed_date : " + list.get(i).get("ed_date"));
+			System.out.println("ed_kategorie : " + list.get(i).get("ed_kategorie"));
+			System.out.println("ed_katename : " + list.get(i).get("ed_katename"));
+			System.out.println("ed_amount : " + list.get(i).get("ed_amount"));
+		}
+				
+		return list;
+		
+	}
 }

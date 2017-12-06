@@ -3,7 +3,6 @@ package starrail.expenses.domain;
 public class ExpenseCourseVO {
 	//예상경비 테이블
 		private int e_no;
-		private int c_id;
 		private String m_id;
 		private String e_title;
 		private String e_sdate;
@@ -19,13 +18,6 @@ public class ExpenseCourseVO {
 			this.e_no = e_no;
 		}
 
-		public int getC_id() {
-			return c_id;
-		}
-
-		public void setC_id(int c_id) {
-			this.c_id = c_id;
-		}
 
 		public String getM_id() {
 			return m_id;
@@ -69,7 +61,7 @@ public class ExpenseCourseVO {
 
 		@Override
 		public String toString() {
-			return "ExpensesVO [e_no=" + e_no + ", c_id=" + c_id + ", m_id=" + m_id + ", e_title=" + e_title + ", e_sdate="
+			return "ExpensesVO [e_no=" + e_no + ", m_id=" + m_id + ", e_title=" + e_title + ", e_sdate="
 					+ e_sdate + ", e_edate=" + e_edate + ", e_total=" + e_total + "]";
 		}
 		

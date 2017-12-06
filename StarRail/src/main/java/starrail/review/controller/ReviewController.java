@@ -60,13 +60,10 @@ public class ReviewController {
 		//해시태그 전체 불러오기
 		list = service.hashSearch();
 	
-		System.out.println("list출력 : " + list);
-		
 		List<String> listHash = new ArrayList<String>();
 		
 		//내 후기 글번호로 해시태그만 따로 저장
 		listHash = service.hashtagInsert(review, searchVO);
-		System.out.println("해시태그 넘겨온 값 : " + service.hashtagInsert(review, searchVO));
 
 		boolean check = false;
 		for (int i = 0; i < listHash.size(); i++) {

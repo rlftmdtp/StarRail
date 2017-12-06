@@ -39,172 +39,199 @@
 
 				<!-- Tab안 -->
 				<div class="panel-body">
-				 <div class = "col-md-4">
-					<div class="tab-content">
+					<div class="col-md-4">
+						<div class="tab-content">
 
-						<!-- 예산경비 등록 폼 -->
-						<form action="#" id="expenseslist">
-							<div class="hero-widget well well-sm"
-								style="background-color: #FFFFFF; height: 450px;">
-								<input type="hidden" class="m_id" value="${m_id }" name="m_id">
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1"
-										style="width: 25px;"> <span
-										class="glyphicon glyphicon-book" aria-hidden="true"> </span></span> <input
-										type="text" class="form-control" id="e_title" name="e_title"
-										placeholder="제목" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group" style="margin-top: 7px; margin-bottom: -35px;" >
-									<input id="courseId" type="checkbox" name="course"
-										class="course" value="couse" onclick="courseclick()">&nbsp;저장된
-									코스 가져오기
+							<!-- 예산경비 등록 폼 -->
+							<form action="#" id="expenseslist">
+								<div class="hero-widget well well-sm"
+									style="background-color: #FFFFFF; height: 450px;">
+									<input type="hidden" class="m_id" value="${m_id }" name="m_id">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1"
+											style="width: 25px;"> <span
+											class="glyphicon glyphicon-book" aria-hidden="true"> </span></span>
+										<input type="text" class="form-control" id="e_title"
+											name="e_title" placeholder="제목"
+											aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group"
+										style="margin-top: 7px; margin-bottom: -35px;">
+										<input id="courseId" type="checkbox" name="course"
+											class="course" value="couse" onclick="courseclick()">&nbsp;저장된
+										코스 가져오기
 									</div>
 									<div class="thumbnail" style="height: 100px; margin-top: 20px;">
 										<form class='form-horizontal well' action='#'>
-										<div class='row'>
-											<div class='col-md-12' id="thumbnail">
-											
+											<div class='row'>
+												<div class='col-md-12' id="thumbnail"></div>
+											</div>
+										</form>
+									</div>
+
+
+									<div class="input-daterange input-group" id="flight-datepicker"
+										style="margin-top: 10px;">
+										<span class="input-group-addon" id="basic-addon1"
+											style="width: 25px;"> <span
+											class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+										<span class="fontawesome-calendar"></span> <input
+											class="input-sm form-control" type="text"
+											id="datepicker_expense" name="e_sdate" placeholder="출발일"
+											data-date-format="DD, MM d" style="size: 5px" /> <span
+											class="date-text date-depart"></span>
+									</div>
+
+									<div class="input-group"
+										style="margin-top: 15px; margin-bottom: -30px;">
+										<input id="checkboxId" type="checkbox" name="tripLong"
+											class="tripLong" value="5" onclick="oneclick(this)">5일권&nbsp;&nbsp;
+										<input id="checkboxId" type="checkbox" name="tripLong"
+											class="tripLong" value="7" onclick="oneclick(this)">7일권
+									</div>
+
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1"
+											style="width: 25px;"> <span
+											class="glyphicon glyphicon-calendar" aria-hidden="true">
+										</span></span> <input type="text" class="form-control" id="endDate"
+											name="e_edate" placeholder="도착일"
+											aria-describedby="basic-addon1">
+									</div>
+
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1"
+											style="width: 25px;"> <span
+											class="glyphicon glyphicon-piggy-bank" aria-hidden="true">
+										</span></span> <input type="text" class="form-control" id="travelAmount"
+											name="e_total" placeholder="예산"
+											aria-describedby="basic-addon1" />
+									</div>
+
+									<div class="input-group">
+										<input type="button" value="저장" id="submit1"
+											class="btn btn-primary" data-toggle="modal" onclick="save()">
+										&nbsp;&nbsp;
+
+										<div class="modal-footer" style="border: 1px #eee;">
+											<div class="btn-group pull-left">
+												<button type="button"
+													class="btn btn-default dropdown-toggle"
+													data-toggle="dropdown" id="recall">불러오기</button>
+												<ul class="dropdown-menu">
+
+
+
+												</ul>
 											</div>
 										</div>
-									</form>	
 									</div>
-								
-							
-						 		<div class="input-daterange input-group" id="flight-datepicker" style="margin-top: 10px;">
-						 		<span class="input-group-addon" id="basic-addon1" style="width: 25px;">
-						 		<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-									<span class="fontawesome-calendar"></span>
-										<input class="input-sm form-control" type="text"
-											id="datepicker_expense" name="e_sdate" placeholder="출발일"
-											data-date-format="DD, MM d" style="size: 5px"/>
-									<span class="date-text date-depart"></span>
-								</div> 
-    
-								<div class="input-group" style="margin-top: 15px; margin-bottom: -30px;" >
-									<input id="checkboxId" type="checkbox" name="tripLong"
-										class="tripLong" value="5" onclick="oneclick(this)">5일권&nbsp;&nbsp;
-									<input id="checkboxId" type="checkbox" name="tripLong"
-										class="tripLong" value="7" onclick="oneclick(this)">7일권
+								</div>
+							</form>
+						</div>
+
+
+
+						<!-- 지출내역 등록하는 카테고리 -->
+						<form action="#" id="katelist">
+							<div class="hero-widget well well-sm"
+								style="background-color: #FFFFFF;">
+
+								<div class="dayButton" id="ddol">
+									<!--경비 저장하는 form에서 선택한 일수만큼 버튼 생김 -->
+								</div>
+
+								<!-- 카테고리 -->
+								<div class="btn-toolbar"
+									style="margin-top: 10px; margin-bottom: 10px;">
+									<div class="btn-group">
+										<button class="btn" data="food"
+											style="width: 40px; height: 40px;">
+											<img src="/starrail/resources/images/expenses/dinner.png" />
+										</button>
+
+										<button class="btn" data="shopping"
+											style="width: 40px; height: 40px;">
+											<img src="/starrail/resources/images/expenses/shopping.png" />
+										</button>
+
+										<button class="btn" data="hotel"
+											style="width: 40px; height: 40px;">
+											<img src="/starrail/resources/images/expenses/bed.png" />
+										</button>
+
+										<button class="btn" data="bus"
+											style="width: 40px; height: 40px;">
+											<img src="/starrail/resources/images/expenses/bus.png" />
+										</button>
+
+										<button class="btn" data="etc"
+											style="width: 40px; height: 40px;">
+											<img
+												src="/starrail/resources/images/expenses/001-speech-bubble.png" />
+										</button>
+									</div>
+								</div>
+
+
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1"
+										style="width: 30px;"> <span
+										class="glyphicon glyphicon-list-alt" aria-hidden="true">
+									</span></span> <input type="text" class="form-control" placeholder="항목"
+										aria-describedby="basic-addon1" id="ed_katename">
 								</div>
 
 								<div class="input-group">
 									<span class="input-group-addon" id="basic-addon1"
-										style="width: 25px;"> <span
-										class="glyphicon glyphicon-calendar" aria-hidden="true">
-									</span></span> <input type="text" class="form-control" id="endDate"
-										name="e_edate" placeholder="도착일"
-										aria-describedby="basic-addon1">
+										style="width: 30px;"> <img
+										src="/starrail/resources/images/expenses/money.png"></span> <input
+										type="text" class="form-control" id="ed_amount"
+										name="ed_amount" placeholder="사용 금액"
+										aria-describedby="basic-addon1" />
 								</div>
 
 								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1"
-										style="width: 25px;"> <span
-										class="glyphicon glyphicon-piggy-bank" aria-hidden="true">
-									</span></span> <input type="text" class="form-control" id="travelAmount"
-										name="e_total" placeholder="예산" aria-describedby="basic-addon1" />
-								</div>
-
-								<div class="input-group">
-									<input type="button" value="저장" id="submit1"
-										class="btn btn-primary" data-toggle="modal" onclick="save()">
-									&nbsp;&nbsp; 
-									<input type="button" value="불러오기" id="recall" class="btn btn-primary" data-toggle="modal">
+									<input type="button" value="등록" class="btn btn-primary"
+										data-toggle="modal" onclick="expense_save()">
 								</div>
 							</div>
 						</form>
 					</div>
+					<div class="col-md-4">
+						<!-- 지출된 금액 계산해주고 view에 뿌려주는 list -->
+						<form action="#" id="amountlist" style="background-color: yellow; width: 95%; height: 300px; ">
 
-					<!-- 지출내역 등록하는 카테고리 -->
-					<form action="#" id="katelist">
-						<div class="hero-widget well well-sm"
-							style="background-color: #FFFFFF;">
-
-							<div class="dayButton" id="ddol">
-								<!--경비 저장하는 form에서 선택한 일수만큼 버튼 생김 -->
+							<div id="tabnavi" class="btn-group row-md-2" data-toggle="buttons-radio">
+								<!-- tab생성하기 -->
 							</div>
-
-							<!-- 카테고리 -->
-							<div class="btn-toolbar"
-								style="margin-top: 10px; margin-bottom: 10px;">
-								<div class="btn-group">
-									<button class="btn" data="food"
-										style="width: 40px; height: 40px;">
-										<img src="/starrail/resources/images/expenses/dinner.png" />
-									</button>
-
-									<button class="btn" data="shopping"
-										style="width: 40px; height: 40px;">
-										<img src="/starrail/resources/images/expenses/shopping.png" />
-									</button>
-
-									<button class="btn" data="hotel"
-										style="width: 40px; height: 40px;">
-										<img src="/starrail/resources/images/expenses/bed.png" />
-									</button>
-
-									<button class="btn" data="bus"
-										style="width: 40px; height: 40px;">
-										<img src="/starrail/resources/images/expenses/bus.png" />
-									</button>
-
-									<button class="btn" data="etc"
-										style="width: 40px; height: 40px;">
-										<img
-											src="/starrail/resources/images/expenses/001-speech-bubble.png" />
-									</button>
+							<div class="tab-content row-md-7">
+								<div class="tab-pane active" id="prices2">
+									<br>
+									<p class="lead"><!-- 날짜 --></p>
+									<div class="row">
+										<div class="pay">
+											<!-- 지출내역 -->
+										</div>
+										
+									</div>
 								</div>
 							</div>
 
+								<div class="totallist row-md-3">
+									<div class="col-md-6 totalmoney">
+									<!-- 총사용금액, 총남은돈  -->
+									</div>
+									
+								</div>
+						</form>
+					</div>
 
-							<div class="input-group">
-								<span class="input-group-addon" id="basic-addon1"
-									style="width: 30px;"> <span
-									class="glyphicon glyphicon-list-alt" aria-hidden="true">
-								</span></span> <input type="text" class="form-control" placeholder="항목"
-									aria-describedby="basic-addon1" id="ed_katename">
-							</div>
-
-							<div class="input-group">
-								<span class="input-group-addon" id="basic-addon1"
-									style="width: 30px;"> <img
-									src="/starrail/resources/images/expenses/money.png"></span> <input
-									type="text" class="form-control" id="ed_amount"
-									name="ed_amount" placeholder="사용 금액"
-									aria-describedby="basic-addon1" />
-							</div>
-
-							<div class="input-group">
-								<input type="button" value="등록" class="btn btn-primary"
-									data-toggle="modal" onclick="expense_save()">
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class = "col-md-4">
-					<!-- 지출된 금액 계산해주고 view에 뿌려주는 list -->
-					<form action="#" id="amountlist">
-						<div class="hero-widget well well-sm"
-							style="background-color: #FF5E00;">
-							<div class="amount_list_content">
-								<!-- 지출 날짜 적용 -->
-							</div>
-							<ul class="list-group">
-								<!-- 지출내역 보여지기 -->
-							</ul>
-							<div class="totallist">
-								<!-- 총사용금액, 총남은돈  -->
-							</div>
-						</div>
-
-
-					</form>
-				</div>			
-				
-				<div class = "col-md-4">
-				<!-- 실시간 도표 -->
-				<form action="#" id="chartlist"></form>
-				<div class="hero-widget well well-sm"></div>
-				</div>
+					<div class="col-md-4">
+						<!-- 실시간 도표 -->
+						<form action="#" id="chartlist"></form>
+						<div class="hero-widget well well-sm"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -224,6 +251,8 @@
 
 </body>
 
+
+
 <!--5일차,7일차 체크박스 클릭했을 때, 하나만 눌리게 -->
 <script type="text/javascript">
 	function oneclick(a) {
@@ -240,12 +269,15 @@
  
  <!-- 코스불러오기버튼 눌렀을 때 -->
 <script type="text/javascript">
+
 	$('#recall').on('click', function(){
+		alert('불러오거라');	
+	
 		var obj = new Object();
 		obj.m_id = $('.m_id').attr('value');
 		
 		$.ajax({
-			url : 'starrail/expenses/expense_recall',
+			url : '/starrail/expenses/expense_recall',
 			type : 'POST',
 			headers : {
 				'Content-Type' : 'application/text'
@@ -255,10 +287,100 @@
 			success: function(data) {
 				alert("불러오기성공이다");
 				alert(data);
+
+				var e_title = "";
+				var e_no = 0;
+
+				 $.each(data, function(index, item) {
+					 alert("item : "+item["e_no"]);
+					$('.dropdown-menu').append("<li><a href='#' id='recallCome' data='" +item["e_no"] +"'>"
+							+item["e_title"] +"</a></li>");
+					
+				}); 
 			}
 		})
 	});
+	
+	
 </script>  
+
+<!-- 선택한회원 용돈기입장 가져오기 -->
+<script type="text/javascript">
+
+	$('.dropdown-menu').on('click', '#recallCome', function() {
+		var obj = new Object();
+		obj.e_no = $(this).attr('data');
+		$.ajax({
+			url : '/starrail/expenses/recallData',
+			type : 'POST',
+			headers : {
+				'Content-Type' : 'application/json'
+			},
+			data : obj.e_no,
+			dataType : "json",
+			success : function(data) {
+				alert("하이요~!");
+
+				var e_title = "";
+				var e_sdate = "";
+				var e_edate = "";
+				var ed_date = "";
+				var ed_kategorie = "";
+				var ed_katename = "";
+				var e_total = 0;
+				var ed_amount = 0;
+				var e_no = 0;
+				var ed_no = 0;
+
+				 $.each(data, function(index, item) {
+					 alert("item : "+item["e_no"]);
+					 $('.lead').append('<p>' + item["ed_date"] + '</p>');
+					 $('.lead').append('<input type="hidden" value="'+item["e_no"]+'" >');
+					 
+					 
+					$('.dropdown-menu').append("<li><a href='#' id='recallCome' data='" +item["e_no"] +"'>"
+							+item["e_title"] +"</a></li>");
+					
+				
+
+					if (item["ed_kategorie"] == 'food') {
+						$('.pay').append('<div class="list-group-item"><img src ="/starrail/resources/images/expenses/dinner.png">('
+												+ item["ed_katename"]
+												+ ')&nbsp&nbsp'
+												+ item["ed_amount"] + '</div>');
+					} else if (item["ed_kategorie"] == 'shopping') {
+						$('.pay').append(
+										'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/shopping.png">('
+												+ item["ed_katename"]
+												+ ')&nbsp&nbsp'
+												+ item["ed_amount"] + '</div>');
+					} else if (item["ed_kategorie"] == 'hotel') {
+						$('.pay').append(
+										'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/bed.png">('
+												+ item["ed_katename"]
+												+ ')&nbsp&nbsp'
+												+ item["ed_amount"] + '</div>');
+					} else if (item["ed_kategorie"] == 'bus') {
+						$('.pay').append(
+										'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/bus.png">('
+												+ item["ed_katename"]
+												+ ')&nbsp&nbsp'
+												+ item["ed_amount"] + '</div>');
+					} else if (item["ed_kategorie"] == 'etc') {
+						$('.pay').append(
+										'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/001-speech-bubble.png">('
+												+ item["ed_katename"]
+												+ ')&nbsp&nbsp'
+												+ item["ed_amount"] + '</div>');
+					}
+
+		//			$('.totalmoney').append('<p>쓴 돈 : ' + item["todayTotal"] + '</p>');
+					$('.totalmoney').append('<p>남은 돈 : ' + item["e_total"] + '</p>');
+				 }); 
+			}
+		});
+	});
+</script>
 
 <!--코스가져오기 눌렀을 때-->
 <script type="text/javascript">
@@ -344,6 +466,7 @@
 
 							/* 체크박스를 클릭할때 마다 생기는 버튼값을 지워주고 새로 만들어줌 for문이용하여 출발일기준 일수만큼 더해주기 */
 							$('.dayButton').empty();
+							$('#tabnavi').empty();
 							for (var i = 0; i <= parseInt(interval); i++) {
 
 								$('.dayButton').append('<input type="button" value='
@@ -354,8 +477,14 @@
 														+ (tripDateStart.getMonth() + 1)
 														+ '/' + tripDateStart.getDate())
 														+ '"> </input>');
+								$('#tabnavi').append('<a href="#" class="btn btn-large btn-info active" data-toggle="tab" id="'
+										+(tripDateStart.getFullYear()
+										+ '/'
+										+ (tripDateStart.getMonth() + 1)
+										+ '/' + tripDateStart.getDate())
+										+'">'+ (i+1)+'일차</a>');
 								tripDateStart.setDate(tripDateStart.getDate() + 1);
-
+	
 							}
 			});
 	});
@@ -385,7 +514,6 @@ $('#thumbnail').on('click','#thumbnailBtn' ,function(){
 					},
 					data : JSON.stringify({
 						'm_id' : $('.m_id').attr('value'),
-						'c_id' : thumbnailBtn,
 						'e_title' : $('#e_title').val(),
 						'e_sdate' : $('#datepicker_expense').val(),
 						'e_edate' : $('#endDate').val(),
@@ -446,47 +574,46 @@ $('#thumbnail').on('click','#thumbnailBtn' ,function(){
 					success : function(data) {
 						alert(data.todayTotal);
 						/* 내가 사용한 지출 내역을 가져와 view에 뿌려줌 */
-						$('.amount_list_content').append(
+						
+						$('.lead').append(
 								'<p>' + data.ed_date + '</p>');
-						$('.amount_list_content').append(
+						$('.lead').append(
 								'<input type="hidden" value="'+data.e_no+'" >');
 
 						if (data.ed_kategorie == 'food') {
-							$('.list-group').append(
-											'<li class="list-group-item"><img src ="/starrail/resources/images/expenses/dinner.png">('
+							$('.pay').append(
+											'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/dinner.png">('
 													+ data.ed_katename
 													+ ')&nbsp&nbsp'
-													+ data.ed_amount + '</li>');
+													+ data.ed_amount + '</div>');
 						} else if (data.ed_kategorie == 'shopping') {
-							$('.list-group').append(
-											'<li class="list-group-item"><img src ="/starrail/resources/images/expenses/shopping.png">('
+							$('.pay').append(
+											'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/shopping.png">('
 													+ data.ed_katename
 													+ ')&nbsp&nbsp'
-													+ data.ed_amount + '</li>');
+													+ data.ed_amount + '</div>');
 						} else if (data.ed_kategorie == 'hotel') {
-							$('.list-group').append(
-											'<li class="list-group-item"><img src ="/starrail/resources/images/expenses/bed.png">('
+							$('.pay').append(
+											'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/bed.png">('
 													+ data.ed_katename
 													+ ')&nbsp&nbsp'
-													+ data.ed_amount + '</li>');
+													+ data.ed_amount + '</div>');
 						} else if (data.ed_kategorie == 'bus') {
-							$('.list-group').append(
-											'<li class="list-group-item"><img src ="/starrail/resources/images/expenses/bus.png">('
+							$('.pay').append(
+											'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/bus.png">('
 													+ data.ed_katename
 													+ ')&nbsp&nbsp'
-													+ data.ed_amount + '</li>');
+													+ data.ed_amount + '</div>');
 						} else if (data.ed_kategorie == 'etc') {
-							$('.list-group').append(
-											'<li class="list-group-item"><img src ="/starrail/resources/images/expenses/001-speech-bubble.png">('
+							$('.pay').append(
+											'<div class="list-group-item"><img src ="/starrail/resources/images/expenses/001-speech-bubble.png">('
 													+ data.ed_katename
 													+ ')&nbsp&nbsp'
-													+ data.ed_amount + '</li>');
+													+ data.ed_amount + '</div>');
 						}
 
-						$('.totallist').append(
-								'<p>쓴 돈 : ' + data.todayTotal
-										+ '&nbsp&nbsp남은 돈 : ' + data.e_total
-										+ '</p>');
+						$('.totalmoney').append('<p>쓴 돈 : ' + data.todayTotal + '</p>');
+						$('.totalmoney').append('<p>남은 돈 : ' + data.e_total + '</p>');
 
 					}
 				});

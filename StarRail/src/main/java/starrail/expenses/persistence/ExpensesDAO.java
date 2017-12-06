@@ -13,10 +13,6 @@ public interface ExpensesDAO {
 	public void expensesInsert(ExpensesVO expensesVO) throws Exception;
 	public Integer selectE_no() throws Exception;
 
-	//예상경비 설정 코스있음
-	public void expenseCourseInsert(ExpenseCourseVO exCourseVO) throws Exception;
-	public Integer selectCourseE_no() throws Exception;
-	
 	//총 남은금액 구해오기
 	public Integer totalMoney(int e_no) throws Exception;
 	
@@ -32,8 +28,9 @@ public interface ExpensesDAO {
 	
 	public List<Map<String, Object>> course(String id) throws Exception;
 	
-	public List<StatementVO> recall(String m_id) throws Exception;
-	//m_id에 해당하는 경비가 몇개있는지
-	public Integer expenseCount(String m_id) throws Exception;
+	public List<Map<String, Object>> recall(String m_id) throws Exception;
+	
+	public List<Map<String, Object>> recallData(int e_no) throws Exception;
+
 	
 }

@@ -9,13 +9,13 @@
 	</select>
 
 	<!-- 후기게시물 등록  -->
-	<insert id="insertReview" parameterType="ReviewVO">
-		insert into review
-		values(
-		#{r_no}, #{m_id}, #{r_title}, #{r_content},
-		SYSDATE, 0,0
-		)
-	</insert>
+ <insert id="insertReview" parameterType="ReviewVO">
+      insert into review
+      values(
+      #{r_no}, #{m_id}, #{r_title}, #{r_content},
+      SYSDATE, 0,0
+      )
+   </insert>
 
 	<!-- 후기게시물 전체 보기  -->
 	<select id="listReview" resultType="ReviewVO">

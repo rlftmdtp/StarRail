@@ -28,16 +28,6 @@ public class ExpensesDAOImpl implements ExpensesDAO {
 		return session.selectOne(namespace+".selectE_no");
 	}
 	
-	@Override
-	public void expenseCourseInsert(ExpenseCourseVO exCourseVO) throws Exception {
-		session.insert(namespace+".expenseCourseInsert", exCourseVO);
-	}
-
-	@Override
-	public Integer selectCourseE_no() throws Exception {
-		return session.selectOne(namespace+".selectCourseE_no");
-	}
-
 	@Override	//지출내역 저장
 	public void amountInsert(StatementVO statementVO) throws Exception {
 		session.insert(namespace+".amountInsert", statementVO);
@@ -70,14 +60,15 @@ public class ExpensesDAOImpl implements ExpensesDAO {
 	}
 
 	@Override
-	public List<StatementVO> recall(String m_id) throws Exception {
+	public List<Map<String, Object>> recall(String m_id) throws Exception {
 		return session.selectList(namespace+".recall", m_id);
 	}
 
 	@Override
-	public Integer expenseCount(String m_id) throws Exception {
-		return session.selectOne(namespace+".expenseCount", m_id);
+	public List<Map<String, Object>> recallData(int e_no) throws Exception {
+		return session.selectList(namespace+".recallData", e_no);
 	}
+
 
 
 
