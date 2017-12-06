@@ -273,7 +273,7 @@ public class MapServiceImpl implements MapService {
 				blogVO.setTitle(((String)entity.get("title")).replace("<b>", "").replace("</b>", "").replace("&amp", ""));
 				blogVO.setDescription((String)entity.get("description"));
 				blogVO.setBloggername((String)entity.get("bloggername"));
-				blogVO.setBloggername((String)entity.get("bloggerlink"));
+				blogVO.setBloggerlink((String)entity.get("bloggerlink"));
 				blogVO.setPostdate((String)entity.get("postdate"));
 				
 				//System.out.println("블로그 내용 " + blogVO.getDescription());
