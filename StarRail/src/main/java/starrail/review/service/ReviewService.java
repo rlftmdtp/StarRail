@@ -32,7 +32,7 @@ public interface ReviewService {
 	
 	public int hash_no()throws Exception;
 
-	public int selectR_no() throws Exception;
+	public Integer selectR_no() throws Exception;
 	
 	public List<String> hashtagInsert(ReviewVO review, Hash_SearchVO searchVO) throws Exception;
 	

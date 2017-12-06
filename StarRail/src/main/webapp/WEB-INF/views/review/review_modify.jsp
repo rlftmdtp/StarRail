@@ -34,11 +34,9 @@
 					<table border="1">
 						<tr height="30">
 							<td width="80">작성자</td>
-							<td width="170"><input type="text" name="r_name" size="10"
-								value="${reviewVO.r_name}"></td>
-							<td width="80">비밀번호</td>
-							<td width="170"><input type="password" name="r_pw" size="10">
-							</td>
+							<td width="170"><input type="text" name="m_id" size="10"
+								value="${reviewVO.m_id}"></td>
+							
 						</tr>
 						<tr height="30">
 							<td width="80">제목</td>

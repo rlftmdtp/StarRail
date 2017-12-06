@@ -47,10 +47,8 @@ private static final Logger logger = LoggerFactory.getLogger(ControllerTest.clas
 	        ReviewVO review = new ReviewVO();
 	        review.setR_no(88);
 	        review.setM_id("rlftmdtp");
-	        review.setR_name("장솔");
 	        review.setR_title("이야 여행이다!!!!!");
 	        review.setR_content("하하하하하하하하");
-	        review.setR_pw("1234");
 	        review.setR_date(timestamp);
 	        review.setR_hit(0);
 	       

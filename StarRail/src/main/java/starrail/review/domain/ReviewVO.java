@@ -8,10 +8,8 @@ import java.util.Arrays;
 public class ReviewVO implements Serializable{
 	private int r_no;
 	private String m_id;
-	private String r_name;
 	private String r_title;
 	private String r_content;
-	private String r_pw;
 	private Timestamp r_date;
 	private int r_hit;
 
@@ -33,12 +31,6 @@ public class ReviewVO implements Serializable{
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
 	}
-	public String getR_name() {
-		return r_name;
-	}
-	public void setR_name(String r_name) {
-		this.r_name = r_name;
-	}
 	public String getR_title() {
 		return r_title;
 	}
@@ -50,12 +42,6 @@ public class ReviewVO implements Serializable{
 	}
 	public void setR_content(String r_content) {
 		this.r_content = r_content;
-	}
-	public String getR_pw() {
-		return r_pw;
-	}
-	public void setR_pw(String r_pw) {
-		this.r_pw = r_pw;
 	}
 	public Timestamp getR_date() {
 		return r_date;
@@ -80,8 +66,8 @@ public class ReviewVO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "ReviewVO [r_no=" + r_no + ", m_id=" + m_id + ", r_name=" + r_name + ", r_title=" + r_title
-				+ ", r_content=" + r_content + ", r_pw=" + r_pw + ", r_date=" + r_date + ", r_hit=" + r_hit
+		return "ReviewVO [r_no=" + r_no + ", m_id=" + m_id + ", r_title=" + r_title
+				+ ", r_content=" + r_content + ", r_date=" + r_date + ", r_hit=" + r_hit
 				+ ", files=" + Arrays.toString(files) + "]";
 	}
 

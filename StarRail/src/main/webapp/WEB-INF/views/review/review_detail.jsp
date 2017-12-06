@@ -31,7 +31,7 @@
 		</tr>
 		<tr height="30">
 			<td width="150">작성자</td>
-			<td width="150">${reviewVO.r_name }</td>
+			<td width="150">${reviewVO.m_id }</td>
 			<td width="150">작성일</td>
 			<td width="150"><fmt:formatDate value="${reviewVO.r_date }"
 					pattern="yyyy-MM-dd" /></td>
