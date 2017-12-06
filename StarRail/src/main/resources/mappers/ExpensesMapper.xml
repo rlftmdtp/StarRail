@@ -15,16 +15,6 @@
 		select max(e_no) from expenses
 	</select>
 	
-	<!-- 예상 경비 지정 코스있음  -->
-	<insert id="expenseCourseInsert" parameterType="ExpenseCourseVO">
-		insert into expense_Course(e_no, c_id, m_id, e_title, e_sdate, e_edate, e_total)
-		values(#{e_no}, #{c_id}, #{m_id}, #{e_title}, #{e_sdate}, #{e_edate}, #{e_total})
-	</insert>
-	
-	<select id="selectCourseE_no" resultType="Integer">
-		select max(e_no) from expense_Course
-	</select>
-	
 	<!-- 지출 항목 저장 -->
 	<select id="totalMoney" resultType="int">
 		select e_total 
@@ -68,9 +58,25 @@
     	]]>
 	</select>
 	
-	<select id="expenseCount">
-		select count(m_id)
-		from expenses
-		where m_id = #{m_id}
+	<select id="recall" resultType="Map">
+	<![CDATA[
+	select expenses.*
+	from (select e.e_no "e_no", e.e_title "e_title"
+		from expenses e, member m
+		where e.m_id = m.m_id
+		and m.m_id = #{m_id}
+		order by e_no desc)expenses
+	where ROWNUM <=3 
+	]]>
 	</select>
+	
+	<select id ="recallData" resultType="Map">
+		 select ex.e_no "e_no", ex.e_sdate "e_sdate", ex.e_edate "e_edate", 
+      ex.e_total "e_total", ed.ed_no "ed_no", ed.ed_date "ed_date", ed.ed_kategorie "ed_kategorie",
+      ed.ed_katename "ed_katename", ed.ed_amount "ed_amount"
+      from expenses ex, expenses_detail ed
+      where ex.e_no = ed.e_no
+      and ex.e_no = #{e_no}
+	</select>
+	
 </mapper>	

@@ -12,9 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import starrail.expenses.domain.ExpenseCourseVO;
 import starrail.expenses.domain.ExpensesVO;
 import starrail.expenses.domain.StatementVO;
 import starrail.expenses.service.ExpensesService;
@@ -38,19 +37,14 @@ public class ExpensesController {
 	// 예상경비 설정하기
 	@RequestMapping(value = "/railro_expenses", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO, @RequestBody ExpenseCourseVO exCourseVO) throws Exception {
+	public ResponseEntity<Integer> railro_expensesPOST(@RequestBody ExpensesVO expensesVO) throws Exception {
 		
 			System.out.println("???????????" + expensesVO);
-			if(exCourseVO.getC_id()==0){
-				System.out.println("나는 코스가 없소");
+			
 				service.expensesRegist(expensesVO);
-				return new ResponseEntity<Integer>(expensesVO.getE_no(), HttpStatus.OK);
-			}else{
-				System.out.println("나는 코스가 있소");
-				service.expenseCourseRegist(exCourseVO);
-				return new ResponseEntity<Integer>(exCourseVO.getE_no(), HttpStatus.OK);
-			}
-		
+
+			return new ResponseEntity<Integer>(expensesVO.getE_no(), HttpStatus.OK);
+
 	}
 	
 	//지출내역 계산 및 저장
@@ -97,13 +91,25 @@ public class ExpensesController {
 	//저장된 내역 불러오기
 	@RequestMapping(value="/expense_recall", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<StatementVO>> expense_recallPOST(@RequestBody String m_id)throws Exception{
-		List<StatementVO> list = new ArrayList<>();
+	public ResponseEntity<List<Map<String, Object>>> expense_recallPOST(@RequestBody String m_id)throws Exception{
+		List<Map<String, Object>> list = new ArrayList<>();
 		list = service.recall(m_id);
+		System.out.println("컨트롤러 list : " + list);
 		
-		System.out.println("list : " + list);
-		
-		return new ResponseEntity<List<StatementVO>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);
+	}
+	
+	//저장된 내역 불러오기
+	@RequestMapping(value="/recallData", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<Map<String, Object>>> recallDataPOST(@RequestBody int e_no)throws Exception{
+		List<Map<String, Object>> list = new ArrayList<>();
+		//int e_no = Integer.parseInt(data);
+		System.out.println(e_no);
+		list = service.recallData(e_no);
+		System.out.println("컨트롤러 list 값가져오기이이이:  " + list);
+	//	model.addAttribute("todayTotal", service.todayTotal(statementVO.getE_no(), statementVO.getEd_date()));
+		return new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);
 	}
 
 }

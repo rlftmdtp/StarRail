@@ -119,6 +119,7 @@ public class ReviewDaoImpl implements ReviewDao{
 
 	@Override	//내 태그 추가하기
 	public void tagAdd(Map<String, Object>paramMap) throws Exception {
+		System.out.println("dao paramMap : " + paramMap);
 		session.insert(namespace+".addHash", paramMap);
 	}
 
