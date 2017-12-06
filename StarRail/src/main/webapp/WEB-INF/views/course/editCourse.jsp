@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=divice-width" , initial-scale="1">
-<title>Course</title>
+<title>Edit Course</title>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- bootstrap에서 받아온 js파일+css파일 사용 하기 위함 -->
 <script src="/starrail/resources/bootstrap/js/bootstrap.js"></script>
@@ -15,8 +17,8 @@
 	href="/starrail/resources/bootstrap/css/bootstrap.css">
 
 
-<!-- 코스 페이지 css -->
-<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/coursePage.css">
+<!-- 코스 수정 페이지 css -->
+<link rel="stylesheet" type="text/css" href="/starrail/resources/css/course/editCourse.css?ver=1">
 
 <!-- 달력 ui css -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -25,7 +27,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 코스 js -->
-<script src="/starrail/resources/js/course/course.js" type="text/javascript"></script>
+<script src="/starrail/resources/js/course/editCourse.js" type="text/javascript"></script>
 
 <!-- n일차 버튼 css -->
 <link rel="stylesheet" href="/starrail/resources/css/course/nthBtn.css">
@@ -38,11 +40,22 @@
 
 </head>
 <body>
+<input type="hidden" id="c_id" value="${course.c_id}">
+<input type="hidden" id="i_name" value="${course.i_name}">
+<input type="hidden" id="c_filename" value="${course.c_filename }">
+<div id = "getdetaildata">
+<c:forEach items="${details}" var="detail">
+	<span id="cd_id">${detail.cd_id}</span>
+	<span id="cd_start">${detail.cd_start}</span>
+	<span id="cd_stime">${detail.cd_stime}</span>
+	<span id="cd_end">${detail.cd_end}</span>
+	<span id="cd_etime">${detail.cd_etime}</span>
+</c:forEach>
+</div>
 	<div id="courseWrap">
 		<div id ="courseName">
-			코스명:&nbsp;<input type="text" name="c_name">
+			코스명:&nbsp;<input type="text" name="c_name" value="${course.c_name}">
 		</div>
-
 		<!-- 여행 기간 설정 -->
 
 		<div id="periodSetting">
@@ -168,7 +181,7 @@
 
 		<!-- 전체 코스 저장 버튼 영역 -->
 		<div id="allSavingBtn">
-			<button type="button" class="btn btn-outline-success saveBtn" disabled>전체 코스 저장</button>
+			<button type="button" class="btn btn-outline-success saveBtn" disabled>수정 완료</button>
 		</div>
 		<!-- 전체 코스 저장 버튼 영역 closing -->
 
