@@ -158,6 +158,14 @@
             <version>1.1.1</version>
         </dependency>
 
+		<!-- 열차 API 파싱을 위한 라이브러리 -->
+		<dependency>
+         <groupId>xpp3</groupId>
+         <artifactId>xpp3</artifactId>
+         <version>1.1.4c</version>
+      </dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

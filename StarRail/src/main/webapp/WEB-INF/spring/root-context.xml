@@ -14,11 +14,18 @@
 	<context:component-scan base-package="starrail.main.service"/>
 	<context:component-scan base-package="starrail.map.service"/>
 	<context:component-scan base-package="starrail.map.persistence"/>
+	<context:component-scan base-package="starrail.reservation.util"/>
 	
 	<!-- 파트너 service / persistence 설정 start-->
 	<context:component-scan base-package="starrail.partner.service"/>
 	<context:component-scan base-package="starrail.partner.persistence"/>
 	<!-- 파트너 service / persistence 설정 end -->
+	<context:component-scan base-package="starrail.reservation.service"/>
+	<context:component-scan base-package="starrail.reservation.persistence"/>
+	
+	<context:component-scan base-package="starrail.sharetext.service"/>
+	<context:component-scan base-package="starrail.sharetext.persistence"/>
+
 	
 	
 	
